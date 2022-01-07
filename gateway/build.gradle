@@ -7,7 +7,7 @@ plugins {
 
 group = 'io.candyboyou'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+sourceCompatibility = "16"
 
 repositories {
     mavenCentral()
@@ -24,3 +24,4 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+targetCompatibility = JavaVersion.VERSION_16
