@@ -1,0 +1,66 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.0'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'war'
+}
+
+group = 'io.candyboyou'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = "16"
+
+repositories {
+//        maven{ url 'https://maven.aliyun.com/repository/jcenter'}
+//        maven{ url 'https://maven.aliyun.com/repository/gradle-plugin'}
+//        maven{ url 'https://maven.aliyun.com/repository/public'}
+    maven { url 'https://repo.spring.io/milestone' }
+    maven { url 'https://repo.spring.io/snapshot' }
+    mavenCentral()
+}
+
+ext {
+    set('springCloudVersion', "Hoxton.SR8")
+    set('springCloudAlibabaVersion', "2021.1.RELEASE")
+}
+
+dependencies {
+    // springboot
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    // providedRuntime 需要 war 插件
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // spring cloud alibaba
+    // nacos service discovery client依赖
+    implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-discovery', version: '2021.1'
+    // nacos config client 依赖
+    implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-config', version: '2021.1'
+    // dubbo 依赖
+    implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-dubbo', version: '2021.1'
+    implementation group: 'com.alibaba.csp', name: 'sentinel-apache-dubbo-adapter', version: '1.8.3'
+    // mysql 依赖
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.27'
+    // 数据库连接池
+    implementation group: 'com.alibaba', name: 'druid', version: '1.2.8'
+    // mybatis依赖
+    implementation group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '2.2.1'
+    // tkmapper 依赖
+    implementation group: 'tk.mybatis', name: 'mapper-spring-boot-starter', version: '2.1.5'
+    implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-core', version: '10.0.14'
+    // logback 日志
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-logging', version: '2.6.2'
+    // commons-lang3 工具
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
+    // lombok 插件
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
+
+}
+
+test {
+    useJUnitPlatform()
+}
+targetCompatibility = JavaVersion.VERSION_16
+

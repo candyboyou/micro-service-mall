@@ -1,42 +1,51 @@
 plugins {
-    id 'org.springframework.boot' version '2.7.0-SNAPSHOT'
+    id 'org.springframework.boot' version '2.6.0'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
     id 'war'
 }
-
-ext {
-    set('springCloudVersion', "Hoxton.SR8")
-    set('springCloudAlibabaVersion', "2.7.0.RELEASE")
-}
-
 
 group = 'io.candyboyou'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = "16"
 
 repositories {
-    mavenCentral()
+//        maven{ url 'https://maven.aliyun.com/repository/jcenter'}
+//        maven{ url 'https://maven.aliyun.com/repository/gradle-plugin'}
+//        maven{ url 'https://maven.aliyun.com/repository/public'}
     maven { url 'https://repo.spring.io/milestone' }
     maven { url 'https://repo.spring.io/snapshot' }
+    mavenCentral()
+}
+
+ext {
+    set('springCloudVersion', "Hoxton.SR8")
+    set('springCloudAlibabaVersion', "2021.1.RELEASE")
 }
 
 dependencies {
+    // springboot
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    // providedRuntime 需要 war 插件
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
-    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
-    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
-    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.27'
-    // https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter
-    implementation group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '2.2.1'
-    // https://mvnrepository.com/artifact/com.alibaba/druid
-    implementation group: 'com.alibaba', name: 'druid', version: '1.2.8'
-    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-logging
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-logging', version: '2.6.2'
-    // https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-nacos-discovery
+
+    // spring cloud alibaba
+    // nacos service discovery client依赖
     implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-discovery', version: '2021.1'
+    // nacos config client 依赖
+    implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-config', version: '2021.1'
+    implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-dubbo', version: '2021.1'
+    implementation group: 'com.alibaba.csp', name: 'sentinel-apache-dubbo-adapter', version: '1.8.3'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.27'
+    implementation group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '2.2.1'
+    implementation group: 'com.alibaba', name: 'druid', version: '1.2.8'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-logging', version: '2.6.2'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
 
 }
 
@@ -44,3 +53,4 @@ test {
     useJUnitPlatform()
 }
 targetCompatibility = JavaVersion.VERSION_16
+

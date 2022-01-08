@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="common.engine" target="17" />
+      <module name="common.engine.main" target="17" />
+      <module name="common.engine.test" target="17" />
+      <module name="common.gateway" target="17" />
+      <module name="common.gateway.main" target="17" />
+      <module name="common.gateway.test" target="17" />
+      <module name="common.oauth" target="17" />
+      <module name="common.oauth.main" target="17" />
+      <module name="common.oauth.test" target="17" />
+      <module name="io.candyboyou.common" target="16" />
+      <module name="io.candyboyou.common.main" target="16" />
+      <module name="io.candyboyou.common.test" target="16" />
+      <module name="mall-protal.main" target="16" />
+      <module name="mall-protal.test" target="16" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

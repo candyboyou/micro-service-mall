@@ -5,6 +5,8 @@
     <file type="web" url="file://$PROJECT_DIR$/common" />
     <file type="web" url="file://$PROJECT_DIR$/engine" />
     <file type="web" url="file://$PROJECT_DIR$/gateway" />
+    <file type="web" url="file://$PROJECT_DIR$/mall-admin" />
+    <file type="web" url="file://$PROJECT_DIR$/mall-portal" />
     <file type="web" url="file://$PROJECT_DIR$/oauth" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_16" project-jdk-name="17" project-jdk-type="JavaSDK" />

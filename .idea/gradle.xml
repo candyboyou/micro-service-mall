@@ -40,6 +40,27 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/mall-admin" />
+        <option name="gradleHome" value="$USER_HOME$/Library/gradle/gradle-7.3.3" />
+        <option name="gradleJvm" value="17" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/mall-admin" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/mall-portal" />
+        <option name="gradleHome" value="$USER_HOME$/Library/gradle/gradle-7.3.3" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/mall-portal" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="delegatedBuild" value="true" />
         <option name="testRunner" value="GRADLE" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
