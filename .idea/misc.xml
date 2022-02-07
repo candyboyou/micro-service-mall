@@ -9,5 +9,5 @@
     <file type="web" url="file://$PROJECT_DIR$/mall-portal" />
     <file type="web" url="file://$PROJECT_DIR$/oauth" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" project-jdk-name="17" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17_PREVIEW" project-jdk-name="17" project-jdk-type="JavaSDK" />
 </project>
