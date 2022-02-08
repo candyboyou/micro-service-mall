@@ -56,6 +56,8 @@ dependencies {
     implementation group: 'com.alibaba', name: 'druid', version: '1.2.8'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-logging', version: '2.6.2'
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
+    // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
+    implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
 
 }
 
