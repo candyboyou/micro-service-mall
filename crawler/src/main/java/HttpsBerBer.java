@@ -1,5 +1,6 @@
-package io.candyboyou.common;
-
+import com.google.gson.Gson;
+import index.Data;
+import index.IndexVO;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -20,8 +21,8 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 import javax.net.ssl.*;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
@@ -31,7 +32,7 @@ import java.util.logging.Logger;
 public class HttpsBerBer {
 
     public static void main(String[] args) {
-        String url = "https://app.m.mi.com/v2/cate/index";
+        String url = "https://app.m.mi.com/v2/index_v2/index";
         Map<String,Object> params = new HashMap<>();
 
         doPost(url, params);
@@ -73,8 +74,21 @@ public class HttpsBerBer {
             HttpResponse response = (HttpResponse) httpClient.execute(post);
             result = response2String(response);
 
+            File jsonFile = new File("/Users/candyboy/IdeaProjects/micro-service-mall/crawler/src/main/resources/首页1.json");
+            FileReader fileReader = new FileReader(jsonFile);
+            Reader reader = new InputStreamReader(new FileInputStream(jsonFile), StandardCharsets.UTF_8);
+            int ch = 0;
+            StringBuffer sb = new StringBuffer();
+            while ((ch = reader.read()) != -1) {
+                sb.append((char) ch);
+            }
+            fileReader.close();
+            reader.close();
+            String jsonStr = sb.toString();
 
-
+            Gson gson = new Gson();
+            IndexVO indexVO = gson.fromJson(jsonStr, IndexVO.class);
+            System.out.println(indexVO.toString());
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (ClientProtocolException e) {

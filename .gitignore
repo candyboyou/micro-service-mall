@@ -4,3 +4,6 @@
 # IntelliJ project files
 .idea
 /logs/
+/crawler/.gradle/
+/crawler/build/
+/crawler/gradle/
