@@ -62,6 +62,26 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/mall-commodity" />
+        <option name="gradleHome" value="$USER_HOME$/Library/gradle/gradle-7.3" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/mall-commodity" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/mall-order" />
+        <option name="gradleHome" value="$USER_HOME$/Library/gradle/gradle-7.3" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/mall-order" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="delegatedBuild" value="true" />
         <option name="testRunner" value="GRADLE" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
@@ -69,6 +89,16 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/mall-portal" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/mall-promotion" />
+        <option name="gradleHome" value="$USER_HOME$/Library/gradle/gradle-7.3" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/mall-promotion" />
           </set>
         </option>
       </GradleProjectSettings>

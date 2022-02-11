@@ -6,4 +6,6 @@
 /logs/
 /crawler/.gradle/
 /crawler/build/
-/crawler/gradle/
+/mall-commodity/.gradle/
+/mall-order/.gradle/
+/mall-promotion/.gradle/
