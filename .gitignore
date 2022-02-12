@@ -2,23 +2,23 @@
 ### Example user template
 
 # IntelliJ project files
-#.idea
-#/logs/
-#/common/.gradle/
-#/engine/.gradle/
-#/gateway/.gradle/
-#/mall-admin/.gradle/
-#/mall-commodity/.gradle/
-#/mall-order/.gradle/
-#/mall-portal/.gradle/
-#/mall-promotion/.gradle/
-#/oauth/.gradle/
-#/common/build/
-#/engine/build/
-#/gateway/build/
-#/mall-admin/build/
-#/mall-commodity/build/
-#/mall-order/build/
-#/mall-portal/build/
-#/mall-promotion/build/
-#/oauth/build/
+.idea
+/logs/
+/common/.gradle/
+/engine/.gradle/
+/gateway/.gradle/
+/mall-admin/.gradle/
+/mall-commodity/.gradle/
+/mall-order/.gradle/
+/mall-portal/.gradle/
+/mall-promotion/.gradle/
+/oauth/.gradle/
+/common/build/
+/engine/build/
+/gateway/build/
+/mall-admin/build/
+/mall-commodity/build/
+/mall-order/build/
+/mall-portal/build/
+/mall-promotion/build/
+/oauth/build/
