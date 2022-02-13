@@ -12,7 +12,7 @@
 /mall-order/.gradle/
 /mall-portal/.gradle/
 /mall-promotion/.gradle/
-/oauth/.gradle/
+/oauth/.gradle/x
 /common/build/
 /engine/build/
 /gateway/build/

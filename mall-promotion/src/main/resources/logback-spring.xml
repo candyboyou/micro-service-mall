@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+
+    <property name="context_name" value="purchase-store"/>
+
+    <conversionRule conversionWord="tracelogid" converterClass="com.xhs.finance.log.TraceLogIdConverter"/>
+
+    <!-- 彩色日志依赖的渲染类 -->
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
+    <conversionRule conversionWord="wex" converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter" />
+    <conversionRule conversionWord="wEx" converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter" />
+    <!-- 彩色日志格式 -->
+    <!--    <property name="CONSOLE_LOG_PATTERN" value="${CONSOLE_LOG_PATTERN:-%clr(%d{MM-dd HH:mm:ss}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(-){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>-->
+    <property name="CONSOLE_LOG_PATTERN" value="${CONSOLE_LOG_PATTERN:-%clr(%d{MM-dd HH:mm:ss}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr([%15.30t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+
+    <appender name="file_log" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/purchase-store.log</file>
+        <Prudent>true</Prudent>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/purchase-store.log.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <!-- <pattern>%d{HH:mm:ss.SSS} [%tracelogid] %-5level [%lineno] - %msg%n</pattern> -->
+            <pattern> %d{HH:mm:ss.SSS} [%-5level] [%tracelogid] %file:[%line] - %msg%n</pattern>
+            <!-- <immediateFlush>true</immediateFlush> -->
+            <charset class="java.nio.charset.Charset">UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="console_log" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="json_log" class="ch.qos.logback.core.ConsoleAppender">
+        <!--        <encoder>-->
+        <!--            <pattern>-->
+        <!--                {"app": "purchase-store", "prdline": "finance", "timestamp":"%date{yyyy-MM-dd HH:mm:ss}","tracelogid":"%tracelogid", "log_level": "%level","message": "%replace(%message){'\n\s*', '\\n'}", "stack_trace": "%replace(%exception){'\n\s*', '\\n'}%nopex" }%n-->
+        <!--            </pattern>-->
+        <!--        </encoder>-->
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="com.xiaohongshu.infra.utils.utils.logappender.layout.MDCJsonPatternLayout">
+                <pattern>{"app": "purchase-store", "prdline": "erp", "timestamp":"%date{yyyy-MM-dd HH:mm:ss}","tracelogid":"%tracelogid", "log_level": "%level","message": %message, "stack_trace": %exception%nopex}%n</pattern>
+            </layout>
+        </encoder>
+    </appender>
+
+    <appender name="access_log" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/access.log</file>
+        <Prudent>true</Prudent>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/access.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>14</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="com.xiaohongshu.infra.utils.utils.logappender.layout.MDCJsonPatternLayout">
+                <pattern>{"app": "purchase-store", "prdline": "erp", "timestamp":"%date{yyyy-MM-dd HH:mm:ss}","traceId":"%X{traceId}","spanId":"%X{spanId}","catMessageId":"%X{catMessageId}","log_level": "%level","logger":"%logger","file":"%file","line":"%line","message": %message, "stack_trace": %exception%nopex}%n</pattern>
+            </layout>
+        </encoder>
+    </appender>
+
+    <appender name="catAppender" class="com.xiaohongshu.infra.utils.utils.logappender.CatLogbackAppender" />
+
+    <root>
+        <level value="error" />
+        <appender-ref ref="catAppender" />
+    </root>
+
+    <logger name="com.xhs.purchase" level="info"/>
+    <logger name="org.apache.ibatis" level="INFO"/>
+    <logger name="org.apache.zookeeper" level="info"/>
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="springfox" level="error"/>
+    <logger name="com.xiaohongshu.infra.utils.mybatis.MybatisSQLInterceptor" level="ERROR"/>
+
+    <springProfile name="prod">
+        <root level="info">
+            <!--            <appender-ref ref="console_log" />-->
+            <appender-ref ref="json_log"/>
+            <appender-ref ref="file_log"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="sit">
+        <logger name="com.xhs.purchase" level="DEBUG" />
+        <root level="INFO">
+            <appender-ref ref="console_log"/>
+            <!--            <appender-ref ref="json_log"/>-->
+            <!--            <appender-ref ref="file_log"/>-->
+        </root>
+    </springProfile>
+
+    <springProfile name="local">
+        <logger name="com.xhs.purchase" level="DEBUG" />
+        <root level="INFO">
+            <appender-ref ref="console_log"/>
+        </root>
+    </springProfile>
+
+</configuration>
