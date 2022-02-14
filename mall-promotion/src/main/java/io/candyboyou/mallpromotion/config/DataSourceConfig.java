@@ -35,8 +35,7 @@ public class DataSourceConfig extends MybatisConfig {
     }
 
     @Bean(name = "sqlSessionFactory")
-    public SqlSessionFactory sqlSessionFactory(@Qualifier("druidDataSource") DataSource dataSource) throws Exception
-    {
+    public SqlSessionFactory sqlSessionFactory(@Qualifier("druidDataSource") DataSource dataSource) throws Exception {
         return this.getSqlSessionFactory(dataSource);
     }
 
