@@ -4,6 +4,9 @@ import com.alibaba.druid.pool.DruidDataSource;
 import io.candyboyou.mallpromotion.utils.PropUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.annotation.MapperScan;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -14,8 +17,11 @@ import javax.sql.DataSource;
 import java.io.IOException;
 
 @Configuration
-@Slf4j
+@MapperScan(basePackages = "io.candyboyou.mallpromotion.business.mapper", sqlSessionFactoryRef = "sqlSessionFactory")
+//@Slf4j
 public class DataSourceConfig extends MybatisConfig {
+
+    private static final Logger log = LoggerFactory.getLogger(DataSourceConfig.class);
 
     @Autowired
     private Environment env;

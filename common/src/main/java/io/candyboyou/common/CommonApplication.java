@@ -46,7 +46,7 @@ public class CommonApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CommonApplication.class, args);
 
-		doPost();
+//		doPost();
 	}
 
 	public static void doPost() {

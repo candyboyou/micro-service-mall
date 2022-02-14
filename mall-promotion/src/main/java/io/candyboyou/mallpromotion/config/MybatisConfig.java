@@ -6,6 +6,8 @@ import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,9 +22,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
-@MapperScan("")
-@Slf4j
+//@Slf4j
 public class MybatisConfig {
+
+    private static final Logger log = LoggerFactory.getLogger(MybatisConfig.class);
 
     @Value("${mybatis.mapper-locations:classpath:*Mapper.xml}")
     private String mapperLocation;
