@@ -1,15 +1,14 @@
 package io.candyboyou.mallpromotion.config;
 
+import com.alibaba.druid.sql.dialect.oracle.parser.OracleExprParser;
+
 public enum Env {
-    public enum Env {
-        local,
-        qa,
-        dev,
-        test,
-        prod;
+    local,
+    qa,
+    dev,
+    test,
+    prod;
 
-        private Env() {
-        }
+    private Env() {
     }
-
 }

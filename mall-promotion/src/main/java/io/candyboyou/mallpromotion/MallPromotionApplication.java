@@ -5,13 +5,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
+import springfox.documentation.service.ApiInfo;
 
 import java.util.Objects;
 
 @SpringBootApplication(exclude = {MongoAutoConfiguration.class, MongoDataAutoConfiguration.class})
-public class MallPromotionApplication{
+public class MallPromotionApplication extends AbstractApplication{
 
     public static void main(String[] args) {
+        start(args);
+//        refreshLocalEnv();
         SpringApplication.run(MallPromotionApplication.class, args);
     }
 
@@ -25,4 +28,8 @@ public class MallPromotionApplication{
         }
     }
 
+    @Override
+    public ApiInfo metadata() {
+        return null;
+    }
 }
