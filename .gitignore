@@ -22,3 +22,9 @@
 /mall-portal/build/
 /mall-promotion/build/
 /oauth/build/
+/common/logs/
+/common/out/
+libs
+mall-promotion/libs/
+common/.DS_Store
+mall-promotion/.DS_Store

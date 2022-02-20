@@ -4,6 +4,7 @@ plugins {
     id 'org.springframework.boot' version '2.4.2'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+//    id 'java-library'
     id 'war'
 }
 
@@ -11,10 +12,15 @@ group = 'io.candyboyou'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = "17"
 
+jar {
+    enabled = true
+}
+
+bootJar{
+    archiveClassifier = 'boot'
+}
+
 repositories {
-//        maven{ url 'https://maven.aliyun.com/repository/jcenter'}
-//        maven{ url 'https://maven.aliyun.com/repository/gradle-plugin'}
-//        maven{ url 'https://maven.aliyun.com/repository/public'}
     mavenLocal()
     maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
     maven { url 'https://repo.spring.io/milestone' }
@@ -34,6 +40,13 @@ dependencyManagement {
     }
 }
 
+//configurations {
+//    all {
+//        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+//        exclude group: 'com.fasterxml.jackson.core', module: 'jackson-databind'
+//    }
+//}
+
 dependencies {
     // springboot
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -41,7 +54,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-aop'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     // providedRuntime 需要 war 插件
-    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+//    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     // spring cloud alibaba
@@ -51,15 +64,42 @@ dependencies {
 //    implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-config', version: '2021.1'
 //    implementation group: 'com.alibaba.cloud', name: 'spring-cloud-starter-dubbo', version: '2021.1'
 
-    implementation group: 'com.alibaba.csp', name: 'sentinel-apache-dubbo-adapter', version: '1.8.3'
+//    implementation group: 'com.alibaba.csp', name: 'sentinel-apache-dubbo-adapter', version: '1.8.3'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
     implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.27'
     implementation group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '2.2.1'
     implementation group: 'com.alibaba', name: 'druid', version: '1.2.8'
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-logging', version: '2.6.2'
+//    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-logging', version: '2.6.2'
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
     // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
     implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
+
+    // https://mvnrepository.com/artifact/io.springfox/springfox-boot-starter
+    implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
+
+    // logback
+    // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.10'
+
+    // https://mvnrepository.com/artifact/com.alibaba/transmittable-thread-local
+    implementation group: 'com.alibaba', name: 'transmittable-thread-local', version: '2.12.4'
+
+    // 链路追踪
+    // https://mvnrepository.com/artifact/org.apache.skywalking/server-core
+    implementation group: 'org.apache.skywalking', name: 'server-core', version: '8.9.0'
+    // https://mvnrepository.com/artifact/org.apache.skywalking/apm-toolkit-trace
+    implementation group: 'org.apache.skywalking', name: 'apm-toolkit-trace', version: '8.9.0'
+    // https://mvnrepository.com/artifact/org.apache.skywalking/apm-toolkit-logback-1.x
+    implementation group: 'org.apache.skywalking', name: 'apm-toolkit-logback-1.x', version: '8.9.0'
+    // https://mvnrepository.com/artifact/org.apache.skywalking/apm-util
+    compileOnly group: 'org.apache.skywalking', name: 'apm-util', version: '8.8.1'
+    // https://mvnrepository.com/artifact/org.apache.skywalking/apm-agent-core
+    compileOnly group: 'org.apache.skywalking', name: 'apm-agent-core', version: '8.9.0'
+
+    // https://mvnrepository.com/artifact/com.google.code.gson/gson
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.9.0'
+    // https://mvnrepository.com/artifact/com.alibaba/fastjson
+    implementation group: 'com.alibaba', name: 'fastjson', version: '1.2.79'
 
 }
 
