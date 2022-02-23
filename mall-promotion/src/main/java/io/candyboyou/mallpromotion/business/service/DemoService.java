@@ -1,4 +1,6 @@
 package io.candyboyou.mallpromotion.business.service;
 
-public class DemoService {
+public interface DemoService {
+
+    void demo();
 }

@@ -1,6 +1,7 @@
 package io.candyboyou.mallpromotion.config;
 
-import io.candyboyou.mallpromotion.utils.StringUtils;
+import io.candyboyou.common.framework.mvc.config.JsonBodyResolver;
+import io.candyboyou.common.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,14 +24,14 @@ public class AppConfig {
 
     private final String ENV = StringUtils.isEmpty(System.getProperty("user.env")) ? "dev" : System.getProperty("user.env");
 
-//    @Bean
-//    public static WebMvcConfigurer springMvcResolver(){
-//        return new WebMvcConfigurer(){
-//            @Override
-//            public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-//                argumentResolvers.add(new JsonBodyResolver());
-//            }
-//        };
-//    }
+    @Bean
+    public static WebMvcConfigurer springMvcResolver(){
+        return new WebMvcConfigurer(){
+            @Override
+            public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+                argumentResolvers.add(new JsonBodyResolver());
+            }
+        };
+    }
 
 }

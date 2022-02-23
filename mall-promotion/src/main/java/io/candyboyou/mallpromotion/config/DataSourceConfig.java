@@ -1,8 +1,7 @@
 package io.candyboyou.mallpromotion.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import io.candyboyou.mallpromotion.utils.PropUtils;
-import lombok.extern.slf4j.Slf4j;
+import io.candyboyou.common.utils.PropUtils;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;

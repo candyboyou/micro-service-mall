@@ -1,4 +1,4 @@
-package io.candyboyou.mallpromotion.utils;
+package io.candyboyou.common.utils;
 
 public class CacheKeyUtils {
 

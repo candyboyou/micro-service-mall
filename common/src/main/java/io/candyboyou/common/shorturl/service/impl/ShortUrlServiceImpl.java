@@ -1,7 +1,5 @@
 package io.candyboyou.common.shorturl.service.impl;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import io.candyboyou.common.shorturl.service.ShortUrlService;
 import org.apache.commons.codec.Charsets;
 import org.apache.commons.lang3.StringUtils;
@@ -65,18 +63,19 @@ public class ShortUrlServiceImpl implements ShortUrlService {
                 log.error("response is blank");
                 return null;
             }
-            JSONObject jsonObject = JSON.parseObject(response);
-            int statusCode = jsonObject.getIntValue("statusCode");
-            if (200 != statusCode) {
-                log.error("response is : {}", response);
+//            JSONObject jsonObject = JSON.parseObject(response);
+//            int statusCode = jsonObject.getIntValue("statusCode");
+//            if (200 != statusCode) {
+//                log.error("response is : {}", response);
                 return null;
-            }
-            String shortUrl = jsonObject.getString("shorturl");
-            if (StringUtils.isBlank(shortUrl)) {
-                log.error("response is: {}", response);
-                return null;
-            }
-            return shortUrl;
+//            }
+//            String shortUrl = jsonObject.getString("shorturl");
+//            if (StringUtils.isBlank(shortUrl)) {
+//                log.error("response is: {}", response);
+//                return null;
+//            }
+//            return shortUrl;
+//            return null;
         } catch (Exception e) {
             log.error("", e);
         } finally {
