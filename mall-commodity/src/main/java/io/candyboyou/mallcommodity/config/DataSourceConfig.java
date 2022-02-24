@@ -1,4 +1,4 @@
-package io.candyboyou.mallpromotion.config;
+package io.candyboyou.mallcommodity.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import io.candyboyou.common.framework.mvc.config.MybatisConfig;
