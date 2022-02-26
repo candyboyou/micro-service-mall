@@ -23,8 +23,19 @@
 spring:
   application:
     name: mallpromotion
+  datasource:
+    sql-script-encoding: UTF-8
+    platform: mysql
+    initialization-mode: never
   profiles:
     active: local
+  freemarker:
+    template-loader-path: classpath:/static/
+  servlet:
+    multipart:
+      # 用于限定最大文件上传大小
+      max-file-size: 700MB
+      max-request-size: 700MB
 
 server:
   servlet:
@@ -39,6 +50,3 @@ server:
 
 logging:
   config: classpath:logback-spring.xml
-
-mybatis:
-  mapper-locations: classpath:mapper/**/*.xml

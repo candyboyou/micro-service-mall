@@ -15,14 +15,13 @@ import java.util.List;
 @Configuration
 @Slf4j
 @PropertySources({
-        @PropertySource("classpath:props/${user.env}/durid.properties"),
         @PropertySource("classpath:props/${user.env}/jdbc.properties"),
         @PropertySource("classpath:props/${user.env}/nacos.properties"),
         @PropertySource("classpath:props/${user.env}/redis.properties")
 })
 public class AppConfig {
 
-    private final String ENV = StringUtils.isEmpty(System.getProperty("user.env")) ? "dev" : System.getProperty("user.env");
+    private final String ENV = StringUtils.isEmpty(System.getProperty("user.env")) ? "props/dev" : System.getProperty("user.env");
 
     @Bean
     public static WebMvcConfigurer springMvcResolver(){

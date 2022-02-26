@@ -27,7 +27,7 @@ public class MybatisConfig {
     Logger log =  LoggerFactory.getLogger(MybatisConfig.class);
 
     // 冒号后面的值，*Mapper.xml为前面的值为空时的默认值
-    @Value("${mybatis.mapper-locations:classpath:*Mapper.xml}")
+    @Value("${mybatis.mapper-locations:classpath:mapper/*Mapper.xml}")
     private String mapperLocation;
 
 

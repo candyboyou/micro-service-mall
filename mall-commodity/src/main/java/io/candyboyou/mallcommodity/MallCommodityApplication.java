@@ -21,7 +21,7 @@ public class MallCommodityApplication extends AbstractApplication {
     private static void refreshLocalEnv() {
         String property = System.getProperty("user.env");
         if (Objects.equals(property, "local")) {
-            System.setProperty("user.env", "dev");
+            System.setProperty("user.env", "props/dev");
         }
     }
 
