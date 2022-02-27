@@ -1,5 +1,46 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="io.candyboyou.mallcommodity.business.mapper.admin">
+<mapper namespace="pers.candyboyou.commodity.business.mapper.admin.AdminCategoryMapper">
+
+    <insert id="insertCategory">
+
+    </insert>
+
+    <update id="updateCategory">
+
+    </update>
+
+    <delete id="deleteCategory">
+
+    </delete>
+
+    <select id="selectCategoriesBySearchParam"
+            resultType="pers.candyboyou.commodity.business.model.dto.CategoryDTO">
+        SELECT
+            id,
+            parent_id AS parentId,
+            name,
+            level,
+            count,
+            unit AS unitId,
+            is_show AS isShow,
+            description
+        FROM
+            t_commodity_category
+        WHEN
+            is_status = 1
+            <if test="searchParam.isShow != 0">
+                AND is_show = #{searchParam.isShow}
+            </if>
+            <if test="searchParam.parentId != null">
+                AND parent_id = #{searchParam.parentId}
+            </if>
+            <if test="searchParam.level != null">
+                AND level = #{searchParam.level}
+            </if>
+            <if test="searchParam.name != null and searchParam.name != ''" >
+                AND name like concat('%',#{searchParam.name},'%')
+            </if>
+    </select>
 
 </mapper>
