@@ -1,10 +1,16 @@
 package pers.candyboyou.commodity.business.model.vo.admin;
 
+import io.candyboyou.common.framework.model.vo.ListVO;
+import io.candyboyou.common.utils.CollectionUtils;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.Value;
+import pers.candyboyou.commodity.business.model.dto.CategoryDTO;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class CategoryVO implements Serializable{
@@ -36,4 +42,23 @@ public class CategoryVO implements Serializable{
     @ApiModelProperty("分类描述")
     private String description;
 
+    public static List<CategoryVO> convertCategoryDTOList(List<CategoryDTO> categoryDTOList) {
+        if (CollectionUtils.isEmpty(categoryDTOList)) {
+            return new ArrayList<>();
+        }
+        List<CategoryVO> categoryVOS = new ArrayList<>(categoryDTOList.size());
+        for (CategoryDTO categoryDTO : categoryDTOList) {
+            CategoryVO categoryVO = new CategoryVO();
+            categoryVO.setCategoryId(categoryDTO.getId());
+            categoryVO.setName(categoryDTO.getName());
+            categoryVO.setLevel(categoryDTO.getLevel());
+            categoryVO.setParentId(categoryDTO.getParentId());
+            categoryVO.setCount(categoryDTO.getCount());
+            categoryVO.setUnitId(categoryDTO.getUnitId());
+            categoryVO.setIsShow(categoryDTO.getIsShow());
+            categoryVO.setDescription(categoryDTO.getDescription());
+            categoryVOS.add(categoryVO);
+        }
+        return categoryVOS;
+    }
 }

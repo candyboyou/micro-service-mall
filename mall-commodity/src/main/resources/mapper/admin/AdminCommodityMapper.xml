@@ -1,0 +1,43 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pers.candyboyou.commodity.business.mapper.admin.AdminCommodityMapper">
+
+    <update id="deleteCategory">
+        UPDATE
+            t_commodity
+        SET
+            category_id = 0
+        WHERE
+            id = #{id}
+    </update>
+
+    <update id="updateCategoryOfCommodity">
+        UPDATE
+            t_commodity
+        SET
+            category_id = #{categoryId}
+        WHERE
+            id = #{commodityId}
+    </update>
+
+    <select id="selectSimpleCommodityByCategoryId"
+            resultType="pers.candyboyou.commodity.business.model.dto.SimpleCommodityDTO">
+        SELECT
+            id, name
+        FROM
+            t_commodity
+        WHERE
+            category_id = #{categoryId}
+        LIMIT #{queryParam.start}, #{queryParam.pageSize}
+    </select>
+
+    <select id="selectSimpleCommodityCountsByCategoryId" resultType="java.lang.Integer">
+        SELECT
+            count(*)
+        FROM
+            t_commodity
+        WHERE
+            category_id = #{categoryId}
+        LIMIT #{queryParam.start}, #{queryParam.pageSize}
+    </select>
+</mapper>

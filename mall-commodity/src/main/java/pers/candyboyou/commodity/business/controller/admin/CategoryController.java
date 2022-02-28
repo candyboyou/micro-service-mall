@@ -1,5 +1,6 @@
 package pers.candyboyou.commodity.business.controller.admin;
 
+import io.candyboyou.common.framework.model.param.QueryParam;
 import io.candyboyou.common.framework.model.vo.ListVO;
 import io.candyboyou.common.framework.model.vo.Result;
 import io.swagger.annotations.Api;
@@ -40,12 +41,13 @@ public class CategoryController {
 
     @ApiOperation(value = "根据分类ID获取商品列表")
     @GetMapping("/getCommodities")
-    public Result getCommodities(Long categoryId) {
-        ListVO<SimpleCommodityInfoVO> commodityInfoVOListVO = adminCategoryService.getSimpleCommodityInfos(categoryId);
+    public Result getCommodities(Long categoryId, QueryParam queryParam) {
+        ListVO<SimpleCommodityInfoVO> commodityInfoVOListVO = adminCategoryService.getSimpleCommodityInfos(categoryId, queryParam);
         return Result.ok(commodityInfoVOListVO);
     }
 
     @ApiOperation(value = "批量添加或删除分类下的商品")
+    @PostMapping("/relateCommodities")
     public Result relateCommodities(RelateCategoryParam relateCategoryParam) {
         adminCategoryService.relateCommodities(relateCategoryParam);
         return Result.ok();

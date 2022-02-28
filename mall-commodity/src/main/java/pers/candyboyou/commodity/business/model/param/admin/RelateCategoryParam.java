@@ -8,5 +8,10 @@ import lombok.Data;
 @Data
 public class RelateCategoryParam {
 
+    private Long commodityId;
+
+    private Long categoryId;
+
+    private Integer isDelete = 0;
 
 }

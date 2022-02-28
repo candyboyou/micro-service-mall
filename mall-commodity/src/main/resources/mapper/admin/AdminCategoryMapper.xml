@@ -27,6 +27,27 @@
             description
         FROM
             t_commodity_category
+        WHERE
+            is_status = 1
+            <if test="searchParam.isShow != 0">
+                AND is_show = #{searchParam.isShow}
+            </if>
+            <if test="searchParam.parentId != null">
+                AND parent_id = #{searchParam.parentId}
+            </if>
+            <if test="searchParam.level != null">
+                AND level = #{searchParam.level}
+            </if>
+            <if test="searchParam.name != null and searchParam.name != ''" >
+                AND name like concat('%',#{searchParam.name},'%')
+            </if>
+    </select>
+
+    <select id="selectCategoriesCountBySearchParam" resultType="java.lang.Integer">
+        SELECT
+            count(*)
+        FROM
+            t_commodity_category
         WHEN
             is_status = 1
             <if test="searchParam.isShow != 0">

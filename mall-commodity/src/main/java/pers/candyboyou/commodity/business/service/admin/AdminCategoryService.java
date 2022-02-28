@@ -1,5 +1,6 @@
 package pers.candyboyou.commodity.business.service.admin;
 
+import io.candyboyou.common.framework.model.param.QueryParam;
 import io.candyboyou.common.framework.model.vo.ListVO;
 import pers.candyboyou.commodity.business.model.param.admin.CategorySaveOrUpdateParam;
 import pers.candyboyou.commodity.business.model.param.admin.CategorySearchParam;
@@ -13,7 +14,7 @@ public interface AdminCategoryService {
 
     ListVO<CategoryVO> getCategories(CategorySearchParam searchParam);
 
-    ListVO<SimpleCommodityInfoVO> getSimpleCommodityInfos(Long categoryId);
+    ListVO<SimpleCommodityInfoVO> getSimpleCommodityInfos(Long categoryId, QueryParam queryParam);
 
     void relateCommodities(RelateCategoryParam relateCategoryParam);
 }
