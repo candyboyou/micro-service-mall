@@ -1,0 +1,27 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pers.candyboyou.commodity.business.mapper.admin.AdminConcreteAttributeMapper">
+
+    <insert id="insertConcreteAttr">
+
+    </insert>
+
+    <update id="updateConcreteAttr">
+
+    </update>
+
+    <delete id="deleteConcreteAttrById">
+
+    </delete>
+
+    <select id="selectConcreteAttributeDTOS"
+            resultType="pers.candyboyou.commodity.business.model.vo.ConcreteAttributeVO">
+
+    </select>
+
+    <select id="selectConcreteAttributeDTOSCount" resultType="java.lang.Integer">
+
+    </select>
+
+
+</mapper>
