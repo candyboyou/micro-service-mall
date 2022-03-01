@@ -40,7 +40,7 @@ public class AttributeController {
         return Result.ok(attributeVOListVO);
     }
 
-    @ApiOperation("")
+    @ApiOperation("保存、更新、删除商品属性")
     @PostMapping("/saveOrUpdateAttr")
     public Result saveOrUpdateAttr(@RequestBody AttrParam AttrParam) {
         attributeService.saveOrUpdateAttr(AttrParam);

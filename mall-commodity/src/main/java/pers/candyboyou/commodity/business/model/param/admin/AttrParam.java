@@ -14,8 +14,17 @@ public class AttrParam {
     @ApiModelProperty("属性id")
     private Long attributeId;
 
-    @ApiModelProperty("属性值list")
-    private List<Long> valueIds;
+    @ApiModelProperty("是否是销售属性")
+    private Integer isSaleAttr;
+
+    @ApiModelProperty("是否多选")
+    private Integer isMultiple;
+
+    @ApiModelProperty("是否必选")
+    private Integer isRequired;
+
+    @ApiModelProperty("排序字段")
+    private Integer sort;
 
     @ApiModelProperty("是否删除")
     private Integer isDelete = 0;
