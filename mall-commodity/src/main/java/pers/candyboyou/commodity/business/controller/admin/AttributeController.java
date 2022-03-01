@@ -7,9 +7,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pers.candyboyou.commodity.business.model.param.admin.ConcreteAttrParam;
+import pers.candyboyou.commodity.business.model.param.admin.AttrParam;
 import pers.candyboyou.commodity.business.model.param.admin.SkuAttrParam;
-import pers.candyboyou.commodity.business.model.vo.ConcreteAttributeVO;
+import pers.candyboyou.commodity.business.model.vo.admin.AttributeVO;
 import pers.candyboyou.commodity.business.model.vo.admin.SkuAttributeVO;
 import pers.candyboyou.commodity.business.service.admin.AttributeService;
 
@@ -40,18 +40,17 @@ public class AttributeController {
         return Result.ok(attributeVOListVO);
     }
 
-
     @ApiOperation("")
-    @PostMapping("/saveOrUpdateConcreteAttr")
-    public Result saveOrUpdateConcreteAttr(@RequestBody ConcreteAttrParam concreteAttrParam) {
-        attributeService.saveOrUpdateConcreteAttr(concreteAttrParam);
+    @PostMapping("/saveOrUpdateAttr")
+    public Result saveOrUpdateAttr(@RequestBody AttrParam AttrParam) {
+        attributeService.saveOrUpdateAttr(AttrParam);
         return Result.ok();
     }
 
     @ApiOperation("根据类型ID分页查询Concrete属性")
-    @GetMapping("/getConcreteAttributes")
-    public Result getConcreteAttributes(Long attributeId, QueryParam queryParam) {
-        ListVO<ConcreteAttributeVO> attributeVOListVO = attributeService.getConcreteAttributesById(attributeId, queryParam);
+    @GetMapping("/getAttributes")
+    public Result getAttributes(Long attributeId, QueryParam queryParam) {
+        ListVO<AttributeVO> attributeVOListVO = attributeService.getAttributeVOSById(attributeId, queryParam);
         return Result.ok(attributeVOListVO);
     }
 

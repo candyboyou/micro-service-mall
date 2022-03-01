@@ -21,6 +21,9 @@ public class CategorySaveOrUpdateParam {
     @ApiModelProperty("数量单位ID")
     private Integer unitId;
 
+    @ApiModelProperty("排序值")
+    private Integer sort;
+
     @ApiModelProperty("分类描述")
     private String description;
 

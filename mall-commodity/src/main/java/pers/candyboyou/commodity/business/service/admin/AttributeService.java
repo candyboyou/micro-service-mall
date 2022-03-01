@@ -2,9 +2,9 @@ package pers.candyboyou.commodity.business.service.admin;
 
 import io.candyboyou.common.framework.model.param.QueryParam;
 import io.candyboyou.common.framework.model.vo.ListVO;
-import pers.candyboyou.commodity.business.model.param.admin.ConcreteAttrParam;
+import pers.candyboyou.commodity.business.model.param.admin.AttrParam;
 import pers.candyboyou.commodity.business.model.param.admin.SkuAttrParam;
-import pers.candyboyou.commodity.business.model.vo.ConcreteAttributeVO;
+import pers.candyboyou.commodity.business.model.vo.admin.AttributeVO;
 import pers.candyboyou.commodity.business.model.vo.admin.SkuAttributeVO;
 
 public interface AttributeService {
@@ -13,7 +13,7 @@ public interface AttributeService {
 
     ListVO<SkuAttributeVO> getSkuAttributesById(Long attributeId, QueryParam queryParam);
 
-    void saveOrUpdateConcreteAttr(ConcreteAttrParam concreteAttrParam);
+    void saveOrUpdateAttr(AttrParam AttrParam);
 
-    ListVO<ConcreteAttributeVO> getConcreteAttributesById(Long attributeId, QueryParam queryParam);
+    ListVO<AttributeVO> getAttributeVOSById(Long attributeId, QueryParam queryParam);
 }

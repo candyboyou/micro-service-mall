@@ -4,12 +4,13 @@ import io.candyboyou.common.framework.model.param.QueryParam;
 import io.candyboyou.common.framework.model.vo.ListVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pers.candyboyou.commodity.business.mapper.admin.AdminConcreteAttributeMapper;
+import pers.candyboyou.commodity.business.mapper.admin.AdminAttributeMapper;
 import pers.candyboyou.commodity.business.mapper.admin.AdminSkuAttributeMapper;
+import pers.candyboyou.commodity.business.model.dto.AttributeDTO;
 import pers.candyboyou.commodity.business.model.dto.SkuAttributeDTO;
-import pers.candyboyou.commodity.business.model.param.admin.ConcreteAttrParam;
+import pers.candyboyou.commodity.business.model.param.admin.AttrParam;
 import pers.candyboyou.commodity.business.model.param.admin.SkuAttrParam;
-import pers.candyboyou.commodity.business.model.vo.ConcreteAttributeVO;
+import pers.candyboyou.commodity.business.model.vo.admin.AttributeVO;
 import pers.candyboyou.commodity.business.model.vo.admin.SkuAttributeVO;
 import pers.candyboyou.commodity.business.service.admin.AttributeService;
 
@@ -22,7 +23,7 @@ public class AttributeServiceImpl implements AttributeService {
     private AdminSkuAttributeMapper skuAttributeMapper;
 
     @Autowired
-    private AdminConcreteAttributeMapper concreteAttributeMapper;
+    private AdminAttributeMapper attributeMapper;
 
     @Override
     public void saveOrUpdateSkuAttr(SkuAttrParam skuAttrParam) {
@@ -54,32 +55,32 @@ public class AttributeServiceImpl implements AttributeService {
     }
 
     @Override
-    public void saveOrUpdateConcreteAttr(ConcreteAttrParam concreteAttrParam) {
-        if (concreteAttrParam.getId() == null) {
-            concreteAttributeMapper.insertConcreteAttr(concreteAttrParam);
+    public void saveOrUpdateAttr(AttrParam AttrParam) {
+        if (AttrParam.getId() == null) {
+            attributeMapper.insertAttribute(AttrParam);
             return;
         }
-        if (concreteAttrParam.getIsDelete() == 1) {
-            concreteAttributeMapper.deleteConcreteAttrById(concreteAttrParam.getId());
+        if (AttrParam.getIsDelete() == 1) {
+            attributeMapper.deleteAttrById(AttrParam.getId());
             return;
         }
-        concreteAttributeMapper.updateConcreteAttr(concreteAttrParam);
+        attributeMapper.updateAttr(AttrParam);
     }
 
     @Override
-    public ListVO<ConcreteAttributeVO> getConcreteAttributesById(Long attributeId, QueryParam queryParam) {
-        ListVO<ConcreteAttributeVO> concreteAttributeVOListVO = new ListVO<>();
+    public ListVO<AttributeVO> getAttributeVOSById(Long attributeId, QueryParam queryParam) {
+        ListVO<AttributeVO> attributeVOListVO = new ListVO<>();
         if (attributeId == null) {
-            return concreteAttributeVOListVO;
+            return attributeVOListVO;
         }
-        List<ConcreteAttributeVO> concreteAttributeDTOList = concreteAttributeMapper.selectConcreteAttributeDTOS(attributeId, queryParam);
-        List<ConcreteAttributeVO> concreteAttributeVOS = ConcreteAttributeVO.convertConcreteAttributeDTOS(concreteAttributeDTOList);
-        int count = concreteAttributeMapper.selectConcreteAttributeDTOSCount(attributeId);
-        concreteAttributeVOListVO.setList(concreteAttributeVOS);
-        concreteAttributeVOListVO.setTotal(count);
-        concreteAttributeVOListVO.setPageNum(queryParam.getPageNum());
-        concreteAttributeVOListVO.setPageNum(concreteAttributeVOS.size());
-        return concreteAttributeVOListVO;
+        List<AttributeDTO> AttributeDTOList = attributeMapper.selectAttributeDTOS(attributeId, queryParam);
+        List<AttributeVO> AttributeVOS = AttributeVO.convertAttributeDTOS(AttributeDTOList);
+        int count = attributeMapper.selectAttributeDTOSCount(attributeId);
+        attributeVOListVO.setList(AttributeVOS);
+        attributeVOListVO.setTotal(count);
+        attributeVOListVO.setPageNum(queryParam.getPageNum());
+        attributeVOListVO.setPageNum(AttributeVOS.size());
+        return attributeVOListVO;
     }
 
 }

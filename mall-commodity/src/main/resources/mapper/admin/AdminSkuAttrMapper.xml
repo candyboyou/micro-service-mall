@@ -62,4 +62,5 @@
         WHERE
             parent_attribute_id = #{attributeId}
     </select>
+
 </mapper>

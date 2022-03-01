@@ -1,26 +1,79 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="pers.candyboyou.commodity.business.mapper.admin.AdminConcreteAttributeMapper">
+<mapper namespace="pers.candyboyou.commodity.business.mapper.admin.AdminAttributeMapper">
 
-    <insert id="insertConcreteAttr">
-
+    <insert id="insertAttribute">
+        INSERT INTO
+            t_commodity_attribute
+        SET
+            name = #{param.name},
+            is_related = #{param.isRelated},
+            is_search = #{param.isSearch},
+            is_sale_attribute = #{param.isSaleAttribute},
+            is_multiple = #{param.isMultiple},
+            is_required = #{param.isRequired},
+            sort = #{param.sort},
     </insert>
 
-    <update id="updateConcreteAttr">
-
+    <update id="updateAttr">
+        UPDATE
+            mall_commodity_info.t_commodity_attribute
+        SET
+            <if test="param.name != null and param.name != ''">
+                name = #{param.name}
+            </if>
+            <if test="param.isRelated != null">
+                is_related = #{param.isRelated}
+            </if>
+            <if test="param.isSearch != null">
+                is_search = #{param.isSearch}
+            </if>
+            <if test="param.isSaleAttribute != null">
+                is_sale_attribute = #{param.isSaleAttribute}
+            </if>
+            <if test="param.isMultiple != null">
+                is_multiple = #{param.isMultiple}
+            </if>
+            <if test="param.isRequired != null">
+                is_required = #{param.isRequired}
+            </if>
+        WHERE
+            id = #{param.id}
     </update>
 
-    <delete id="deleteConcreteAttrById">
-
+    <delete id="deleteAttrById">
+        UPDATE
+            mall_commodity_info.t_commodity_attribute
+        SET
+            is_valid = 0
+        WHERE
+            id = #{id}
     </delete>
 
-    <select id="selectConcreteAttributeDTOS"
-            resultType="pers.candyboyou.commodity.business.model.vo.ConcreteAttributeVO">
-
+    <select id="selectAttributeDTOS"
+            resultType="pers.candyboyou.commodity.business.model.dto.AttributeDTO">
+        SELECT
+            id,
+            name,
+            is_multiple AS isMUltiple,
+            is_related AS isRelated,
+            is_required AS isRequired,
+            is_sale_attribute AS isSaleAttribute,
+            is_search AS isSearch,
+        FROM
+             mall_commodity_info.t_commodity_attribute
+        WHERE
+             attribute_id = #{attributeId}
+        LIMIT #{param.start}, #{param.pageSize}
     </select>
 
-    <select id="selectConcreteAttributeDTOSCount" resultType="java.lang.Integer">
-
+    <select id="selectAttributeDTOSCount" resultType="java.lang.Integer">
+        SELECT
+            count(*)
+        FROM
+            t_commodity_attribute
+        WHERE
+            attribute_id = #{attributeId}
     </select>
 
 

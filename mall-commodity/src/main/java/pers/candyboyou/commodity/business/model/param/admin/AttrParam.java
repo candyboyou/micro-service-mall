@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class ConcreteAttrParam {
+public class AttrParam {
 
     @ApiModelProperty("主键id")
     private Long id;

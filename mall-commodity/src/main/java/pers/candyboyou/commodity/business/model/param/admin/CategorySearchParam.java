@@ -21,6 +21,9 @@ public class CategorySearchParam extends QueryParam {
     @ApiModelProperty("级别")
     private Integer level;
 
+    @ApiModelProperty("排序")
+    private Integer sort;
+
     @ApiModelProperty("是否显示")
     private Integer isShow;
 }
