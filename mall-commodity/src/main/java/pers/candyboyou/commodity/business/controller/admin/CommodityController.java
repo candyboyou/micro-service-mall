@@ -3,6 +3,7 @@ package pers.candyboyou.commodity.business.controller.admin;
 import io.candyboyou.common.framework.model.vo.ListVO;
 import io.candyboyou.common.framework.model.vo.Result;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pers.candyboyou.commodity.business.model.param.admin.CommoditySaveParam;
 import pers.candyboyou.commodity.business.model.param.admin.CommoditySearchParam;
+import pers.candyboyou.commodity.business.model.param.admin.CommodityStatusParam;
 import pers.candyboyou.commodity.business.model.vo.admin.CommodityDetailVO;
 import pers.candyboyou.commodity.business.model.vo.admin.CommodityVO;
 import pers.candyboyou.commodity.business.service.admin.AdminCommodityService;
@@ -46,5 +48,10 @@ public class CommodityController {
         return Result.ok();
     }
 
-
+    @ApiModelProperty("在页面上更新商品信息")
+    @PostMapping("/updateCommodityStatus")
+    public Result updateCommodityStatus(CommodityStatusParam commodityStatusParam) {
+        adminCommodityService.updateCommodityStatus(commodityStatusParam);
+        return Result.ok();
+    }
 }

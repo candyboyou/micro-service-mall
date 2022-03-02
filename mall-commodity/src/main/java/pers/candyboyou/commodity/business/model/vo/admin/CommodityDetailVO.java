@@ -23,7 +23,7 @@ public class CommodityDetailVO implements Serializable {
     private String name;
 
     @ApiModelProperty(value = "商品副标题")
-    private String subName;
+    private String detailName;
 
     @ApiModelProperty(value = "商品售价")
     private BigDecimal price;
@@ -32,10 +32,10 @@ public class CommodityDetailVO implements Serializable {
     private BigDecimal originalPrice;
 
     @ApiModelProperty(value = "库存")
-    private Integer stock;
+    private Integer spuStock;
 
     @ApiModelProperty(value = "库存预警值")
-    private Integer lowStock;
+    private Integer spuLowStock;
 
     @ApiModelProperty(value = "单位")
     private Long unitId;
@@ -58,33 +58,28 @@ public class CommodityDetailVO implements Serializable {
     @ApiModelProperty(value = "审核状态：0->未审核；1->审核通过")
     private Integer verifyStatus;
 
-    @ApiModelProperty(value = "排序")
-    private Integer sort;
-
     @ApiModelProperty(value = "是否为预告商品：0->不是；1->是")
     private Integer previewStatus;
+
+    @ApiModelProperty(value = "排序")
+    private Integer sort;
 
     @ApiModelProperty(value = "以逗号分割的产品服务：1->无忧退货；2->快速退款；3->免费包邮")
     private String serviceIds;
 
     // 商品属性
-
     @ApiModelProperty("分类id")
     private Long categoryId;
 
-    @ApiModelProperty("")
-    private List<AttributeVO> AttributeVOS;
+    @ApiModelProperty("商品详细属性")
+    private List<AttributeDetailVO> attributeDetailVOS;
 
-    private String pic;
+    @ApiModelProperty("sku属性")
+    private List<SKUAttributeDetailVO> SKUAttributeVOS;
 
-    private String keywords;
-
-    private String note;
-
+    // 商品描述以及图片
     @ApiModelProperty(value = "画册图片，连产品图片限制为5张，以逗号分割")
     private String albumPics;
-
-    private String detailTitle;
 
     @ApiModelProperty(value = "商品分类名称")
     private String productCategoryName;
@@ -92,6 +87,7 @@ public class CommodityDetailVO implements Serializable {
     @ApiModelProperty(value = "商品描述")
     private String description;
 
+    @ApiModelProperty(value = "详细描述")
     private String detailDesc;
 
     @ApiModelProperty(value = "产品详情网页内容")

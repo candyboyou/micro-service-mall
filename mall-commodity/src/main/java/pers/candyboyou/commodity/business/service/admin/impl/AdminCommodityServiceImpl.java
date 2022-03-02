@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import pers.candyboyou.commodity.business.mapper.admin.AdminCommodityMapper;
 import pers.candyboyou.commodity.business.model.param.admin.CommoditySaveParam;
 import pers.candyboyou.commodity.business.model.param.admin.CommoditySearchParam;
+import pers.candyboyou.commodity.business.model.param.admin.CommodityStatusParam;
 import pers.candyboyou.commodity.business.model.vo.admin.CommodityDetailVO;
 import pers.candyboyou.commodity.business.model.vo.admin.CommodityVO;
 import pers.candyboyou.commodity.business.service.admin.AdminCommodityService;
@@ -22,7 +23,6 @@ public class AdminCommodityServiceImpl implements AdminCommodityService {
 
     @Override
     public ListVO<CommodityVO> getCommodityVOS(CommoditySearchParam commoditySearchParam) {
-
         return null;
     }
 
@@ -33,6 +33,11 @@ public class AdminCommodityServiceImpl implements AdminCommodityService {
 
     @Override
     public void saveOrUpdateCommodity(List<CommoditySaveParam> commoditySaveParams) {
+
+    }
+
+    @Override
+    public void updateCommodityStatus(CommodityStatusParam commodityStatusParam) {
 
     }
 }
