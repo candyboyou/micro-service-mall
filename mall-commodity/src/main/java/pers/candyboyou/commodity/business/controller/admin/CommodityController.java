@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pers.candyboyou.commodity.business.model.param.admin.CommoditySaveParam;
 import pers.candyboyou.commodity.business.model.param.admin.CommoditySearchParam;
-import pers.candyboyou.commodity.business.model.vo.CommodityDetailVO;
+import pers.candyboyou.commodity.business.model.vo.admin.CommodityDetailVO;
 import pers.candyboyou.commodity.business.model.vo.admin.CommodityVO;
 import pers.candyboyou.commodity.business.service.admin.AdminCommodityService;
 
@@ -45,4 +45,6 @@ public class CommodityController {
         adminCommodityService.saveOrUpdateCommodity(commoditySaveParams);
         return Result.ok();
     }
+
+
 }
