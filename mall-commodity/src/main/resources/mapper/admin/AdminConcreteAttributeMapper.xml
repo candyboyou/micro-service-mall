@@ -51,7 +51,7 @@
     </delete>
 
     <select id="selectAttributeDTOS"
-            resultType="pers.candyboyou.commodity.business.model.dto.AttributeDTO">
+            resultType="pers.candyboyou.commodity.business.model.entity.AttributeEntity">
         SELECT
             id,
             name,
@@ -74,6 +74,23 @@
             t_commodity_attribute
         WHERE
             attribute_id = #{attributeId}
+    </select>
+
+    <select id="selectAttributeIdWithIsSale"
+            resultType="pers.candyboyou.commodity.business.model.dto.AttributeIdWithIsSaleDTO">
+        SELECT
+            id,
+            is_sale_attribute isSaleAttr;
+        FROM
+            t_commodity_attribute
+        WHERE
+            is_valid = 1
+            AND
+            attribute_id
+            IN
+            <foreach collection="attributeIds" open="(" separator="," close=")" item="attributeId">
+                #{attributeId}
+            </foreach>
     </select>
 
 

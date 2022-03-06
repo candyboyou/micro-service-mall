@@ -1,6 +1,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+<!--
+    一对多的不需要中间表；
+    多对多必须得用中间表了
+-->
+
 <mapper namespace="pers.candyboyou.commodity.business.mapper.admin.AdminCommodityMapper">
+
+    <sql id="baseColumn">
+        id,
+        name,
+        sub_name subName,
+        is_publish isPublish,
+        is_new isNew,
+        is_recommend isRecommend,
+        is_verify isVerify,
+        is_preview isPreview,
+        category_id categoryId,
+        description_id descriptionId,
+        spu_id spuId,
+        sku_id skuId,
+        sort sort
+    </sql>
 
     <update id="deleteCategory">
         UPDATE
@@ -39,5 +60,81 @@
         WHERE
             category_id = #{categoryId}
         LIMIT #{queryParam.start}, #{queryParam.pageSize}
+    </select>
+
+    <select id="selectCommodityOfList"
+            resultType="pers.candyboyou.commodity.business.model.dto.CommodityOfListDTO">
+        SELECT
+            id,
+            name,
+            is_publish isPublish,
+            is_new isNew,
+            is_recommend isRecommend,
+            is_verify isVerify,
+            is_preview isPreview,
+            category_id categoryId,
+            description_id categoryId,
+            spu_id spuId
+        FROM
+            t_commodity
+        WHERE
+            is_valid = 1
+            <if test="param.categoryId != null">
+                AND category_id = #{param.categoryId}
+            </if>
+            <if test="param.isPublish != null">
+                AND is_publish = #{param.isPublish}
+            </if>
+            <if test="param.isNew != null">
+                AND is_new = #{param.}
+            </if>
+            <if test="param.isRecommend != null">
+                AND is_recommend = #{param.isRecommend}
+            </if>
+            <if test="param.isVerify != null">
+                AND is_verify = #{param.isVerify}
+            </if>
+            <if test="param.name != null and param.name != ''">
+                AND name like concat('%',#{param.name},'%')
+            </if>
+        LIMIT
+            #{param.start}, #{param.pageSize}
+   </select>
+
+    <select id="selectCommodityCounts" resultType="java.lang.Integer">
+        SELECT
+            count(*)
+        FROM
+            t_commodity
+        WHERE
+            is_valid = 1
+            <if test="param.categoryId != null">
+                AND category_id = #{param.categoryId}
+            </if>
+            <if test="param.isPublish != null">
+                AND is_publish = #{param.isPublish}
+            </if>
+            <if test="param.isNew != null">
+                AND is_new = #{param.}
+            </if>
+            <if test="param.isRecommend != null">
+                AND is_recommend = #{param.isRecommend}
+            </if>
+            <if test="param.isVerify != null">
+                AND is_verify = #{param.isVerify}
+            </if>
+            <if test="param.name != null and param.name != ''">
+                AND name like concat('%',#{param.name},'%')
+            </if>
+    </select>
+
+    <select id="selectCommodityById"
+            resultType="pers.candyboyou.commodity.business.model.entity.CommodityEntity">
+        SELECT
+            <include refid="baseColumn"></include>
+        FROM
+            t_commodity
+        WHERE
+            id = #{id}
     </select>
 </mapper>

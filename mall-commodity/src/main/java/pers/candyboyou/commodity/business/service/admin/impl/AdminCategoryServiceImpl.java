@@ -2,30 +2,40 @@ package pers.candyboyou.commodity.business.service.admin.impl;
 
 import io.candyboyou.common.framework.model.param.QueryParam;
 import io.candyboyou.common.framework.model.vo.ListVO;
+import pers.candyboyou.commodity.business.mapper.admin.AdminCategoryAttributeRelationMapper;
 import pers.candyboyou.commodity.business.mapper.admin.AdminCategoryMapper;
 import pers.candyboyou.commodity.business.mapper.admin.AdminCommodityMapper;
-import pers.candyboyou.commodity.business.model.dto.CategoryDTO;
-import pers.candyboyou.commodity.business.model.dto.CategorySaveOrUpdateDTO;
-import pers.candyboyou.commodity.business.model.dto.SimpleCommodityDTO;
+import pers.candyboyou.commodity.business.model.dto.*;
 import pers.candyboyou.commodity.business.model.param.admin.CategorySaveOrUpdateParam;
 import pers.candyboyou.commodity.business.model.param.admin.CategorySearchParam;
 import pers.candyboyou.commodity.business.model.param.admin.RelateCategoryParam;
+import pers.candyboyou.commodity.business.model.vo.admin.AttributeValueVO;
 import pers.candyboyou.commodity.business.model.vo.admin.CategoryVO;
 import pers.candyboyou.commodity.business.model.vo.admin.SimpleCommodityInfoVO;
 import pers.candyboyou.commodity.business.service.admin.AdminCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pers.candyboyou.commodity.business.service.admin.AdminAttributeService;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class AdminCategoryServiceImpl implements AdminCategoryService {
+
+    @Autowired
+    private AdminAttributeService adminAttributeService;
 
     @Autowired
     private AdminCategoryMapper adminCategoryMapper;
 
     @Autowired
     private AdminCommodityMapper adminCommodityMapper;
+
+    @Autowired
+    private AdminCategoryAttributeRelationMapper categoryAttributeRelationMapper;
 
     @Override
     public void saveOrUpdateCategory(CategorySaveOrUpdateParam categorySaveOrUpdateParam) {
@@ -82,6 +92,29 @@ public class AdminCategoryServiceImpl implements AdminCategoryService {
             adminCommodityMapper.deleteCategory(relateCategoryParam.getCommodityId());
         }
         adminCommodityMapper.updateCategoryOfCommodity(relateCategoryParam.getCategoryId(), relateCategoryParam.getCommodityId());
+    }
+
+    @Override
+    public Map<Long, String> getCategoryNamesByIds(List<Long> categoryIds) {
+        List<CategoryIdWithNameDTO> categoryIdWithNames = adminCategoryMapper.selectCategoryIdWithNamesByIds(categoryIds);
+        return categoryIdWithNames.stream().collect(Collectors.toMap(CategoryIdWithNameDTO::getId, CategoryIdWithNameDTO::getName));
+    }
+
+    @Override
+    public List<AttributeValueVO> getAttributeValuesById(Long categoryId) {
+        List<AttributeWithValueDTO> AttributeWithValueDTOS = categoryAttributeRelationMapper.getAttributeIdsByCategoryId(categoryId);
+        List<Long> attributeIds = AttributeWithValueDTOS.stream().map(AttributeWithValueDTO::getAttributeId).toList();
+        Map<Long, Integer> attributeIdToIsSaleMap = adminAttributeService.getAttributeIdToIsSaleMap(attributeIds);
+        List<AttributeValueVO> attributeValueVOS = new ArrayList<>(AttributeWithValueDTOS.size());
+        for (AttributeWithValueDTO AttributeWithValueDTO : AttributeWithValueDTOS) {
+            AttributeValueVO attributeValueVO = new AttributeValueVO();
+            Long attributeId = AttributeWithValueDTO.getAttributeId();
+            attributeValueVO.setAttributeId(attributeId);
+            attributeValueVO.setAttributeValueId(AttributeWithValueDTO.getValueId());
+            attributeValueVO.setIsSaleAttribute(attributeIdToIsSaleMap.get(attributeId));
+            attributeValueVOS.add(attributeValueVO);
+        }
+        return attributeValueVOS;
     }
 
 

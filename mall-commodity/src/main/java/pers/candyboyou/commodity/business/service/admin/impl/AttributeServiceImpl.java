@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pers.candyboyou.commodity.business.mapper.admin.AdminAttributeMapper;
 import pers.candyboyou.commodity.business.mapper.admin.AdminSkuAttributeMapper;
-import pers.candyboyou.commodity.business.model.dto.AttributeDTO;
 import pers.candyboyou.commodity.business.model.dto.SkuAttributeDTO;
+import pers.candyboyou.commodity.business.model.entity.AttributeEntity;
 import pers.candyboyou.commodity.business.model.param.admin.AttrParam;
 import pers.candyboyou.commodity.business.model.param.admin.SkuAttrParam;
 import pers.candyboyou.commodity.business.model.vo.admin.AttributeVO;
@@ -73,8 +73,8 @@ public class AttributeServiceImpl implements AttributeService {
         if (attributeId == null) {
             return attributeVOListVO;
         }
-        List<AttributeDTO> AttributeDTOList = attributeMapper.selectAttributeDTOS(attributeId, queryParam);
-        List<AttributeVO> AttributeVOS = AttributeVO.convertAttributeDTOS(AttributeDTOList);
+        List<AttributeEntity> attributeEntities = attributeMapper.selectAttributeDTOS(attributeId, queryParam);
+        List<AttributeVO> AttributeVOS = AttributeVO.convertAttributeEntities(attributeEntities);
         int count = attributeMapper.selectAttributeDTOSCount(attributeId);
         attributeVOListVO.setList(AttributeVOS);
         attributeVOListVO.setTotal(count);

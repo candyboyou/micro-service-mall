@@ -3,7 +3,7 @@ package pers.candyboyou.commodity.business.model.vo.admin;
 import io.candyboyou.common.utils.CollectionUtils;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import pers.candyboyou.commodity.business.model.dto.AttributeDTO;
+import pers.candyboyou.commodity.business.model.entity.AttributeEntity;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -33,19 +33,19 @@ public class AttributeVO implements Serializable {
     @ApiModelProperty("排序字段")
     private Integer sort;
 
-    public static List<AttributeVO> convertAttributeDTOS(List<AttributeDTO> attributeDTOList) {
-        if (CollectionUtils.isEmpty(attributeDTOList)) {
+    public static List<AttributeVO> convertAttributeEntities(List<AttributeEntity> attributeEntities) {
+        if (CollectionUtils.isEmpty(attributeEntities)) {
             return new ArrayList<>();
         }
         List<AttributeVO> attributeVOS = new ArrayList<>();
-        for (AttributeDTO attributeDTO : attributeDTOList) {
+        for (AttributeEntity attributeEntity : attributeEntities) {
             AttributeVO attributeVO = new AttributeVO();
-            attributeVO.setId(attributeDTO.getId());
-            attributeVO.setIsSearch(attributeDTO.getIsSearch());
-            attributeVO.setIsSaleAttr(attributeDTO.getIsSaleAttr());
-            attributeVO.setIsMultiple(attributeDTO.getIsMultiple());
-            attributeVO.setIsRequired(attributeDTO.getIsRequired());
-            attributeVO.setSort(attributeDTO.getSort());
+            attributeVO.setId(attributeEntity.getId());
+            attributeVO.setIsSearch(attributeEntity.getIsSearch());
+            attributeVO.setIsSaleAttr(attributeEntity.getIsSaleAttr());
+            attributeVO.setIsMultiple(attributeEntity.getIsMultiple());
+            attributeVO.setIsRequired(attributeEntity.getIsRequired());
+            attributeVO.setSort(attributeEntity.getSort());
             attributeVOS.add(attributeVO);
         }
         return attributeVOS;

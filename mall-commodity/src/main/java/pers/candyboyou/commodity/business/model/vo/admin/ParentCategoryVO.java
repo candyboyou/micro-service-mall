@@ -8,8 +8,8 @@ import java.util.List;
 @Data
 public class ParentCategoryVO {
 
-    @ApiModelProperty("分类Code")
-    private Long code;
+    @ApiModelProperty("分类的id")
+    private Long id;
 
     @ApiModelProperty("分类名称")
     private String name;

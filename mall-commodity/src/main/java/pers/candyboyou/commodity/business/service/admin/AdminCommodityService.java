@@ -5,7 +5,7 @@ import pers.candyboyou.commodity.business.model.param.admin.CommoditySaveParam;
 import pers.candyboyou.commodity.business.model.param.admin.CommoditySearchParam;
 import pers.candyboyou.commodity.business.model.param.admin.CommodityStatusParam;
 import pers.candyboyou.commodity.business.model.vo.admin.CommodityDetailVO;
-import pers.candyboyou.commodity.business.model.vo.admin.CommodityVO;
+import pers.candyboyou.commodity.business.model.vo.admin.CommodityOfListVO;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public interface AdminCommodityService {
     /**
      * 查询获取商品列表
      */
-    ListVO<CommodityVO> getCommodityVOS(CommoditySearchParam commoditySearchParam);
+    ListVO<CommodityOfListVO> getCommodityVOS(CommoditySearchParam commoditySearchParam);
 
     /**
      * 获取商品的详细信息

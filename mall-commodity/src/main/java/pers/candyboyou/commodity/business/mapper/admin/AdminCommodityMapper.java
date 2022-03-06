@@ -1,7 +1,11 @@
 package pers.candyboyou.commodity.business.mapper.admin;
 
 import io.candyboyou.common.framework.model.param.QueryParam;
+import org.apache.ibatis.annotations.Param;
+import pers.candyboyou.commodity.business.model.dto.CommodityOfListDTO;
 import pers.candyboyou.commodity.business.model.dto.SimpleCommodityDTO;
+import pers.candyboyou.commodity.business.model.entity.CommodityEntity;
+import pers.candyboyou.commodity.business.model.param.admin.CommoditySearchParam;
 
 import java.util.List;
 
@@ -14,4 +18,10 @@ public interface AdminCommodityMapper {
     void deleteCategory(Long id);
 
     void updateCategoryOfCommodity(Long categoryId, Long commodityId);
+
+    List<CommodityOfListDTO> selectCommodityOfList(@Param("param") CommoditySearchParam commoditySearchParam);
+
+    int selectCommodityCounts(CommoditySearchParam commoditySearchParam);
+
+    CommodityEntity selectCommodityById(Long id);
 }

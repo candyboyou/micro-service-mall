@@ -2,6 +2,17 @@
 
 <mapper namespace="pers.candyboyou.commodity.business.mapper.admin.AdminSkuAttributeMapper">
 
+    <sql id="baseColumn">
+        id,
+        commodityId,
+        price,
+        promotion_price promotionPrice,
+        stock,
+        lock_stock lockStock,
+        low_stock lowStock,
+        sale
+    </sql>
+
     <insert id="insertSkuAttr">
         INSERT INTO
             t_commodity_sku_attribute
@@ -61,6 +72,16 @@
             t_commodity_sku_attribute
         WHERE
             parent_attribute_id = #{attributeId}
+    </select>
+
+    <select id="selectSkuAttributeByCommodityId"
+            resultType="pers.candyboyou.commodity.business.model.entity.SkuAttributeEntity">
+        SELECT
+            <include refid="baseColumn"></include>
+        FROM
+            t_commodity_sku_attribute
+        WHERE
+            commodity_id = #{id}
     </select>
 
 </mapper>

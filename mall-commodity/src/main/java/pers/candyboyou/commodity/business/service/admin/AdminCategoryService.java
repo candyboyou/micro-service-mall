@@ -5,8 +5,14 @@ import io.candyboyou.common.framework.model.vo.ListVO;
 import pers.candyboyou.commodity.business.model.param.admin.CategorySaveOrUpdateParam;
 import pers.candyboyou.commodity.business.model.param.admin.CategorySearchParam;
 import pers.candyboyou.commodity.business.model.param.admin.RelateCategoryParam;
+import pers.candyboyou.commodity.business.model.vo.admin.AttributeValueOfSkuVO;
+import pers.candyboyou.commodity.business.model.vo.admin.AttributeValueVO;
 import pers.candyboyou.commodity.business.model.vo.admin.CategoryVO;
 import pers.candyboyou.commodity.business.model.vo.admin.SimpleCommodityInfoVO;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public interface AdminCategoryService {
 
@@ -17,4 +23,9 @@ public interface AdminCategoryService {
     ListVO<SimpleCommodityInfoVO> getSimpleCommodityInfos(Long categoryId, QueryParam queryParam);
 
     void relateCommodities(RelateCategoryParam relateCategoryParam);
+
+    Map<Long, String> getCategoryNamesByIds(List<Long> categoryIds);
+
+    List<AttributeValueVO> getAttributeValuesById(Long categoryId);
+
 }
