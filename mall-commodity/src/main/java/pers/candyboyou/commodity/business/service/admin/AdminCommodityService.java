@@ -24,7 +24,7 @@ public interface AdminCommodityService {
     /**
      * 保存或更新商品详细信息
      */
-    void saveOrUpdateCommodity(List<CommoditySaveParam> commoditySaveParams);
+    void saveOrUpdateCommodity(CommoditySaveParam commoditySaveParams);
 
     /**
      * 在列表上更新商品的状态

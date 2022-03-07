@@ -43,7 +43,7 @@ public class CommodityController {
 
     @ApiOperation("保存、更新、删除商品详情")
     @PostMapping("/saveOrUpdateCommodity")
-    public Result saveOrUpdateCommodity(List<CommoditySaveParam> commoditySaveParams) {
+    public Result saveOrUpdateCommodity(CommoditySaveParam commoditySaveParams) {
         adminCommodityService.saveOrUpdateCommodity(commoditySaveParams);
         return Result.ok();
     }

@@ -17,11 +17,33 @@
         is_verify isVerify,
         is_preview isPreview,
         category_id categoryId,
-        description_id descriptionId,
         spu_id spuId,
         sku_id skuId,
         sort sort
     </sql>
+
+    <sql id="saveColumn">
+        name,
+        detail_name,
+        is_publish,
+        is_new,
+        is_recommend,
+        is_verify,
+        is_preview,
+        category_id,
+        spu_id,
+        sku_id,
+        sort
+    </sql>
+
+    <insert id="saveCommodity" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+            t_commodity
+        (<include refid="saveColumn"></include>)
+        VALUES
+        (#)
+
+    </insert>
 
     <update id="deleteCategory">
         UPDATE
@@ -39,6 +61,31 @@
             category_id = #{categoryId}
         WHERE
             id = #{commodityId}
+    </update>
+
+    <update id="updateStatusOfCommodity">
+        UPDATE
+            t_commodity
+        <set>
+            <if test="commodityStatusParam.isPublish != null">
+                is_publish = #{commodityStatusParam.isPublish},
+            </if>
+            <if test="commodityStatusParam.isNew != null">
+                is_new = #{commodityStatusParam.isNew},
+            </if>
+            <if test="commodityStatusParam.isRecommend != null">
+                is_recommend = #{commodityStatusParam.isRecommend},
+            </if>
+            <if test="commodityStatusParam.isDelete != null">
+                is_delete = #{commodityStatusParam.isDelete},
+            </if>
+        </set>
+        WHERE
+            id = #{commodityStatusParam.id}
+    </update>
+
+    <update id="updateCommodity">
+
     </update>
 
     <select id="selectSimpleCommodityByCategoryId"

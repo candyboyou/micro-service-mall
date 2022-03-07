@@ -1,11 +1,14 @@
 package pers.candyboyou.commodity.business.service.admin.impl;
 
+import io.candyboyou.common.expection.BusinessException;
 import io.candyboyou.common.framework.model.vo.ListVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pers.candyboyou.commodity.business.mapper.admin.AdminCommodityMapper;
 import pers.candyboyou.commodity.business.model.dto.CommodityOfListDTO;
+import pers.candyboyou.commodity.business.model.dto.CommoditySaveDTO;
 import pers.candyboyou.commodity.business.model.entity.CommodityEntity;
 import pers.candyboyou.commodity.business.model.entity.SkuAttributeEntity;
 import pers.candyboyou.commodity.business.model.entity.SpuAttributeEntity;
@@ -114,10 +117,6 @@ public class AdminCommodityServiceImpl implements AdminCommodityService {
         List<SkuAttributeDetailVO> skuAttributeDetailVOS = SkuAttributeDetailVO.convertSkuAttributeEntities(skuAttributes, skuIdToAttributeValueOfSkuVOMap);
         commodityDetailVO.setSkuAttributeVOS(skuAttributeDetailVOS);
 
-        // 根据id获取详情
-        Long descriptionId = commodity.getDescriptionId();
-
-
         return commodityDetailVO;
     }
 
@@ -131,12 +130,38 @@ public class AdminCommodityServiceImpl implements AdminCommodityService {
     }
 
     @Override
-    public void saveOrUpdateCommodity(List<CommoditySaveParam> commoditySaveParams) {
+    @Transactional
+    public void saveOrUpdateCommodity(CommoditySaveParam commoditySaveParam) {
+        // 如果id为null，那么说明是新增的
+        if (commoditySaveParam == null) {
+            return;
+        }
 
+        CommoditySaveDTO commoditySaveDTO = CommoditySaveDTO.convertCommoditySaveParam(commoditySaveParam);
+        Long id = commoditySaveParam.getId();
+        if (id == null) {
+            id = adminCommodityMapper.saveCommodity(commoditySaveDTO);
+        } else {
+            adminCommodityMapper.updateCommodity(commoditySaveDTO);
+        }
+
+        // 保存商品的SPU属性
+
+
+        if (commoditySaveParam.getId() == null) {
+        } else {
+
+        }
     }
 
     @Override
     public void updateCommodityStatus(CommodityStatusParam commodityStatusParam) {
-
+        if (commodityStatusParam == null) {
+            return;
+        }
+        if (commodityStatusParam.getId() == null) {
+            throw new BusinessException("id不能为null");
+        }
+        adminCommodityMapper.updateStatusOfCommodity(commodityStatusParam);
     }
 }

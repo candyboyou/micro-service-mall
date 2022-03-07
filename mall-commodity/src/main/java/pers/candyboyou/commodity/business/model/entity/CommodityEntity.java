@@ -18,7 +18,7 @@ public class CommodityEntity extends Entity {
     /**
      * 商品的副标题
      */
-    private String subName;
+    private String detailName;
 
     /**
      * 是否发布
@@ -56,14 +56,14 @@ public class CommodityEntity extends Entity {
     private Long categoryId;
 
     /**
-     * 商品详情id
-     */
-    private Long descriptionId;
-
-    /**
      * 商品spu的id
      */
     private Long spuId;
+
+    /**
+     * 商品详情Url
+     */
+    private String detailDesc;
 
     /**
      * 排序

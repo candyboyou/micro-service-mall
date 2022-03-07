@@ -84,29 +84,22 @@ public class CommodityDetailVO implements Serializable {
     @ApiModelProperty(value = "商品分类名称")
     private String productCategoryName;
 
-    @ApiModelProperty(value = "商品描述")
-    private String description;
-
     @ApiModelProperty(value = "详细描述")
     private String detailDesc;
 
-    @ApiModelProperty(value = "产品详情网页内容")
-    private String detailHtml;
-
-    @ApiModelProperty(value = "移动端网页详情")
-    private String detailMobileHtml;
 
     public static CommodityDetailVO convertCommodityEntity(CommodityEntity commodity) {
         CommodityDetailVO commodityDetailVO = new CommodityDetailVO();
         commodityDetailVO.setId(commodity.getId());
         commodityDetailVO.setName(commodity.getName());
-        commodityDetailVO.setDetailName(commodity.getSubName());
+        commodityDetailVO.setDetailName(commodity.getDetailName());
         commodityDetailVO.setIsPublish(commodity.getIsPublish());
         commodityDetailVO.setIsNew(commodity.getIsNew());
         commodityDetailVO.setIsRecommend(commodity.getIsRecommend());
         commodityDetailVO.setVerifyStatus(commodity.getVerifyStatus());
         commodityDetailVO.setIsPreview(commodity.getIsPreview());
         commodityDetailVO.setSort(commodity.getSort());
+        commodityDetailVO.setDetailDesc(commodity.getDetailDesc());
         return commodityDetailVO;
     }
 }
