@@ -12,6 +12,7 @@ import pers.candyboyou.commodity.business.model.dto.CommoditySaveDTO;
 import pers.candyboyou.commodity.business.model.entity.CommodityEntity;
 import pers.candyboyou.commodity.business.model.entity.SkuAttributeEntity;
 import pers.candyboyou.commodity.business.model.entity.SpuAttributeEntity;
+import pers.candyboyou.commodity.business.model.param.admin.AttributeOfCommoditySaveParam;
 import pers.candyboyou.commodity.business.model.param.admin.CommoditySaveParam;
 import pers.candyboyou.commodity.business.model.param.admin.CommoditySearchParam;
 import pers.candyboyou.commodity.business.model.param.admin.CommodityStatusParam;
@@ -26,6 +27,9 @@ import java.util.Map;
 @Service
 @Slf4j
 public class AdminCommodityServiceImpl implements AdminCommodityService {
+
+    @Autowired
+    private AdminAttributeValueService adminAttributeValueService;
 
     @Autowired
     private AdminSpuAttributeService adminSpuAttributeService;
@@ -145,8 +149,8 @@ public class AdminCommodityServiceImpl implements AdminCommodityService {
             adminCommodityMapper.updateCommodity(commoditySaveDTO);
         }
 
-        // 保存商品的SPU属性
-
+        List<AttributeOfCommoditySaveParam> attributeOfCommoditySaveParams = commoditySaveParam.getAttributeOfCommoditySaveParams();
+        adminAttributeValueService.saveAttributeValue(attributeOfCommoditySaveParams);
 
         if (commoditySaveParam.getId() == null) {
         } else {

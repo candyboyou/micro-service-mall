@@ -29,7 +29,7 @@ public interface AdminCommodityMapper {
 
     void updateStatusOfCommodity(@Param("commodityStatusParam") CommodityStatusParam commodityStatusParam);
 
-    Long saveCommodity(CommoditySaveDTO commoditySaveDTO);
+    Long saveCommodity(@Param("saveParam") CommoditySaveDTO commoditySaveDTO);
 
     void updateCommodity(CommoditySaveDTO commoditySaveDTO);
 }

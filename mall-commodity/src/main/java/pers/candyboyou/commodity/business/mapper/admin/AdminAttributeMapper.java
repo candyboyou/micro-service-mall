@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import pers.candyboyou.commodity.business.model.dto.AttributeIdWithIsSaleDTO;
 import pers.candyboyou.commodity.business.model.entity.AttributeEntity;
 import pers.candyboyou.commodity.business.model.param.admin.AttrParam;
+import pers.candyboyou.commodity.business.model.param.admin.AttributeOfCommoditySaveParam;
 
 import java.util.List;
 

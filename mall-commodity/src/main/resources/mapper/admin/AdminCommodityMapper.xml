@@ -39,10 +39,15 @@
     <insert id="saveCommodity" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO
             t_commodity
-        (<include refid="saveColumn"></include>)
+        (
+            <include refid="saveColumn"></include>
+         )
         VALUES
-        (#)
-
+        (
+            #{saveParam.name}, #{saveParam.detailName}, #{saveParam.isPublish}, #{saveParam.isNew}, #{saveParam.isRecommend},
+            #{saveParam.isVerify}, #{saveParam.isPreview}, #{saveParam.categoryId}, #{saveParam.spuId}, #{saveParam.skuId},
+            #{saveParam.sort}
+         )
     </insert>
 
     <update id="deleteCategory">

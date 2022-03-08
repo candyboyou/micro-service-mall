@@ -6,6 +6,9 @@ import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
 
+/**
+ * SPU 属性(不会影响到库存和价格的属性, 又叫关键属性)
+ */
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class SkuAttributeEntity extends Entity {

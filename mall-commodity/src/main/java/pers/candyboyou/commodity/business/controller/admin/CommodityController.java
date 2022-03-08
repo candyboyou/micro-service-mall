@@ -14,10 +14,8 @@ import pers.candyboyou.commodity.business.model.param.admin.CommoditySaveParam;
 import pers.candyboyou.commodity.business.model.param.admin.CommoditySearchParam;
 import pers.candyboyou.commodity.business.model.param.admin.CommodityStatusParam;
 import pers.candyboyou.commodity.business.model.vo.admin.CommodityDetailVO;
-import pers.candyboyou.commodity.business.model.vo.admin.CommodityVO;
+import pers.candyboyou.commodity.business.model.vo.admin.CommodityOfListVO;
 import pers.candyboyou.commodity.business.service.admin.AdminCommodityService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/admin/commodity")
@@ -30,7 +28,7 @@ public class CommodityController {
     @ApiOperation("分页查询商品list")
     @GetMapping("/getCommodities")
     public Result getCommodityVOS(CommoditySearchParam commoditySearchParam) {
-        ListVO<CommodityVO> commodityListVO = adminCommodityService.getCommodityVOS(commoditySearchParam);
+        ListVO<CommodityOfListVO> commodityListVO = adminCommodityService.getCommodityVOS(commoditySearchParam);
         return Result.ok(commodityListVO);
     }
 

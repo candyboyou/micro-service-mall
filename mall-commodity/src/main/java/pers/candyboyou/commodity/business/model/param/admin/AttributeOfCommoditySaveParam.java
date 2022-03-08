@@ -9,4 +9,6 @@ public class AttributeOfCommoditySaveParam {
     private Long attributeId;
 
     private Long attributeValueId;
+
+    private String attributeValue;
 }
