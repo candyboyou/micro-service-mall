@@ -1,5 +1,6 @@
 package pers.candyboyou.commodity.business.service.admin.impl;
 
+import io.candyboyou.common.utils.CollectionUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -7,6 +8,7 @@ import pers.candyboyou.commodity.business.mapper.admin.AdminSkuAttributeMapper;
 import pers.candyboyou.commodity.business.mapper.admin.AdminSkuAttributeRelationMapper;
 import pers.candyboyou.commodity.business.model.dto.SkuAttributeRelationDTO;
 import pers.candyboyou.commodity.business.model.entity.SkuAttributeEntity;
+import pers.candyboyou.commodity.business.model.param.admin.SkuAttributeOfCommoditySaveParam;
 import pers.candyboyou.commodity.business.model.vo.admin.AttributeValueOfSkuVO;
 import pers.candyboyou.commodity.business.service.admin.AdminSkuAttributeService;
 
@@ -45,5 +47,15 @@ public class AdminSkuAttributeServiceImpl implements AdminSkuAttributeService {
             skuIdToAttributeValueOfSkuVOMap.put(skuId, attributeValueOfSkuVOS);
         }
         return skuIdToAttributeValueOfSkuVOMap;
+    }
+
+    @Override
+    public void saveSkuAttributeValue(List<SkuAttributeOfCommoditySaveParam> skuAttributeOfCommoditySaveParams, Long id) {
+        if (CollectionUtils.isEmpty(skuAttributeOfCommoditySaveParams)) {
+            return;
+        }
+        // 先将sku的库存值保存起来
+        List<Long> skuIds = adminSkuAttributeMapper.saveSkuAttributeValue(skuAttributeOfCommoditySaveParams, id);
+        // 然后再将sku的值和属性关联起来
     }
 }

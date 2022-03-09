@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface AdminAttributeValueService {
 
-    void saveAttributeValue(List<AttributeOfCommoditySaveParam> attributeOfCommoditySaveParams);
+    void saveAttributeValue(List<AttributeOfCommoditySaveParam> attributeOfCommoditySaveParams, Long commodityId);
 }

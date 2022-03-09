@@ -2,11 +2,14 @@
 
 <mapper namespace="pers.candyboyou.commodity.business.mapper.admin.AdminAttributeValueMapper">
 
-    <insert id="insertAttributeValue">
+    <insert id="saveAttributeValueOfCommodity">
         INSERT INTO
             t_commodity_attribute_value
-        SET
-            attribute_id = #{}, commodity_id = #{}, value = #{};
+            (attribute_id, commodity_id, value, sort)
+        VALUES
+            <foreach collection="saveParam" item="param" open="(" separator="," close=")">
+                (#{param.attributeId}, #{id}, #{param.value}, #{param.sort})
+            </foreach>
     </insert>
 
 </mapper>

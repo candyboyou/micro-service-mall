@@ -1,6 +1,7 @@
 package pers.candyboyou.commodity.business.service.admin;
 
 import pers.candyboyou.commodity.business.model.entity.SkuAttributeEntity;
+import pers.candyboyou.commodity.business.model.param.admin.SkuAttributeOfCommoditySaveParam;
 import pers.candyboyou.commodity.business.model.vo.admin.AttributeValueOfSkuVO;
 
 import java.util.List;
@@ -11,4 +12,6 @@ public interface AdminSkuAttributeService {
     List<SkuAttributeEntity> getSkuAttributesOfCommodityId(Long id);
 
     Map<Long, List<AttributeValueOfSkuVO>> getSkuIdToAttributesMap(List<Long> skuIds);
+
+    void saveSkuAttributeValue(List<SkuAttributeOfCommoditySaveParam> skuAttributeOfCommoditySaveParams, Long id);
 }

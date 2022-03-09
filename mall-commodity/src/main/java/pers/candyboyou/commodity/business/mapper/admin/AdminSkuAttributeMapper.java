@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import pers.candyboyou.commodity.business.model.dto.SkuAttributeDTO;
 import pers.candyboyou.commodity.business.model.entity.SkuAttributeEntity;
 import pers.candyboyou.commodity.business.model.param.admin.SkuAttrParam;
+import pers.candyboyou.commodity.business.model.param.admin.SkuAttributeOfCommoditySaveParam;
 
 import java.util.List;
 
@@ -21,4 +22,6 @@ public interface AdminSkuAttributeMapper {
     int selectSkuAttributeDTOSCount(Long attributeId);
 
     List<SkuAttributeEntity> selectSkuAttributeByCommodityId(Long id);
+
+    List<Long> saveSkuAttributeValue(@Param("params") List<SkuAttributeOfCommoditySaveParam> skuAttributeOfCommoditySaveParams, Long id);
 }

@@ -12,10 +12,7 @@ import pers.candyboyou.commodity.business.model.dto.CommoditySaveDTO;
 import pers.candyboyou.commodity.business.model.entity.CommodityEntity;
 import pers.candyboyou.commodity.business.model.entity.SkuAttributeEntity;
 import pers.candyboyou.commodity.business.model.entity.SpuAttributeEntity;
-import pers.candyboyou.commodity.business.model.param.admin.AttributeOfCommoditySaveParam;
-import pers.candyboyou.commodity.business.model.param.admin.CommoditySaveParam;
-import pers.candyboyou.commodity.business.model.param.admin.CommoditySearchParam;
-import pers.candyboyou.commodity.business.model.param.admin.CommodityStatusParam;
+import pers.candyboyou.commodity.business.model.param.admin.*;
 import pers.candyboyou.commodity.business.model.vo.admin.*;
 import pers.candyboyou.commodity.business.service.admin.*;
 
@@ -149,13 +146,13 @@ public class AdminCommodityServiceImpl implements AdminCommodityService {
             adminCommodityMapper.updateCommodity(commoditySaveDTO);
         }
 
+        // 将属性、商品、属性值关联起来
         List<AttributeOfCommoditySaveParam> attributeOfCommoditySaveParams = commoditySaveParam.getAttributeOfCommoditySaveParams();
-        adminAttributeValueService.saveAttributeValue(attributeOfCommoditySaveParams);
+        adminAttributeValueService.saveAttributeValue(attributeOfCommoditySaveParams, id);
 
-        if (commoditySaveParam.getId() == null) {
-        } else {
-
-        }
+        // 保存商品的sku属性
+        List<SkuAttributeOfCommoditySaveParam> skuAttributeOfCommoditySaveParams = commoditySaveParam.getSkuAttributeOfCommoditySaveParams();
+        adminSkuAttributeService.saveSkuAttributeValue(skuAttributeOfCommoditySaveParams, id);
     }
 
     @Override

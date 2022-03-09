@@ -1,5 +1,6 @@
 package pers.candyboyou.commodity.business.service.admin.impl;
 
+import io.candyboyou.common.utils.CollectionUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,10 @@ public class AdminAttributeValueServiceImpl implements AdminAttributeValueServic
     private AdminAttributeValueMapper adminAttributeValueMapper;
 
     @Override
-    public void saveAttributeValue(List<AttributeOfCommoditySaveParam> attributeOfCommoditySaveParams) {
-
+    public void saveAttributeValue(List<AttributeOfCommoditySaveParam> attributeOfCommoditySaveParams, Long commodityId) {
+        if (CollectionUtils.isEmpty(attributeOfCommoditySaveParams)) {
+            return;
+        }
+        adminAttributeValueMapper.saveAttributeValueOfCommodity(attributeOfCommoditySaveParams, commodityId);
     }
 }

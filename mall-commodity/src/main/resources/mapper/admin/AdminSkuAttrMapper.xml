@@ -21,6 +21,16 @@
             select_type = #{saveParam.selectedType}, value_list = #{saveParam.valueIds}
     </insert>
 
+    <insert id="saveSkuAttributeValue" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+            t_commodity_sku_attribute
+            (commodity_id, price, promotion_price, stock, lock_stock, low_stock)
+        VALUES
+        (<foreach collection="params" item="param" open="(" separator="," close=")">
+            #{id}, #{param.price}, #{param.promotionPrice}, #{param.stock}, #{param.lockStock}, #{param.lowStock}
+        </foreach>)
+    </insert>
+
     <update id="updateSupAttr">
         UPDATE
             t_commodity_sku_attribute
