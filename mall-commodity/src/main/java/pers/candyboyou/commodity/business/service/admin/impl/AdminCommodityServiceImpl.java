@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pers.candyboyou.commodity.business.mapper.admin.AdminCommodityMapper;
 import pers.candyboyou.commodity.business.model.dto.CommodityOfListDTO;
 import pers.candyboyou.commodity.business.model.dto.CommoditySaveDTO;
+import pers.candyboyou.commodity.business.model.dto.SkuAttributeValueDTO;
 import pers.candyboyou.commodity.business.model.entity.CommodityEntity;
 import pers.candyboyou.commodity.business.model.entity.SkuAttributeEntity;
 import pers.candyboyou.commodity.business.model.entity.SpuAttributeEntity;

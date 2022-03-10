@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import pers.candyboyou.commodity.business.mapper.admin.AdminSkuAttributeMapper;
 import pers.candyboyou.commodity.business.mapper.admin.AdminSkuAttributeRelationMapper;
 import pers.candyboyou.commodity.business.model.dto.SkuAttributeRelationDTO;
+import pers.candyboyou.commodity.business.model.dto.SkuAttributeValueDTO;
 import pers.candyboyou.commodity.business.model.entity.SkuAttributeEntity;
+import pers.candyboyou.commodity.business.model.param.admin.AttributeOfCommoditySaveParam;
 import pers.candyboyou.commodity.business.model.param.admin.SkuAttributeOfCommoditySaveParam;
 import pers.candyboyou.commodity.business.model.vo.admin.AttributeValueOfSkuVO;
 import pers.candyboyou.commodity.business.service.admin.AdminSkuAttributeService;
@@ -49,6 +51,9 @@ public class AdminSkuAttributeServiceImpl implements AdminSkuAttributeService {
         return skuIdToAttributeValueOfSkuVOMap;
     }
 
+    // skuid - attributeId - attributeValue
+    //       - attributeId - attributeValue
+    //       - attributeId - attributeValue
     @Override
     public void saveSkuAttributeValue(List<SkuAttributeOfCommoditySaveParam> skuAttributeOfCommoditySaveParams, Long id) {
         if (CollectionUtils.isEmpty(skuAttributeOfCommoditySaveParams)) {
@@ -56,6 +61,17 @@ public class AdminSkuAttributeServiceImpl implements AdminSkuAttributeService {
         }
         // 先将sku的库存值保存起来
         List<Long> skuIds = adminSkuAttributeMapper.saveSkuAttributeValue(skuAttributeOfCommoditySaveParams, id);
-        // 然后再将sku的值和属性关联起来
+        // 然后再将sku的id和属性关联起来
+        // 这个地方就是打平sku参数
+        List<SkuAttributeValueDTO> skuAttributeValueDTOS = new ArrayList<>();
+        for (SkuAttributeOfCommoditySaveParam skuAttributeOfCommoditySaveParam : skuAttributeOfCommoditySaveParams) {
+            List<AttributeOfCommoditySaveParam> attributeOfCommoditySaveParams = skuAttributeOfCommoditySaveParam.getAttributeOfCommoditySaveParams();
+            for (AttributeOfCommoditySaveParam attributeOfCommoditySaveParam : attributeOfCommoditySaveParams) {
+                SkuAttributeValueDTO skuAttributeValueDTO = new SkuAttributeValueDTO();
+                skuAttributeValueDTO.setSkuId(0L);
+                skuAttributeValueDTO.setAttributeId(0L);
+                skuAttributeValueDTO.setValueId(0L);
+            }
+        }
     }
 }
