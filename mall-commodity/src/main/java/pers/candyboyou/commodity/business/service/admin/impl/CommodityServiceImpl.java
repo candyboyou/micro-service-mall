@@ -34,7 +34,7 @@ public class CommodityServiceImpl implements CommodityService {
     private CategoryService categoryService;
 
     @Autowired
-    private DescriptionService descriptionService;
+    private ImgService imgService;
 
     @Autowired
     private SkuAttributeService skuAttributeService;
@@ -50,7 +50,7 @@ public class CommodityServiceImpl implements CommodityService {
         // 根据每一个的id获取对应的映射
         List<Long> spuIds = new ArrayList<>();
         List<Long> categoryIds = new ArrayList<>();
-        List<Long> descriptionIds = new ArrayList<>();
+        List<Long> commodityIds = new ArrayList<>();
         for (CommodityOfListDTO commodityOfListDTO : commodityOfList) {
             if (commodityOfListDTO == null) {
                 continue;
@@ -63,14 +63,11 @@ public class CommodityServiceImpl implements CommodityService {
             if (categoryId != null) {
                 categoryIds.add(categoryId);
             }
-            Long descriptionId = commodityOfListDTO.getDescriptionId();
-            if (descriptionId != null) {
-                descriptionIds.add(descriptionId);
-            }
+            commodityIds.add(commodityOfListDTO.getId());
         }
         Map<Long, SpuAttributeEntity> spuAttributeEntityMap = spuAttributeService.getSpuIdWithSpuByIds(spuIds);
         Map<Long, String> categoryIdToNameMap = categoryService.getCategoryNamesByIds(categoryIds);
-        Map<Long, String> descIdWithImgMap = descriptionService.getDescIdWithImgByIds(descriptionIds);
+        Map<Long, ImgVO> descIdWithImgMap = imgService.getMainImgUrlByCommodityIds(commodityIds);
         for (CommodityOfListDTO commodityOfListDTO : commodityOfList) {
             CommodityOfListVO commodityOfListVO =  CommodityOfListVO.convertCommodityOfListDTO(commodityOfListDTO);
             SpuAttributeEntity spuAttributeEntity = spuAttributeEntityMap.get(commodityOfListDTO.getSpuId());
@@ -78,7 +75,7 @@ public class CommodityServiceImpl implements CommodityService {
             commodityOfListVO.setSpuSale(spuAttributeEntity.getSale());
             String categoryName = categoryIdToNameMap.get(commodityOfListDTO.getCategoryId());
             commodityOfListVO.setCategoryName(categoryName);
-            String imgUrl = descIdWithImgMap.get(commodityOfListDTO.getDescriptionId());
+            String imgUrl = descIdWithImgMap.get(commodityOfListDTO.getImgUrl());
             commodityOfListVO.setImgUrl(imgUrl);
             commodityOfListVOS.add(commodityOfListVO);
         }
@@ -152,6 +149,9 @@ public class CommodityServiceImpl implements CommodityService {
         // 保存商品的sku属性
         List<SkuSaveParam> skuSaveParams = commoditySaveParam.getSkuSaveParams();
         skuAttributeService.saveSkuAttributeValue(skuSaveParams, id);
+
+        // 保存商品的图片
+
     }
 
     @Override

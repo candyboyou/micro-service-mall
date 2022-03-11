@@ -65,8 +65,8 @@ public class CommoditySaveParam {
     private List<SkuSaveParam> skuSaveParams;
 
     // 商品描述以及图片
-    @ApiModelProperty(value = "画册图片，连产品图片限制为5张，以逗号分割")
-    private String albumPics;
+    @ApiModelProperty(value = "商品图片。默认第一张为主图")
+    private List<String> albumPics;
 
     @ApiModelProperty(value = "详细描述")
     private String detailDesc;

@@ -78,6 +78,6 @@ public class SkuAttributeServiceImpl implements SkuAttributeService {
             }
         }
         // 保存sku对应的属性值
-
+        tCommoditySkuAttributeRelationMapper.batchInsertSkuAttribute(skuAttributeValueDTOS);
     }
 }

@@ -1,9 +1,6 @@
 package pers.candyboyou.commodity.business.model.dto;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
-import java.math.BigDecimal;
 
 @Data
 public class CommodityOfListDTO {
@@ -11,7 +8,7 @@ public class CommodityOfListDTO {
     /**
      * 商品id
      */
-    private String id;
+    private Long id;
 
     /**
      * 商品名称
@@ -44,9 +41,9 @@ public class CommodityOfListDTO {
     private Long spuId;
 
     /**
-     * 商品描述Id
+     * 商品主图Id
      */
-    private Long descriptionId;
+    private Long imgId;
 
     /**
      * 是否已审核

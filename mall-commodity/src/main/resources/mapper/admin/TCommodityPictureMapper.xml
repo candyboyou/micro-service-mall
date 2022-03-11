@@ -20,4 +20,9 @@
                     #{id}
                 </foreach>
     </select>
+
+    <select id="selectMainImgByCommodityIds" resultType="java.lang.String">
+       SELECT
+
+    </select>
 </mapper>

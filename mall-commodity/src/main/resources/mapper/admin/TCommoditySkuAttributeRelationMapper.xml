@@ -2,6 +2,18 @@
 
 <mapper namespace="pers.candyboyou.commodity.business.mapper.admin.TCommoditySkuAttributeRelationMapper">
 
+    <insert id="batchInsertSkuAttribute">
+        INSERT INTO
+            t_commodity_sku_attribute_relation
+            (sku_id, attribute_id, attribute_value_id, attribute_value)
+        VALUES
+            <foreach collection="params" item="param" open="(" separator="," close=")">
+              (
+               #{param.skuId}, #{param.attributeId}, #{param.attributeValueId}, #{param.attributeValue}
+                )
+            </foreach>
+    </insert>
+
     <select id="selectAttributesOfSkuBySkuIds"
             resultType="pers.candyboyou.commodity.business.model.dto.SkuAttributeRelationDTO">
         SELECT
