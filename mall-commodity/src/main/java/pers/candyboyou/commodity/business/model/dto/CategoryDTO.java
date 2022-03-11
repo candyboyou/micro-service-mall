@@ -1,6 +1,5 @@
 package pers.candyboyou.commodity.business.model.dto;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data

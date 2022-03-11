@@ -11,7 +11,7 @@ import pers.candyboyou.commodity.business.model.param.admin.CategorySearchParam;
 import pers.candyboyou.commodity.business.model.param.admin.RelateCategoryParam;
 import pers.candyboyou.commodity.business.model.vo.admin.CategoryVO;
 import pers.candyboyou.commodity.business.model.vo.admin.SimpleCommodityInfoVO;
-import pers.candyboyou.commodity.business.service.admin.AdminCategoryService;
+import pers.candyboyou.commodity.business.service.admin.CategoryService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,33 +23,33 @@ import java.util.List;
 public class CategoryController {
 
     @Autowired
-    private AdminCategoryService adminCategoryService;
+    private CategoryService categoryService;
 
     @ApiOperation(value = "配置商品分类")
     @PostMapping("/saveOrUpdate")
     public Result saveOrUpdateCategory(@RequestBody CategorySaveOrUpdateParam categorySaveOrUpdateParam) {
-        adminCategoryService.saveOrUpdateCategory(categorySaveOrUpdateParam);
+        categoryService.saveOrUpdateCategory(categorySaveOrUpdateParam);
         return Result.ok();
     }
 
     @ApiOperation(value = "获取分类列表")
     @GetMapping("/getCategories")
     public Result getCategories(CategorySearchParam searchParam) {
-        ListVO<CategoryVO> categories = adminCategoryService.getCategories(searchParam);
+        ListVO<CategoryVO> categories = categoryService.getCategories(searchParam);
         return Result.ok(categories);
     }
 
     @ApiOperation(value = "根据分类ID获取商品列表")
     @GetMapping("/getCommodities")
     public Result getCommodities(Long categoryId, QueryParam queryParam) {
-        ListVO<SimpleCommodityInfoVO> commodityInfoVOListVO = adminCategoryService.getSimpleCommodityInfos(categoryId, queryParam);
+        ListVO<SimpleCommodityInfoVO> commodityInfoVOListVO = categoryService.getSimpleCommodityInfos(categoryId, queryParam);
         return Result.ok(commodityInfoVOListVO);
     }
 
     @ApiOperation(value = "批量添加或删除分类下的商品")
     @PostMapping("/relateCommodities")
     public Result relateCommodities(RelateCategoryParam relateCategoryParam) {
-        adminCategoryService.relateCommodities(relateCategoryParam);
+        categoryService.relateCommodities(relateCategoryParam);
         return Result.ok();
     }
 

@@ -1,0 +1,25 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pers.candyboyou.commodity.business.mapper.admin.TCommoditySpuMapper">
+
+    <sql id="baseColumn">
+        id,
+        stock,
+        low_stock lowStock,
+        sale,
+        price
+    </sql>
+
+    <select id="selectSpuAttributeEntities"
+            resultType="pers.candyboyou.commodity.business.model.entity.SpuAttributeEntity">
+        SELECT
+            <include refid="baseColumn"></include>
+        FROM
+            t_commodity_spu
+        WHERE
+            id IN
+            <foreach collection="ids" item="id" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+    </select>
+</mapper>

@@ -1,0 +1,15 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pers.candyboyou.commodity.business.mapper.admin.TCommodityAttributeValueMapper">
+
+    <insert id="saveAttributeValueOfCommodity">
+        INSERT INTO
+            t_commodity_attribute_value
+            (attribute_id, commodity_id, value, sort)
+        VALUES
+            <foreach collection="saveParam" item="param" open="(" separator="," close=")">
+                (#{param.attributeId}, #{id}, #{param.value}, #{param.sort})
+            </foreach>
+    </insert>
+
+</mapper>

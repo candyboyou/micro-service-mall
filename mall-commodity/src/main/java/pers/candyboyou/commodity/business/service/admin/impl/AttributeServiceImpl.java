@@ -4,38 +4,42 @@ import io.candyboyou.common.framework.model.param.QueryParam;
 import io.candyboyou.common.framework.model.vo.ListVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pers.candyboyou.commodity.business.mapper.admin.AdminAttributeMapper;
-import pers.candyboyou.commodity.business.mapper.admin.AdminSkuAttributeMapper;
+import pers.candyboyou.commodity.business.mapper.admin.TCommodityAttributeMapper;
+import pers.candyboyou.commodity.business.mapper.admin.TCommoditySkuMapper;
+import pers.candyboyou.commodity.business.model.dto.AttributeIdWithIsSaleDTO;
 import pers.candyboyou.commodity.business.model.dto.SkuAttributeDTO;
 import pers.candyboyou.commodity.business.model.entity.AttributeEntity;
 import pers.candyboyou.commodity.business.model.param.admin.AttrParam;
 import pers.candyboyou.commodity.business.model.param.admin.SkuAttrParam;
+import pers.candyboyou.commodity.business.model.param.admin.SpuAttributeValueSaveParam;
 import pers.candyboyou.commodity.business.model.vo.admin.AttributeVO;
 import pers.candyboyou.commodity.business.model.vo.admin.SkuAttributeVO;
 import pers.candyboyou.commodity.business.service.admin.AttributeService;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class AttributeServiceImpl implements AttributeService {
 
     @Autowired
-    private AdminSkuAttributeMapper skuAttributeMapper;
+    private TCommoditySkuMapper tCommoditySkuMapper;
 
     @Autowired
-    private AdminAttributeMapper attributeMapper;
+    private TCommodityAttributeMapper tCommodityAttributeMapper;
 
     @Override
     public void saveOrUpdateSkuAttr(SkuAttrParam skuAttrParam) {
         if (skuAttrParam.getId() == null) {
-            skuAttributeMapper.insertSkuAttr(skuAttrParam);
+            tCommoditySkuMapper.insertSkuAttr(skuAttrParam);
             return;
         }
         if (skuAttrParam.getIsDelete() == 1) {
-            skuAttributeMapper.deleteSupAttrById(skuAttrParam.getId());
+            tCommoditySkuMapper.deleteSupAttrById(skuAttrParam.getId());
             return;
         }
-        skuAttributeMapper.updateSupAttr(skuAttrParam);
+        tCommoditySkuMapper.updateSupAttr(skuAttrParam);
     }
 
     @Override
@@ -44,9 +48,9 @@ public class AttributeServiceImpl implements AttributeService {
         if (attributeId == null) {
             return skuAttributeVOListVO;
         }
-        List<SkuAttributeDTO> skuAttributeDTOList = skuAttributeMapper.selectSkuAttributeDTOS(attributeId, queryParam);
+        List<SkuAttributeDTO> skuAttributeDTOList = tCommoditySkuMapper.selectSkuAttributeDTOS(attributeId, queryParam);
         List<SkuAttributeVO> skuAttributeVOS = SkuAttributeVO.convertSkuAttributeDTOS(skuAttributeDTOList);
-        int count = skuAttributeMapper.selectSkuAttributeDTOSCount(attributeId);
+        int count = tCommoditySkuMapper.selectSkuAttributeDTOSCount(attributeId);
         skuAttributeVOListVO.setList(skuAttributeVOS);
         skuAttributeVOListVO.setTotal(count);
         skuAttributeVOListVO.setPageNum(queryParam.getPageNum());
@@ -57,14 +61,14 @@ public class AttributeServiceImpl implements AttributeService {
     @Override
     public void saveOrUpdateAttr(AttrParam AttrParam) {
         if (AttrParam.getId() == null) {
-            attributeMapper.insertAttribute(AttrParam);
+            tCommodityAttributeMapper.insertAttribute(AttrParam);
             return;
         }
         if (AttrParam.getIsDelete() == 1) {
-            attributeMapper.deleteAttrById(AttrParam.getId());
+            tCommodityAttributeMapper.deleteAttrById(AttrParam.getId());
             return;
         }
-        attributeMapper.updateAttr(AttrParam);
+        tCommodityAttributeMapper.updateAttr(AttrParam);
     }
 
     @Override
@@ -73,14 +77,25 @@ public class AttributeServiceImpl implements AttributeService {
         if (attributeId == null) {
             return attributeVOListVO;
         }
-        List<AttributeEntity> attributeEntities = attributeMapper.selectAttributeDTOS(attributeId, queryParam);
+        List<AttributeEntity> attributeEntities = tCommodityAttributeMapper.selectAttributeDTOS(attributeId, queryParam);
         List<AttributeVO> AttributeVOS = AttributeVO.convertAttributeEntities(attributeEntities);
-        int count = attributeMapper.selectAttributeDTOSCount(attributeId);
+        int count = tCommodityAttributeMapper.selectAttributeDTOSCount(attributeId);
         attributeVOListVO.setList(AttributeVOS);
         attributeVOListVO.setTotal(count);
         attributeVOListVO.setPageNum(queryParam.getPageNum());
         attributeVOListVO.setPageNum(AttributeVOS.size());
         return attributeVOListVO;
+    }
+
+    @Override
+    public Map<Long, Integer> getAttributeIdToIsSaleMap(List<Long> attributeIds) {
+        List<AttributeIdWithIsSaleDTO> attributeIdWithIsSaleDTOS = tCommodityAttributeMapper.selectAttributeIdWithIsSale(attributeIds);
+        return attributeIdWithIsSaleDTOS.stream().collect(Collectors.toMap(AttributeIdWithIsSaleDTO::getId, AttributeIdWithIsSaleDTO::getIsSaleAttr));
+    }
+
+    @Override
+    public void saveAttributeValue(List<SpuAttributeValueSaveParam> spuAttributeValueSaveParams, Long id) {
+
     }
 
 }

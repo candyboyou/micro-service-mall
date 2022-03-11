@@ -58,11 +58,11 @@ public class CommoditySaveParam {
 
     // 商品属性太多，没法打平了
     @ApiModelProperty("商品详细属性")
-    private List<AttributeOfCommoditySaveParam> attributeOfCommoditySaveParams;
+    private List<SpuAttributeValueSaveParam> spuAttributeValueSaveParams;
 
     // sku属性同样没法打平
     @ApiModelProperty("sku属性")
-    private List<SkuAttributeOfCommoditySaveParam> skuAttributeOfCommoditySaveParams;
+    private List<SkuSaveParam> skuSaveParams;
 
     // 商品描述以及图片
     @ApiModelProperty(value = "画册图片，连产品图片限制为5张，以逗号分割")

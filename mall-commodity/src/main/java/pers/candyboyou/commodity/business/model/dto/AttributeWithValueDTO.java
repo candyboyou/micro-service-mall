@@ -3,13 +3,9 @@ package pers.candyboyou.commodity.business.model.dto;
 import lombok.Data;
 
 @Data
-public class SkuAttributeValueDTO {
-
-    private Long skuId;
+public class AttributeWithValueDTO {
 
     private Long attributeId;
 
     private Long valueId;
-
-    private String value;
 }
