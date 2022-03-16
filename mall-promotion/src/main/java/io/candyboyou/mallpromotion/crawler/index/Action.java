@@ -13,7 +13,7 @@ import lombok.Data;
  *                     "extra":"{\"page_title\":\"\全\线\拉\满\的\冷\血\旗\舰\",\"page_id\":\"23108\",\"sign\":\"04e551049c62ebf3c0b09197341693f1\"}",
  *                     "spm_stat": {
  *                         "spm_code": "cms_17131.3691379.1",
- *                         "spm_params":"{\"component\":\"homev4_gallery\",\"component_name\":\"\首\页4.0 \焦\点\图\配\置\",\"title\":\"\全\线\拉\满\的\冷\血\旗\舰\",\"img\":646758}",
+ *                         "spm_params":"{\"component\":\"homev4_gallery\",\"component_name\":\"\首\页4.0 \焦\点\图\配\置\",\"title\":\"\全\线\拉\满\的\冷\血\旗\舰\",\"picture\":646758}",
  *                         "scm": "cms.0.0.0.page.23108.0.0"
  *                     }
  */

@@ -32,11 +32,11 @@ public class SkuAttributeVO implements Serializable {
     @ApiModelProperty("属性值id list")
     private List<Long> valueIds;
 
-    public static List<SkuAttributeVO> convertSkuAttributeDTOS(List<SkuAttributeDTO> skuAttributeDTOList) {
+    public static List<SkuAttributeVO> convertSkuAttributeDTOs(List<SkuAttributeDTO> skuAttributeDTOList) {
         if (CollectionUtils.isEmpty(skuAttributeDTOList)) {
             return new ArrayList<>();
         }
-        List<SkuAttributeVO> skuAttributeVOS = new ArrayList<>(skuAttributeDTOList.size());
+        List<SkuAttributeVO> skuAttributeVOs = new ArrayList<>(skuAttributeDTOList.size());
         for (SkuAttributeDTO skuAttributeDTO : skuAttributeDTOList) {
             SkuAttributeVO skuAttributeVO = new SkuAttributeVO();
             skuAttributeVO.setId(skuAttributeDTO.getId());
@@ -45,8 +45,8 @@ public class SkuAttributeVO implements Serializable {
             String[] valueIdStrs = skuAttributeDTO.getValueListStr().split(",");
             List<Long> valueIds = Stream.of(valueIdStrs).map(Long::parseLong).toList();
             skuAttributeVO.setValueIds(valueIds);
-            skuAttributeVOS.add(skuAttributeVO);
+            skuAttributeVOs.add(skuAttributeVO);
         }
-        return skuAttributeVOS;
+        return skuAttributeVOs;
     }
 }

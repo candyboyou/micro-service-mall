@@ -50,7 +50,16 @@
             id = #{id}
     </delete>
 
-    <select id="selectAttributeDTOS"
+    <delete id="deleteByCommodityId">
+        UPDATE
+            t_commodity_attribute
+        SET
+            is_valid = 0
+        WHERE
+            commodity_id = #{commodityId}
+    </delete>
+
+    <select id="selectAttributeDTOs"
             resultType="pers.candyboyou.commodity.business.model.entity.AttributeEntity">
         SELECT
             id,
@@ -67,7 +76,7 @@
         LIMIT #{param.start}, #{param.pageSize}
     </select>
 
-    <select id="selectAttributeDTOSCount" resultType="java.lang.Integer">
+    <select id="selectAttributeDTOsCount" resultType="java.lang.Integer">
         SELECT
             count(*)
         FROM
@@ -86,6 +95,23 @@
         WHERE
             is_valid = 1
             AND
+            attribute_id
+            IN
+            <foreach collection="attributeIds" open="(" separator="," close=")" item="attributeId">
+                #{attributeId}
+            </foreach>
+    </select>
+
+    <select id="batchSelectAttributeNameByAttributeIds"
+            resultType="pers.candyboyou.commodity.business.model.dto.AttributeNameDTO">
+        SELECT
+            id,
+            name
+        FROM
+            t_commodity_attribute
+        WHERE
+            is_valid = 1
+        AND
             attribute_id
             IN
             <foreach collection="attributeIds" open="(" separator="," close=")" item="attributeId">

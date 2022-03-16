@@ -8,4 +8,6 @@ public class AttributeWithValueDTO {
     private Long attributeId;
 
     private Long valueId;
+
+    private String value;
 }

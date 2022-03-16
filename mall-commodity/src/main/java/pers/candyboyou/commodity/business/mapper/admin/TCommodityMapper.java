@@ -34,5 +34,13 @@ public interface TCommodityMapper {
 
     Long saveCommodity(@Param("saveParam") CommoditySaveDTO commoditySaveDTO);
 
-    void updateCommodity(CommoditySaveDTO commoditySaveDTO);
+    /**
+     * 更新商品的详情
+     */
+    void updateCommodity(@Param("updateParam") CommoditySaveDTO commodityUpdateDTO);
+
+    /**
+     * 根据商品的id删除商品
+     */
+    void deleteCommodity(Long id);
 }

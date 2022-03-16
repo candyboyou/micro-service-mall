@@ -3,6 +3,7 @@ package pers.candyboyou.commodity.business.model.dto;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import pers.candyboyou.commodity.business.model.param.admin.CommoditySaveParam;
+import pers.candyboyou.commodity.business.model.param.admin.CommodityUpdateParam;
 
 import java.math.BigDecimal;
 
@@ -47,17 +48,27 @@ public class CommoditySaveDTO {
 
     public static CommoditySaveDTO convertCommoditySaveParam(CommoditySaveParam commoditySaveParam) {
         CommoditySaveDTO commoditySaveDTO = new CommoditySaveDTO();
-        commoditySaveDTO.setId(commoditySaveParam.getId());
-        commoditySaveDTO.setName(commoditySaveParam.getName());
-        commoditySaveDTO.setDetailName(commoditySaveParam.getDetailName());
-        commoditySaveDTO.setIsPublish(commoditySaveParam.getIsPublish());
-        commoditySaveDTO.setIsNew(commoditySaveParam.getIsNew());
-        commoditySaveDTO.setIsRecommend(commoditySaveParam.getIsRecommend());
-        commoditySaveDTO.setVerifyStatus(commoditySaveParam.getVerifyStatus());
-        commoditySaveDTO.setIsPreview(commoditySaveParam.getIsPreview());
-        commoditySaveDTO.setSort(commoditySaveParam.getSort());
-        commoditySaveDTO.setCategoryId(commoditySaveParam.getCategoryId());
-        commoditySaveDTO.setDetailDesc(commoditySaveParam.getDetailDesc());
+        fillCommoditySaveDTO(commoditySaveDTO, commoditySaveParam);
         return commoditySaveDTO;
+    }
+
+    public static CommoditySaveDTO convertCommodityUpdateParam(CommodityUpdateParam commodityUpdateParam) {
+        CommoditySaveDTO commoditySaveDTO = new CommoditySaveDTO();
+        commoditySaveDTO.setId(commodityUpdateParam.getId());
+        fillCommoditySaveDTO(commoditySaveDTO, commodityUpdateParam);
+        return commoditySaveDTO;
+    }
+
+    private static void fillCommoditySaveDTO(CommoditySaveDTO commoditySaveDTO, CommoditySaveParam commodityParam) {
+        commoditySaveDTO.setName(commodityParam.getName());
+        commoditySaveDTO.setDetailName(commodityParam.getDetailName());
+        commoditySaveDTO.setIsPublish(commodityParam.getIsPublish());
+        commoditySaveDTO.setIsNew(commodityParam.getIsNew());
+        commoditySaveDTO.setIsRecommend(commodityParam.getIsRecommend());
+        commoditySaveDTO.setVerifyStatus(commodityParam.getVerifyStatus());
+        commoditySaveDTO.setIsPreview(commodityParam.getIsPreview());
+        commoditySaveDTO.setSort(commodityParam.getSort());
+        commoditySaveDTO.setCategoryId(commodityParam.getCategoryId());
+        commoditySaveDTO.setDetailDesc(commodityParam.getDetailDesc());
     }
 }

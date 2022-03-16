@@ -10,7 +10,7 @@ import pers.candyboyou.commodity.business.model.dto.SkuAttributeRelationDTO;
 import pers.candyboyou.commodity.business.model.dto.SkuAttributeValueDTO;
 import pers.candyboyou.commodity.business.model.entity.SkuAttributeEntity;
 import pers.candyboyou.commodity.business.model.param.admin.SkuSaveParam;
-import pers.candyboyou.commodity.business.model.param.admin.SpuAttributeValueSaveParam;
+import pers.candyboyou.commodity.business.model.param.admin.AttributeValueSaveParam;
 import pers.candyboyou.commodity.business.model.vo.admin.AttributeValueOfSkuVO;
 import pers.candyboyou.commodity.business.service.admin.SkuAttributeService;
 
@@ -36,17 +36,17 @@ public class SkuAttributeServiceImpl implements SkuAttributeService {
 
     @Override
     public Map<Long, List<AttributeValueOfSkuVO>> getSkuIdToAttributesMap(List<Long> skuIds) {
-        List<SkuAttributeRelationDTO> skuAttributeRelationDTOS =  tCommoditySkuAttributeRelationMapper.selectAttributesOfSkuBySkuIds(skuIds);
+        List<SkuAttributeRelationDTO> skuAttributeRelationDTOs =  tCommoditySkuAttributeRelationMapper.selectAttributesOfSkuBySkuIds(skuIds);
         Map<Long, List<AttributeValueOfSkuVO>> skuIdToAttributeValueOfSkuVOMap = new HashMap<>();
-        for (SkuAttributeRelationDTO skuAttributeRelationDTO : skuAttributeRelationDTOS) {
+        for (SkuAttributeRelationDTO skuAttributeRelationDTO : skuAttributeRelationDTOs) {
             AttributeValueOfSkuVO attributeValueOfSkuVO = AttributeValueOfSkuVO.convertAttributeWithValueDTO(skuAttributeRelationDTO);
             Long skuId = skuAttributeRelationDTO.getSkuId();
-            List<AttributeValueOfSkuVO> attributeValueOfSkuVOS = skuIdToAttributeValueOfSkuVOMap.get(skuId);
-            if (attributeValueOfSkuVOS == null) {
-                attributeValueOfSkuVOS = new ArrayList<>();
+            List<AttributeValueOfSkuVO> attributeValueOfSkuVOs = skuIdToAttributeValueOfSkuVOMap.get(skuId);
+            if (attributeValueOfSkuVOs == null) {
+                attributeValueOfSkuVOs = new ArrayList<>();
             }
-            attributeValueOfSkuVOS.add(attributeValueOfSkuVO);
-            skuIdToAttributeValueOfSkuVOMap.put(skuId, attributeValueOfSkuVOS);
+            attributeValueOfSkuVOs.add(attributeValueOfSkuVO);
+            skuIdToAttributeValueOfSkuVOMap.put(skuId, attributeValueOfSkuVOs);
         }
         return skuIdToAttributeValueOfSkuVOMap;
     }
@@ -63,21 +63,59 @@ public class SkuAttributeServiceImpl implements SkuAttributeService {
         List<Long> skuIds = tCommoditySkuMapper.saveSkuAttributeValue(skuSaveParams, id);
         // 然后再将sku的id和属性关联起来
         // 这个地方就是打平sku参数
-        List<SkuAttributeValueDTO> skuAttributeValueDTOS = new ArrayList<>();
+        List<SkuAttributeValueDTO> skuAttributeValueDTOs = new ArrayList<>();
         int i = 0;
         for (SkuSaveParam skuAttributeOfCommoditySaveParam : skuSaveParams) {
             Long skuId = skuIds.get(i++);
-            List<SpuAttributeValueSaveParam> attributeValueSaveParams = skuAttributeOfCommoditySaveParam.getSkuAttributeValueSaveParam();
-            for (SpuAttributeValueSaveParam attributeValueSaveParam : attributeValueSaveParams) {
+            List<AttributeValueSaveParam> attributeValueSaveParams = skuAttributeOfCommoditySaveParam.getSkuAttributeValueSaveParam();
+            for (AttributeValueSaveParam attributeValueSaveParam : attributeValueSaveParams) {
                 SkuAttributeValueDTO skuAttributeValueDTO = new SkuAttributeValueDTO();
                 skuAttributeValueDTO.setSkuId(skuId);
                 skuAttributeValueDTO.setAttributeId(attributeValueSaveParam.getAttributeId());
                 skuAttributeValueDTO.setValueId(attributeValueSaveParam.getAttributeValueId());
                 skuAttributeValueDTO.setValue(attributeValueSaveParam.getAttributeValue());
-                skuAttributeValueDTOS.add(skuAttributeValueDTO);
+                skuAttributeValueDTOs.add(skuAttributeValueDTO);
             }
         }
         // 保存sku对应的属性值
-        tCommoditySkuAttributeRelationMapper.batchInsertSkuAttribute(skuAttributeValueDTOS);
+        tCommoditySkuAttributeRelationMapper.batchInsertSkuAttribute(skuAttributeValueDTOs);
+    }
+
+    @Override
+    public void updateSkuAttributeValue(List<SkuSaveParam> skuUpdateParams, Long commodityId) {
+        if (CollectionUtils.isEmpty(skuUpdateParams)) {
+            return;
+        }
+        List<Long> newSkuIds = skuUpdateParams.stream().map(SkuSaveParam::getId).toList();
+        List<Long> delSkuIds = getSkuIdByCommodityId(commodityId);
+        delSkuIds.removeAll(newSkuIds);
+
+        // 删除响应的sku
+        if (CollectionUtils.isNotEmpty(delSkuIds)) {
+            tCommoditySkuMapper.batchDeleteSkuById(delSkuIds);
+        }
+        // 先将sku的库存值保存起来
+        tCommoditySkuMapper.batchUpdateSku(skuUpdateParams);
+        // 然后再将sku的id和属性关联起来
+        // 这个地方就是打平sku参数
+        List<SkuAttributeValueDTO> skuAttributeValueDTOs = new ArrayList<>();
+        for (SkuSaveParam skuUpdateParam : skuUpdateParams) {
+            Long skuId = skuUpdateParam.getId();
+            List<AttributeValueSaveParam> attributeValueSaveParams = skuUpdateParam.getSkuAttributeValueSaveParam();
+            for (AttributeValueSaveParam attributeValueSaveParam : attributeValueSaveParams) {
+                SkuAttributeValueDTO skuAttributeValueDTO = new SkuAttributeValueDTO();
+                skuAttributeValueDTO.setSkuId(skuId);
+                skuAttributeValueDTO.setAttributeId(attributeValueSaveParam.getAttributeId());
+                skuAttributeValueDTO.setValueId(attributeValueSaveParam.getAttributeValueId());
+                skuAttributeValueDTO.setValue(attributeValueSaveParam.getAttributeValue());
+                skuAttributeValueDTOs.add(skuAttributeValueDTO);
+            }
+        }
+        // 保存sku对应的属性值
+        tCommoditySkuAttributeRelationMapper.batchUpdateAttributeValueOfSku(skuAttributeValueDTOs);
+    }
+
+    private List<Long> getSkuIdByCommodityId(Long commodityId) {
+        return tCommoditySkuMapper.selectSkuIdsByCommodityId(commodityId);
     }
 }

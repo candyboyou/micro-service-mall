@@ -18,6 +18,10 @@ public interface TCommoditySkuAttributeRelationMapper {
     /**
      * 批量插入sku对应的属性以及属性值
      */
-    void batchInsertSkuAttribute(@Param("params") List<SkuAttributeValueDTO> skuAttributeValueDTOS);
+    void batchInsertSkuAttribute(@Param("params") List<SkuAttributeValueDTO> skuAttributeValueDTOs);
 
+    /**
+     * 更新sku对应属性的属性值
+     */
+    void batchUpdateAttributeValueOfSku(@Param("updateParams") List<SkuAttributeValueDTO> skuAttributeValueDTOs);
 }

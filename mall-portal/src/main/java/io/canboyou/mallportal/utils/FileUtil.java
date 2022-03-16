@@ -225,7 +225,7 @@ public class FileUtil {
     }
 
     public static void main(String[] args) {
-        String fileName = getFileName("https://img2.doubanio.com/view/photo/s_ratio_poster/public/p480747492.jpg");
+        String fileName = getFileName("https://picture2.doubanio.com/view/photo/s_ratio_poster/public/p480747492.jpg");
         System.out.println(fileName);
     }
 

@@ -59,24 +59,24 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public ListVO<CategoryVO> getCategories(CategorySearchParam searchParam) {
-        ListVO<CategoryVO> categoryVOSListVO = new ListVO<>();
+        ListVO<CategoryVO> categoryVOsListVO = new ListVO<>();
         List<CategoryDTO> categoryDTOList = tCommodityCategoryMapper.selectCategoriesBySearchParam(searchParam);
-        List<CategoryVO> categoryVOS = CategoryVO.convertCategoryDTOList(categoryDTOList);
+        List<CategoryVO> categoryVOs = CategoryVO.convertCategoryDTOList(categoryDTOList);
         int count = tCommodityCategoryMapper.selectCategoriesCountBySearchParam(searchParam);
-        categoryVOSListVO.setList(categoryVOS);
-        categoryVOSListVO.setTotal(count);
-        categoryVOSListVO.setPageNum(searchParam.getPageNum());
-        categoryVOSListVO.setPageSize(categoryVOS.size());
-        return categoryVOSListVO;
+        categoryVOsListVO.setList(categoryVOs);
+        categoryVOsListVO.setTotal(count);
+        categoryVOsListVO.setPageNum(searchParam.getPageNum());
+        categoryVOsListVO.setPageSize(categoryVOs.size());
+        return categoryVOsListVO;
     }
 
     @Override
     public ListVO<SimpleCommodityInfoVO> getSimpleCommodityInfos(Long categoryId, QueryParam queryParam) {
         ListVO<SimpleCommodityInfoVO> simpleCommodityInfoVOListVO = new ListVO<>();
         List<SimpleCommodityDTO> simpleCommodities = tCommodityMapper.selectSimpleCommodityByCategoryId(categoryId, queryParam);
-        List<SimpleCommodityInfoVO> simpleCommodityVOS = SimpleCommodityInfoVO.convertSimpleCommodities(simpleCommodities);
+        List<SimpleCommodityInfoVO> simpleCommodityVOs = SimpleCommodityInfoVO.convertSimpleCommodities(simpleCommodities);
         int count = tCommodityMapper.selectSimpleCommodityCountsByCategoryId(categoryId, queryParam);
-        simpleCommodityInfoVOListVO.setList(simpleCommodityVOS);
+        simpleCommodityInfoVOListVO.setList(simpleCommodityVOs);
         simpleCommodityInfoVOListVO.setTotal(count);
         simpleCommodityInfoVOListVO.setPageNum(queryParam.getPageNum());
         simpleCommodityInfoVOListVO.setPageSize(queryParam.getPageSize());
@@ -101,20 +101,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<AttributeValueVO> getAttributeValuesById(Long categoryId) {
-        List<AttributeWithValueDTO> AttributeWithValueDTOS = categoryAttributeRelationMapper.getAttributeIdsByCategoryId(categoryId);
-        List<Long> attributeIds = AttributeWithValueDTOS.stream().map(AttributeWithValueDTO::getAttributeId).toList();
-        Map<Long, Integer> attributeIdToIsSaleMap = attributeService.getAttributeIdToIsSaleMap(attributeIds);
-        List<AttributeValueVO> attributeValueVOS = new ArrayList<>(AttributeWithValueDTOS.size());
-        for (AttributeWithValueDTO AttributeWithValueDTO : AttributeWithValueDTOS) {
-            AttributeValueVO attributeValueVO = new AttributeValueVO();
-            Long attributeId = AttributeWithValueDTO.getAttributeId();
-            attributeValueVO.setAttributeId(attributeId);
-            attributeValueVO.setAttributeValueId(AttributeWithValueDTO.getValueId());
-            attributeValueVO.setIsSaleAttribute(attributeIdToIsSaleMap.get(attributeId));
-            attributeValueVOS.add(attributeValueVO);
+    public List<AttributeNameDTO> getAttributeNamesByCategoryId(Long categoryId) {
+        if (categoryId == null) {
+            return null;
         }
-        return attributeValueVOS;
+        return categoryAttributeRelationMapper.getAttributeNamesByCategoryId(categoryId);
     }
 
 

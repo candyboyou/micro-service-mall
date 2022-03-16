@@ -24,7 +24,7 @@ public class CommodityOfListVO implements Serializable {
     private String categoryName;
 
     @ApiModelProperty("商品主图")
-    private String imgUrl;
+    private String pictureUrl;
 
     @ApiModelProperty("商品价格")
     private BigDecimal spuPrice;

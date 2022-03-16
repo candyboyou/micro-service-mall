@@ -41,11 +41,6 @@ public class CommodityOfListDTO {
     private Long spuId;
 
     /**
-     * 商品主图Id
-     */
-    private Long imgId;
-
-    /**
      * 是否已审核
      */
     private Integer isVerify;

@@ -2,6 +2,7 @@ package pers.candyboyou.commodity.business.model.param.admin;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import pers.candyboyou.commodity.business.model.vo.admin.PictureVO;
 import pers.candyboyou.commodity.business.model.vo.admin.SkuAttributeDetailVO;
 
 import java.math.BigDecimal;
@@ -11,9 +12,6 @@ import java.util.List;
 public class CommoditySaveParam {
 
     // 商品信息
-    @ApiModelProperty(value = "商品id")
-    private Long id;
-
     @ApiModelProperty(value = "商品名称")
     private String name;
 
@@ -57,16 +55,19 @@ public class CommoditySaveParam {
     private Long categoryId;
 
     // 商品属性太多，没法打平了
-    @ApiModelProperty("商品详细属性")
-    private List<SpuAttributeValueSaveParam> spuAttributeValueSaveParams;
+    @ApiModelProperty("商品属性及对应的属性值")
+    private List<AttributeValueSaveParam> attributeValueSaveParams;
+
+    @ApiModelProperty("商品的附加属性及对应的属性值")
+    private List<AttributeValueSaveParam> otherAttributeValueSaveParams;
 
     // sku属性同样没法打平
     @ApiModelProperty("sku属性")
     private List<SkuSaveParam> skuSaveParams;
 
     // 商品描述以及图片
-    @ApiModelProperty(value = "商品图片。默认第一张为主图")
-    private List<String> albumPics;
+    @ApiModelProperty(value = "商品图片")
+    private List<PictureSaveParam> albumPics;
 
     @ApiModelProperty(value = "详细描述")
     private String detailDesc;

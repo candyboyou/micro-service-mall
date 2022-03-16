@@ -14,4 +14,9 @@ public interface SkuAttributeService {
     Map<Long, List<AttributeValueOfSkuVO>> getSkuIdToAttributesMap(List<Long> skuIds);
 
     void saveSkuAttributeValue(List<SkuSaveParam> skuSaveParams, Long id);
+
+    /**
+     * 批量更新商品的sku属性
+     */
+    void updateSkuAttributeValue(List<SkuSaveParam> skuSaveParams, Long commodityId);
 }

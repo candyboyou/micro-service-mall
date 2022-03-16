@@ -1,0 +1,65 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pers.candyboyou.commodity.business.mapper.admin.TCommodityOtherAttributeRelationMapper">
+
+    <sql id="baseColumn">
+        id,
+        commodity_id commodityId,
+        attribute_id attributeId,
+        attribute_value_id attributeValueId,
+        is_valid isValid,
+        create_time createTime,
+        update_time updateTime
+    </sql>
+
+    <insert id="insertAttributeValueOfCommodity">
+        INSERT INTO
+            t_commodity_other_attribute_relation
+            (attribute_id, commodity_id, attribute_value_id, attribute_value)
+        VALUES
+            <foreach collection="saveParams" item="saveParam" separator="," open="(" close=")">
+                (#{saveParam.attributeId}, #{commodityId}, #{saveParam.attributeValueId}, #{saveParam.attributeValue})
+            </foreach>
+    </insert>
+
+    <update id="deleteByCommodityId">
+        UPDATE
+            t_commodity_other_attribute_relation
+        SET
+            is_valid = 0
+        WHERE
+            commodity_id = #{commodityId}
+    </update>
+
+    <update id="updateAttributeValues">
+        UPDATE
+            t_commodity_other_attribute_relation
+            <trim prefix="set" suffixOverrides=",">
+                <trim prefix="attribute_value =case" suffix="end,">
+                    <foreach collection="updateParams" item="updateParam" index="index">
+                        <if test="updateParam.attributeValue!=null">
+                            WHEN attribute_id = #{updateParam.attributeId}
+                            THEN #{updateParam.attributeValue}
+                        </if>
+                    </foreach>
+                </trim>
+            </trim>
+        WHERE
+            id in
+            <foreach collection="updateParams" item="updateParam" index="index" separator="," open="(" close=")">
+                #{updateParam.attributeValueId}
+            </foreach>
+    </update>
+
+    <select id="selectEntityByCommodityId"
+            resultType="pers.candyboyou.commodity.business.model.entity.OtherAttributeRelationEntity">
+        SELECT
+            <include refid="baseColumn"></include>
+        FROM
+            t_commodity_other_attribute_relation
+        WHERE
+              commodity_id = #{commodityId}
+            AND
+              is_valid = 1
+    </select>
+</mapper>

@@ -14,6 +14,42 @@
             </foreach>
     </insert>
 
+    <update id="batchUpdateAttributeValueOfSku">
+        UPDATE
+            t_commodity_sku_attribute_relation
+            <trim prefix="set" suffixOverrides=",">
+                <trim prefix="attribute_id =case" suffix="end,">
+                    <foreach collection="updateParams" item="updateParam" index="index">
+                        <if test="updateParam.attributeId != null">
+                            WHEN id = #{updateParam.id}
+                            THEN #{updateParam.attributeId}
+                        </if>
+                    </foreach>
+                </trim>
+                <trim prefix="attribute_value_id =case" suffix="end,">
+                    <foreach collection="updateParams" item="updateParam" index="index">
+                        <if test="updateParam.attributeValueId != null">
+                            WHEN id = #{updateParam.id}
+                            THEN #{updateParam.attributeValueId}
+                        </if>
+                    </foreach>
+                </trim>
+                <trim prefix="attribute_value =case" suffix="end,">
+                    <foreach collection="updateParams" item="updateParam" index="index">
+                        <if test="updateParam.attributeValue != null">
+                            WHEN id = #{updateParam.id}
+                            THEN #{updateParam.attributeValue}
+                        </if>
+                    </foreach>
+                </trim>
+            </trim>
+        WHERE
+            id in
+            <foreach collection="updateParams" item="updateParam" index="index" separator="," open="(" close=")">
+                #{updateParam.id}
+            </foreach>
+    </update>
+
     <select id="selectAttributesOfSkuBySkuIds"
             resultType="pers.candyboyou.commodity.business.model.dto.SkuAttributeRelationDTO">
         SELECT

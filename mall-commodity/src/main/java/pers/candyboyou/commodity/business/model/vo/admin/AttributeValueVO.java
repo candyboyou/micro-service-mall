@@ -16,10 +16,13 @@ public class AttributeValueVO implements Serializable {
     @ApiModelProperty("属性Id")
     private Long attributeId;
 
+    @ApiModelProperty("属性名")
+    private String attributeName;
+
     @ApiModelProperty("属性值id")
     private Long attributeValueId;
 
-    @ApiModelProperty("是否是销售属性")
-    private Integer isSaleAttribute;
+    @ApiModelProperty("属性值")
+    private String attributeValue;
 
 }

@@ -2,14 +2,77 @@
 
 <mapper namespace="pers.candyboyou.commodity.business.mapper.admin.TCommodityAttributeValueMapper">
 
-    <insert id="saveAttributeValueOfCommodity">
+    <insert id="insertAttributeValueOfCommodity">
         INSERT INTO
             t_commodity_attribute_value
-            (attribute_id, commodity_id, value, sort)
-        VALUES
-            <foreach collection="saveParam" item="param" open="(" separator="," close=")">
-                (#{param.attributeId}, #{id}, #{param.value}, #{param.sort})
+            (attribute_id, commodity_id, value)
+            VALUES
+            <foreach collection="saveParams" item="saveParam" separator="," open="(" close=")">
+                (#{saveParam.attributeId}, #{commodityId}, #{saveParam.value})
             </foreach>
     </insert>
+
+    <update id="deleteByCommodityId">
+        UPDATE
+            t_commodity_attribute_value
+        SET
+            is_valid = 0
+        WHERE
+            commodity_id = #{commodityId}
+    </update>
+
+    <update id="updateAttributeValues">
+        UPDATE
+            t_commodity_attribute_value
+            <trim prefix="set" suffixOverrides=",">
+                <trim prefix="attribute_value =case" suffix="end,">
+                    <foreach collection="updateParams" item="updateParam" index="index">
+                        <if test="updateParam.attributeValue!=null">
+                            WHEN attribute_id = #{updateParam.attributeId}
+                            THEN #{updateParam.attributeValue}
+                        </if>
+                    </foreach>
+                </trim>
+            </trim>
+        WHERE
+            id in
+                <foreach collection="updateParams" item="updateParam" index="index" separator="," open="(" close=")">
+                    #{updateParam.attributeValueId}
+                </foreach>
+    </update>
+
+    <select id="batchSelectAttributeValueDTOByValueIds"
+            resultType="pers.candyboyou.commodity.business.model.dto.AttributeValueDTO">
+        SELECT
+            id,
+            name
+        FROM
+            t_commodity_attribute_value
+        WHERE
+            is_valid = 1
+            AND
+                id
+            IN
+                <foreach collection="valueIds" open="(" separator="," close=")" item="valueId">
+                    #{valueId}
+                </foreach>
+    </select>
+
+    <select id="batchSelectAttributeWithValueDTOByAttributeIdAndCommodity"
+            resultType="pers.candyboyou.commodity.business.model.dto.AttributeWithValueDTO">
+        SELECT
+            id valueId,
+            attribute_id attributeId,
+            value
+        FROM
+            t_commodity_attribute_value
+        WHERE
+            commodity_id = #{commodityId}
+          AND
+            attribute_id IN
+            <foreach collection="attributeIds" open="(" separator="," close=")" item="attributeId">
+                #{attributeId}
+            </foreach>
+    </select>
 
 </mapper>

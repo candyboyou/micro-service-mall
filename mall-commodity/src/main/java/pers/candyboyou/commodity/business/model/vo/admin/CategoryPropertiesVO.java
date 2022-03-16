@@ -9,8 +9,8 @@ import java.util.List;
 public class CategoryPropertiesVO {
 
     @ApiModelProperty("数量单位list")
-    private List<UnitVO> unitVOS;
+    private List<UnitVO> unitVOs;
 
     @ApiModelProperty("分类list")
-    private List<ParentCategoryVO> parentCategoryVOS;
+    private List<ParentCategoryVO> parentCategoryVOs;
 }

@@ -23,7 +23,7 @@ public class SkuAttributeDetailVO implements Serializable {
     private String skuNum;
 
     @ApiModelProperty("sku的属性list")
-    private List<AttributeValueOfSkuVO> attributeOfSKUVOS;
+    private List<AttributeValueOfSkuVO> attributeOfSKUVOs;
 
     @ApiModelProperty("价格")
     private BigDecimal price;
@@ -44,20 +44,20 @@ public class SkuAttributeDetailVO implements Serializable {
     private Integer sale;
 
     public static List<SkuAttributeDetailVO> convertSkuAttributeEntities(List<SkuAttributeEntity> skuAttributes, Map<Long, List<AttributeValueOfSkuVO>> skuIdToAttributeValueOfSkuVOMap) {
-        List<SkuAttributeDetailVO> skuAttributeDetailVOS = new ArrayList<>(skuAttributes.size());
+        List<SkuAttributeDetailVO> skuAttributeDetailVOs = new ArrayList<>(skuAttributes.size());
         for (SkuAttributeEntity skuAttribute : skuAttributes) {
             SkuAttributeDetailVO skuAttributeDetailVO = new SkuAttributeDetailVO();
             skuAttributeDetailVO.setId(skuAttribute.getId());
-            List<AttributeValueOfSkuVO> attributeValueOfSkuVOS = skuIdToAttributeValueOfSkuVOMap.get(skuAttribute.getId());
-            skuAttributeDetailVO.setAttributeOfSKUVOS(attributeValueOfSkuVOS);
+            List<AttributeValueOfSkuVO> attributeValueOfSkuVOs = skuIdToAttributeValueOfSkuVOMap.get(skuAttribute.getId());
+            skuAttributeDetailVO.setAttributeOfSKUVOs(attributeValueOfSkuVOs);
             skuAttributeDetailVO.setPrice(skuAttribute.getPrice());
             skuAttributeDetailVO.setPromotionPrice(skuAttribute.getPromotionPrice());
             skuAttributeDetailVO.setStock(skuAttribute.getStock());
             skuAttributeDetailVO.setLockStock(skuAttribute.getLockStock());
             skuAttributeDetailVO.setLowStock(skuAttribute.getLowStock());
             skuAttributeDetailVO.setSale(skuAttribute.getSale());
-            skuAttributeDetailVOS.add(skuAttributeDetailVO);
+            skuAttributeDetailVOs.add(skuAttributeDetailVO);
         }
-        return skuAttributeDetailVOS;
+        return skuAttributeDetailVOs;
     }
 }

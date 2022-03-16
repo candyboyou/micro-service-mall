@@ -4,14 +4,18 @@
 
     <select id="getAttributeIdsByCategoryId" resultType="pers.candyboyou.commodity.business.model.dto.AttributeWithValueDTO">
         SELECT
-            attribute_id attributeId,
-            attribute_value_id valueId
+            id,
+            name
         FROM
-            t_commodity_category_attribute_relation
-        WHERE
-            category_id = #{categoryId}
-            AND
-              is_valid = 1
+            t_commodity_attribute tca
+            RIGHT JOIN
+                (SELECT
+                     attribute_id
+                 FROM
+                     t_commodity_category_attribute_relation
+                 WHERE
+                     category_id in ()) temp
+            ON temp.attribute_id = tca.id;
     </select>
 
 </mapper>

@@ -54,6 +54,78 @@
             id = #{param.id}
     </update>
 
+    <update id="batchUpdateSku">
+        UPDATE
+            t_commodity_sku_attribute
+            <trim prefix="set" suffixOverrides=",">
+                <trim prefix="price =case" suffix="end,">
+                    <foreach collection="updateParams" item="updateParam" index="index">
+                        <if test="updateParam.price != null">
+                            WHEN id = #{updateParam.id}
+                            THEN #{updateParam.price}
+                        </if>
+                    </foreach>
+                </trim>
+                <trim prefix="promotion_price =case" suffix="end,">
+                    <foreach collection="updateParams" item="updateParam" index="index">
+                        <if test="updateParam.promotionPrice != null">
+                            WHEN id = #{updateParam.id}
+                            THEN #{updateParam.promotionPrice}
+                        </if>
+                    </foreach>
+                </trim>
+                <trim prefix="stock =case" suffix="end,">
+                    <foreach collection="updateParams" item="updateParam" index="index">
+                        <if test="updateParam.stock!=null">
+                            WHEN id = #{updateParam.id}
+                            THEN #{updateParam.stock}
+                        </if>
+                    </foreach>
+                </trim>
+                <trim prefix="lock_stock =case" suffix="end,">
+                    <foreach collection="updateParams" item="updateParam" index="index">
+                        <if test="updateParam.lockStock!=null">
+                            WHEN id = #{updateParam.id}
+                            THEN #{updateParam.lockStock}
+                        </if>
+                    </foreach>
+                </trim>
+                <trim prefix="low_stock =case" suffix="end,">
+                    <foreach collection="updateParams" item="updateParam" index="index">
+                        <if test="updateParam.lowStock!=null">
+                            WHEN id = #{updateParam.id}
+                            THEN #{updateParam.lowStock}
+                        </if>
+                    </foreach>
+                </trim>
+                <trim prefix="is_valid =case" suffix="end,">
+                    <foreach collection="updateParams" item="updateParam" index="index">
+                        <if test="updateParam.isDelete!=null">
+                            WHEN id = #{updateParam.id}
+                            THEN #{updateParam.isDelete}
+                        </if>
+                    </foreach>
+                </trim>
+            </trim>
+        WHERE
+            id in
+            <foreach collection="updateParams" item="updateParam" index="index" separator="," open="(" close=")">
+                #{updateParam.id}
+            </foreach>
+    </update>
+
+    <update id="batchDeleteSkuById">
+        UPDATE
+            t_commodity_sku_attribute
+        SET
+            is_valid = 0
+        WHERE
+            id in
+            <foreach collection="delSkuIds" item="skuId" index="index" separator="," open="(" close=")">
+                #{skuId}
+            </foreach>
+    </update>
+
     <delete id="deleteSupAttrById">
         DELETE
             t_commodity_sku_attribute
@@ -61,7 +133,7 @@
             id = #{id}
     </delete>
 
-    <select id="selectSkuAttributeDTOS"
+    <select id="selectSkuAttributeDTOs"
             resultType="pers.candyboyou.commodity.business.model.dto.SkuAttributeDTO">
         SELECT
             id,
@@ -75,13 +147,14 @@
         LIMIT #{queryParam.start}, #{queryParam.pageSize}
     </select>
 
-    <select id="selectSkuAttributeDTOSCount" resultType="java.lang.Integer">
+    <select id="selectSkuAttributeDTOsCount" resultType="java.lang.Integer">
         SELECT
             counts(*)
         FROM
             t_commodity_sku_attribute
         WHERE
             parent_attribute_id = #{attributeId}
+            AND is_valid = 1
     </select>
 
     <select id="selectSkuAttributeByCommodityId"
@@ -92,6 +165,18 @@
             t_commodity_sku_attribute
         WHERE
             commodity_id = #{id}
+            AND is_valid = 1
+    </select>
+
+    <select id="selectSkuIdsByCommodityId" resultType="java.lang.Long">
+        SELECT
+            id
+        FROM
+            t_commodity_sku_attribute
+        WHERE
+              commodity_id = #{id}
+            AND
+              is_valid = 1
     </select>
 
 </mapper>

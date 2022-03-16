@@ -71,15 +71,18 @@ public class CommodityDetailVO implements Serializable {
 
     // 商品属性太多，没法打平了
     @ApiModelProperty("商品详细属性")
-    private List<AttributeValueVO> attributeDetailVOS;
+    private List<AttributeValueVO> attributeDetailVOs;
+
+    @ApiModelProperty("其他的商品属性")
+    private List<AttributeValueVO> otherAttributeDetailVOs;
 
     // sku属性同样没法打平
     @ApiModelProperty("sku属性")
-    private List<SkuAttributeDetailVO> SkuAttributeVOS;
+    private List<SkuAttributeDetailVO> SkuAttributeVOs;
 
     // 商品描述以及图片
     @ApiModelProperty(value = "画册图片，连产品图片限制为5张，以逗号分割")
-    private String albumPics;
+    private List<PictureVO> pictureVOs;
 
     @ApiModelProperty(value = "商品分类名称")
     private String productCategoryName;

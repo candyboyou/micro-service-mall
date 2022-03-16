@@ -46,7 +46,7 @@ public class CategoryVO implements Serializable{
         if (CollectionUtils.isEmpty(categoryDTOList)) {
             return new ArrayList<>();
         }
-        List<CategoryVO> categoryVOS = new ArrayList<>(categoryDTOList.size());
+        List<CategoryVO> categoryVOs = new ArrayList<>(categoryDTOList.size());
         for (CategoryDTO categoryDTO : categoryDTOList) {
             CategoryVO categoryVO = new CategoryVO();
             categoryVO.setCategoryId(categoryDTO.getId());
@@ -57,8 +57,8 @@ public class CategoryVO implements Serializable{
             categoryVO.setUnitId(categoryDTO.getUnitId());
             categoryVO.setIsShow(categoryDTO.getIsShow());
             categoryVO.setDescription(categoryDTO.getDescription());
-            categoryVOS.add(categoryVO);
+            categoryVOs.add(categoryVO);
         }
-        return categoryVOS;
+        return categoryVOs;
     }
 }

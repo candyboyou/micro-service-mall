@@ -18,17 +18,17 @@ public class SimpleCommodityInfoVO implements Serializable {
 
     private String name;
 
-    public static List<SimpleCommodityInfoVO> convertSimpleCommodities(List<SimpleCommodityDTO> simpleCommodityDTOS) {
-        if (CollectionUtils.isEmpty(simpleCommodityDTOS)) {
+    public static List<SimpleCommodityInfoVO> convertSimpleCommodities(List<SimpleCommodityDTO> simpleCommodityDTOs) {
+        if (CollectionUtils.isEmpty(simpleCommodityDTOs)) {
             return new ArrayList<>();
         }
-        List<SimpleCommodityInfoVO> simpleCommodityInfoVOS = new ArrayList<>(simpleCommodityDTOS.size());
-        for (SimpleCommodityDTO simpleCommodityDTO : simpleCommodityDTOS) {
+        List<SimpleCommodityInfoVO> simpleCommodityInfoVOs = new ArrayList<>(simpleCommodityDTOs.size());
+        for (SimpleCommodityDTO simpleCommodityDTO : simpleCommodityDTOs) {
             SimpleCommodityInfoVO simpleCommodityInfoVO = new SimpleCommodityInfoVO();
             simpleCommodityInfoVO.setId(simpleCommodityDTO.getId());
             simpleCommodityInfoVO.setName(simpleCommodityDTO.getName());
-            simpleCommodityInfoVOS.add(simpleCommodityInfoVO);
+            simpleCommodityInfoVOs.add(simpleCommodityInfoVO);
         }
-        return simpleCommodityInfoVOS;
+        return simpleCommodityInfoVOs;
     }
 }

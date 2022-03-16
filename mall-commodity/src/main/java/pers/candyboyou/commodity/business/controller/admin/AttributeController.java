@@ -50,7 +50,7 @@ public class AttributeController {
     @ApiOperation("根据类型ID分页查询Concrete属性")
     @GetMapping("/getAttributes")
     public Result getAttributes(Long attributeId, QueryParam queryParam) {
-        ListVO<AttributeVO> attributeVOListVO = attributeService.getAttributeVOSById(attributeId, queryParam);
+        ListVO<AttributeVO> attributeVOListVO = attributeService.getAttributeVOsById(attributeId, queryParam);
         return Result.ok(attributeVOListVO);
     }
 

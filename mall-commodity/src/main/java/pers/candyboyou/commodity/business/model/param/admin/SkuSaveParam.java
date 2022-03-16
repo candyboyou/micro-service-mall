@@ -14,7 +14,7 @@ public class SkuSaveParam {
     private Long id;
 
     @ApiModelProperty("sku的属性list")
-    private List<SpuAttributeValueSaveParam> skuAttributeValueSaveParam;
+    private List<AttributeValueSaveParam> skuAttributeValueSaveParam;
 
     @ApiModelProperty("价格")
     private BigDecimal price;

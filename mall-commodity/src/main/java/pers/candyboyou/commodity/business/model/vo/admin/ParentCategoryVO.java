@@ -15,5 +15,5 @@ public class ParentCategoryVO {
     private String name;
 
     @ApiModelProperty("下一级分类list")
-    private List<ParentCategoryVO> parentCategoryVOS;
+    private List<ParentCategoryVO> parentCategoryVOs;
 }

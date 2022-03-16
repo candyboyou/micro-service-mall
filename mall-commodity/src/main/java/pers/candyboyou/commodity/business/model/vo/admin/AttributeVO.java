@@ -37,7 +37,7 @@ public class AttributeVO implements Serializable {
         if (CollectionUtils.isEmpty(attributeEntities)) {
             return new ArrayList<>();
         }
-        List<AttributeVO> attributeVOS = new ArrayList<>();
+        List<AttributeVO> attributeVOs = new ArrayList<>();
         for (AttributeEntity attributeEntity : attributeEntities) {
             AttributeVO attributeVO = new AttributeVO();
             attributeVO.setId(attributeEntity.getId());
@@ -46,8 +46,8 @@ public class AttributeVO implements Serializable {
             attributeVO.setIsMultiple(attributeEntity.getIsMultiple());
             attributeVO.setIsRequired(attributeEntity.getIsRequired());
             attributeVO.setSort(attributeEntity.getSort());
-            attributeVOS.add(attributeVO);
+            attributeVOs.add(attributeVO);
         }
-        return attributeVOS;
+        return attributeVOs;
     }
 }

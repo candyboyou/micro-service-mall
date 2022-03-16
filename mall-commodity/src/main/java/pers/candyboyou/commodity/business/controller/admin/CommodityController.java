@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pers.candyboyou.commodity.business.model.param.admin.CommoditySaveParam;
 import pers.candyboyou.commodity.business.model.param.admin.CommoditySearchParam;
 import pers.candyboyou.commodity.business.model.param.admin.CommodityStatusParam;
+import pers.candyboyou.commodity.business.model.param.admin.CommodityUpdateParam;
 import pers.candyboyou.commodity.business.model.vo.admin.CommodityDetailVO;
 import pers.candyboyou.commodity.business.model.vo.admin.CommodityOfListVO;
 import pers.candyboyou.commodity.business.service.admin.CommodityService;
@@ -27,8 +28,8 @@ public class CommodityController {
 
     @ApiOperation("分页查询商品list")
     @GetMapping("/getCommodities")
-    public Result getCommodityVOS(CommoditySearchParam commoditySearchParam) {
-        ListVO<CommodityOfListVO> commodityListVO = commodityService.getCommodityVOS(commoditySearchParam);
+    public Result getCommodityVOs(CommoditySearchParam commoditySearchParam) {
+        ListVO<CommodityOfListVO> commodityListVO = commodityService.getCommodityVOs(commoditySearchParam);
         return Result.ok(commodityListVO);
     }
 
@@ -39,11 +40,17 @@ public class CommodityController {
         return Result.ok(commodityDetailVO);
     }
 
-    @ApiOperation("保存、更新、删除商品详情")
-    @PostMapping("/saveOrUpdateCommodity")
-    public Result saveOrUpdateCommodity(CommoditySaveParam commoditySaveParams) {
-        commodityService.saveOrUpdateCommodity(commoditySaveParams);
+    @ApiOperation("保存商品详情")
+    @PostMapping("/newCommodity")
+    public Result newCommodity(CommoditySaveParam commoditySaveParam) {
+        commodityService.newCommodity(commoditySaveParam);
         return Result.ok();
+    }
+
+    @ApiOperation("更新、删除商品")
+    @PostMapping("/updateCommodity")
+        public Result updateCommodity(CommodityUpdateParam commodityUpdateParam) {
+        commodityService.updateCommodity(commodityUpdateParam);
     }
 
     @ApiModelProperty("在页面上更新商品信息")

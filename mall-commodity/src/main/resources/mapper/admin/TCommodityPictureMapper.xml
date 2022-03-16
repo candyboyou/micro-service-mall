@@ -2,13 +2,79 @@
 
 <mapper namespace="pers.candyboyou.commodity.business.mapper.admin.TCommodityPictureMapper">
 
-    <select id="selectDescIdWithImgByIds"
-            resultType="pers.candyboyou.commodity.business.model.dto.DescIdWithImgDTO">
+    <sql id="baseColumn">
+        id,
+        commodity_id commodityId,
+        picture_url pictureUrl,
+        is_main isMain
+    </sql>
+
+    <insert id="batchInsertPicturesByCommodityId">
+        INSERT INTO
+            t_commodity_picture
+            (commodity_id, img_url, is_main)
+        VALUES
+            <foreach collection="albumPics" item="pic" open="(" separator="," close=")">
+                (#{pic.commodityId}, #{pic.imgUrl}, #{pic.isMain})
+            </foreach>
+    </insert>
+
+    <update id="deleteByCommodityId">
+        UPDATE
+            t_commodity_picture
+        SET
+            is_valid = 0
+        WHERE
+            commodity_id = #{commodityId}
+    </update>
+
+    <update id="batchUpdatePicture">
+        UPDATE
+            t_commodity_picture
+            <trim prefix="set" suffixOverrides=",">
+                <trim prefix="picture_url = case id" suffix="end,">
+                    <foreach collection="updateParams" item="updateParam">
+                        <if test="updateParam.pictureUrl != null and updateParam.pictureUrl != ''">
+                            WHEN #{updateParam.id}
+                            THEN #{updateParam.pictureUrl}
+                        </if>
+                    </foreach>
+                </trim>
+                <trim prefix="is_main = case id" suffix="end,">
+                    <foreach collection="updateParams" item="updateParam">
+                        <if test="updateParam.isMain!=null">
+                            WHEN #{updateParam.id}
+                            THEN #{updateParam.isMain}
+                        </if>
+                    </foreach>
+                </trim>
+            </trim>
+        WHERE
+            id in
+            <foreach collection="updateParams" item="updateParam" separator="," open="(" close=")">
+                #{updateParam.id}
+            </foreach>
+    </update>
+
+    <update id="batchDeleteByPictureIds">
+        UPDATE
+            t_commodity_picture
+        SET
+            is_valid = 0
+        WHERE
+            id IN
+            <foreach collection="pictureIds" item="pictureId" open="(" separator="," close=")">
+                #{pictureId}
+            </foreach>
+    </update>
+
+    <select id="selectMainPictureByCommodityIds"
+            resultType="pers.candyboyou.commodity.business.model.dto.PictureDTO">
         SELECT
-            id,
-            img_url imgUrl
+            commodity_id commodityId,
+            picture_url pictureUrl
         FROM
-            t_commodity_detail
+            t_commodity_picture
         WHERE
                 is_valid = 1
             AND
@@ -16,13 +82,31 @@
             AND
                 id
                 IN
-                <foreach collection="ids" item="id" open="(" separator="," close=")">
-                    #{id}
+                <foreach collection="commodityIds" item="commodityId" open="(" separator="," close=")">
+                    #{commodityId}
                 </foreach>
     </select>
 
-    <select id="selectMainImgByCommodityIds" resultType="java.lang.String">
-       SELECT
-
+    <select id="selectPicturesByCommodityId" resultType="pers.candyboyou.commodity.business.model.dto.PictureDTO">
+        SELECT
+            <include refid="baseColumn"></include>
+        FROM
+            t_commodity_picture
+        WHERE
+            commodity_id = #{id}
+        AND
+            is_valid = 1
     </select>
+
+    <select id="selectPictureIdsByCommodityId" resultType="java.lang.Long">
+        SELECT
+            id
+        FROM
+            t_commodity_picture
+        WHERE
+            commodity_id = #{commodityId}
+          AND
+            is_valid = 1
+    </select>
+
 </mapper>

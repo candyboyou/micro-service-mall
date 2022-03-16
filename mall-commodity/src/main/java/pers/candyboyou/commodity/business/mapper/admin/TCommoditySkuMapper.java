@@ -21,11 +21,26 @@ public interface TCommoditySkuMapper {
 
     void updateSupAttr(@Param("param") SkuAttrParam skuAttrParam);
 
-    List<SkuAttributeDTO> selectSkuAttributeDTOS(Long attributeId, @Param("queryParam") QueryParam queryParam);
+    List<SkuAttributeDTO> selectSkuAttributeDTOs(Long attributeId, @Param("queryParam") QueryParam queryParam);
 
-    int selectSkuAttributeDTOSCount(Long attributeId);
+    int selectSkuAttributeDTOsCount(Long attributeId);
 
     List<SkuAttributeEntity> selectSkuAttributeByCommodityId(Long id);
 
     List<Long> saveSkuAttributeValue(@Param("params") List<SkuSaveParam> skuSaveParams, Long id);
+
+    /**
+     * 更新sku的属性值
+     */
+    void batchUpdateSku(@Param("updateParams") List<SkuSaveParam> skuUpdateParams);
+
+    /**
+     * 查询数据库中商品对应的skuId list
+     */
+    List<Long> selectSkuIdsByCommodityId(Long commodityId);
+
+    /**
+     * 批量删除id的sku
+     */
+    void batchDeleteSkuById(@Param("delSkuIds") List<Long> delSkuIds);
 }

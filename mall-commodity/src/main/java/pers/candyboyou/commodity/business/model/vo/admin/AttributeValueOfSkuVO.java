@@ -7,6 +7,7 @@ import pers.candyboyou.commodity.business.model.dto.SkuAttributeRelationDTO;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Data
@@ -20,15 +21,15 @@ public class AttributeValueOfSkuVO implements Serializable {
     @ApiModelProperty("属性值ID")
     private Long valueId;
 
-    public static List<AttributeValueOfSkuVO> convertAttributeWithValueDTOS(List<SkuAttributeRelationDTO> attributeWithValueDTOS) {
-        List<AttributeValueOfSkuVO> AttributeValueOfSkuVOS = new ArrayList<>(attributeWithValueDTOS.size());
-        for (SkuAttributeRelationDTO attributeWithValueDTO : attributeWithValueDTOS) {
+    public static List<AttributeValueOfSkuVO> convertAttributeWithValueDTOs(List<SkuAttributeRelationDTO> attributeWithValueDTOs) {
+        List<AttributeValueOfSkuVO> AttributeValueOfSkuVOs = new ArrayList<>(attributeWithValueDTOs.size());
+        for (SkuAttributeRelationDTO attributeWithValueDTO : attributeWithValueDTOs) {
             AttributeValueOfSkuVO AttributeValueOfSkuVO = new AttributeValueOfSkuVO();
             AttributeValueOfSkuVO.setAttributeId(attributeWithValueDTO.getAttributeId());
             AttributeValueOfSkuVO.setValueId(attributeWithValueDTO.getValueId());
-            AttributeValueOfSkuVOS.add(AttributeValueOfSkuVO);
+            AttributeValueOfSkuVOs.add(AttributeValueOfSkuVO);
         }
-        return AttributeValueOfSkuVOS;
+        return AttributeValueOfSkuVOs;
     }
 
     public static AttributeValueOfSkuVO convertAttributeWithValueDTO(SkuAttributeRelationDTO skuAttributeRelationDTO) {

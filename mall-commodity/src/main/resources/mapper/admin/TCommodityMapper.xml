@@ -90,8 +90,52 @@
     </update>
 
     <update id="updateCommodity">
-
+        UPDATE
+            t_commodity
+        <set>
+            <if test="updateParam.name != null">
+                name = #{updateParam.name},
+            </if>
+            <if test="updateParam.detailName != null">
+                detail_name = #{updateParam.detailName},
+            </if>
+            <if test="updateParam.isPublish != null">
+                is_publish = #{updateParam.isPublish},
+            </if>
+            <if test="updateParam.isNew != null">
+                is_new = #{updateParam.isNew},
+            </if>
+            <if test="updateParam.isRecommend != null">
+                is_recommend = #{updateParam.isRecommend},
+            </if>
+            <if test="updateParam.isPreview != null">
+                is_preview = #{updateParam.isPreview},
+            </if>
+            <if test="updateParam.detailName != null">
+                detail_name = #{updateParam.detailName},
+            </if>
+            <if test="updateParam.categoryId != null">
+                category_id = #{updateParam.category_id},
+            </if>
+            <if test="updateParam.spuId != null">
+                spu_id = #{updateParam.spuId},
+            </if>
+            <if test="updateParam.isDelete != null">
+                is_delete = #{updateParam.isDelete},
+            </if>
+        </set>
+        WHERE
+            id = #{commodityStatusParam.id}
     </update>
+
+    <delete id="deleteCommodity">
+        UPDATE
+            t_commodity
+        SET
+            is_valid = 0
+        WHERE
+            id = #{id}
+    </delete>
 
     <select id="selectSimpleCommodityByCategoryId"
             resultType="pers.candyboyou.commodity.business.model.dto.SimpleCommodityDTO">

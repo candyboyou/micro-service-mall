@@ -2,6 +2,7 @@ package pers.candyboyou.commodity.business.service.admin;
 
 import io.candyboyou.common.framework.model.param.QueryParam;
 import io.candyboyou.common.framework.model.vo.ListVO;
+import pers.candyboyou.commodity.business.model.dto.AttributeNameDTO;
 import pers.candyboyou.commodity.business.model.param.admin.CategorySaveOrUpdateParam;
 import pers.candyboyou.commodity.business.model.param.admin.CategorySearchParam;
 import pers.candyboyou.commodity.business.model.param.admin.RelateCategoryParam;
@@ -26,6 +27,9 @@ public interface CategoryService {
 
     Map<Long, String> getCategoryNamesByIds(List<Long> categoryIds);
 
-    List<AttributeValueVO> getAttributeValuesById(Long categoryId);
+    /**
+     * 根据分类ID获取对应的属性list
+     */
+    List<AttributeNameDTO> getAttributeNamesByCategoryId(Long categoryId);
 
 }
