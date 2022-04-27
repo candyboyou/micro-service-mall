@@ -1,12 +1,17 @@
 package pers.candyboyou.commodity.business.model.vo.admin;
 
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 import io.candyboyou.common.utils.CollectionUtils;
+import io.candyboyou.common.utils.StringUtils;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import pers.candyboyou.commodity.business.model.dto.AttributeOfListDTO;
 import pers.candyboyou.commodity.business.model.entity.AttributeEntity;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,19 +24,24 @@ public class AttributeVO implements Serializable {
     private Long id;
 
     @ApiModelProperty("属性名称")
-    private Integer isSearch;
+    private String name;
 
     @ApiModelProperty("是否是销售属性")
-    private Integer isSaleAttr;
+    private Integer isSale;
 
-    @ApiModelProperty("是否多选")
-    private Integer isMultiple;
+    @ApiModelProperty("属性选择类型")
+    private Integer selectType;
 
-    @ApiModelProperty("是否必选")
-    private Integer isRequired;
+    @ApiModelProperty("属性录入方式")
+    private Integer inputType;
 
-    @ApiModelProperty("排序字段")
-    private Integer sort;
+    @ApiModelProperty("是否支持检索")
+    private Integer searchType;
+
+    @ApiModelProperty("是否启用")
+    private Integer isValid;
+
+    private List<String> attributeValues;
 
     public static List<AttributeVO> convertAttributeEntities(List<AttributeEntity> attributeEntities) {
         if (CollectionUtils.isEmpty(attributeEntities)) {
@@ -39,15 +49,27 @@ public class AttributeVO implements Serializable {
         }
         List<AttributeVO> attributeVOs = new ArrayList<>();
         for (AttributeEntity attributeEntity : attributeEntities) {
-            AttributeVO attributeVO = new AttributeVO();
-            attributeVO.setId(attributeEntity.getId());
-            attributeVO.setIsSearch(attributeEntity.getIsSearch());
-            attributeVO.setIsSaleAttr(attributeEntity.getIsSaleAttr());
-            attributeVO.setIsMultiple(attributeEntity.getIsMultiple());
-            attributeVO.setIsRequired(attributeEntity.getIsRequired());
-            attributeVO.setSort(attributeEntity.getSort());
+            AttributeVO attributeVO = convertAttributeEntity(attributeEntity);
             attributeVOs.add(attributeVO);
         }
         return attributeVOs;
+    }
+
+    public static AttributeVO convertAttributeEntity(AttributeEntity attributeEntity) {
+        AttributeVO attributeVO = new AttributeVO();
+        attributeVO.setId(attributeEntity.getId());
+        attributeVO.setName(attributeEntity.getName());
+        attributeVO.setSearchType(attributeEntity.getSearchType());
+        attributeVO.setInputType(attributeEntity.getInputType());
+        attributeVO.setSearchType(attributeEntity.getSearchType());
+        attributeVO.setIsValid(attributeEntity.getIsValid());
+        attributeVO.setIsSale(attributeEntity.getIsSale());
+        String attributeValues = attributeEntity.getAttributeValues();
+        if (StringUtils.isNotBlank(attributeValues)) {
+            Type type = new TypeToken<List<String>>() {}.getType();
+            List<String> attributeValuesStr = new Gson().fromJson(attributeValues, type);
+            attributeVO.setAttributeValues(attributeValuesStr);
+        }
+        return attributeVO;
     }
 }

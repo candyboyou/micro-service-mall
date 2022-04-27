@@ -55,30 +55,31 @@ public class SkuAttributeServiceImpl implements SkuAttributeService {
     //       - attributeId - attributeValue
     //       - attributeId - attributeValue
     @Override
-    public void saveSkuAttributeValue(List<SkuSaveParam> skuSaveParams, Long id) {
+    public void saveSkuAttributeValue(List<SkuSaveParam> skuSaveParams, Long commodityId) {
         if (CollectionUtils.isEmpty(skuSaveParams)) {
             return;
         }
         // 先将sku的库存值保存起来
-        List<Long> skuIds = tCommoditySkuMapper.saveSkuAttributeValue(skuSaveParams, id);
+//        List<Long> skuIds = tCommoditySkuMapper.saveSkuAttributeValue(skuSaveParams, commodityId);
+        tCommoditySkuMapper.saveSingleSkuAttributeValue(skuSaveParams.get(0));
         // 然后再将sku的id和属性关联起来
         // 这个地方就是打平sku参数
-        List<SkuAttributeValueDTO> skuAttributeValueDTOs = new ArrayList<>();
-        int i = 0;
-        for (SkuSaveParam skuAttributeOfCommoditySaveParam : skuSaveParams) {
-            Long skuId = skuIds.get(i++);
-            List<AttributeValueSaveParam> attributeValueSaveParams = skuAttributeOfCommoditySaveParam.getSkuAttributeValueSaveParam();
-            for (AttributeValueSaveParam attributeValueSaveParam : attributeValueSaveParams) {
-                SkuAttributeValueDTO skuAttributeValueDTO = new SkuAttributeValueDTO();
-                skuAttributeValueDTO.setSkuId(skuId);
-                skuAttributeValueDTO.setAttributeId(attributeValueSaveParam.getAttributeId());
-                skuAttributeValueDTO.setValueId(attributeValueSaveParam.getAttributeValueId());
-                skuAttributeValueDTO.setValue(attributeValueSaveParam.getAttributeValue());
-                skuAttributeValueDTOs.add(skuAttributeValueDTO);
-            }
-        }
-        // 保存sku对应的属性值
-        tCommoditySkuAttributeRelationMapper.batchInsertSkuAttribute(skuAttributeValueDTOs);
+//        List<SkuAttributeValueDTO> skuAttributeValueDTOs = new ArrayList<>();
+//        int i = 0;
+//        for (SkuSaveParam skuAttributeOfCommoditySaveParam : skuSaveParams) {
+//            Long skuId = skuIds.get(i++);
+//            List<AttributeValueSaveParam> attributeValueSaveParams = skuAttributeOfCommoditySaveParam.getSkuAttributeValueSaveParam();
+//            for (AttributeValueSaveParam attributeValueSaveParam : attributeValueSaveParams) {
+//                SkuAttributeValueDTO skuAttributeValueDTO = new SkuAttributeValueDTO();
+//                skuAttributeValueDTO.setSkuId(skuId);
+//                skuAttributeValueDTO.setAttributeId(attributeValueSaveParam.getAttributeId());
+//                skuAttributeValueDTO.setValueId(attributeValueSaveParam.getAttributeValueId());
+//                skuAttributeValueDTO.setValue(attributeValueSaveParam.getAttributeValue());
+//                skuAttributeValueDTOs.add(skuAttributeValueDTO);
+//            }
+//        }
+//        // 保存sku对应的属性值
+//        tCommoditySkuAttributeRelationMapper.batchInsertSkuAttribute(skuAttributeValueDTOs);
     }
 
     @Override

@@ -12,5 +12,5 @@ public class CategoryPropertiesVO {
     private List<UnitVO> unitVOs;
 
     @ApiModelProperty("分类list")
-    private List<ParentCategoryVO> parentCategoryVOs;
+    private List<ParentCategoryBaseVO> parentCategoryBaseVOs;
 }

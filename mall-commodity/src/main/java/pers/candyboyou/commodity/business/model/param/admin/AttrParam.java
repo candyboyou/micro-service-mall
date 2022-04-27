@@ -8,24 +8,27 @@ import java.util.List;
 @Data
 public class AttrParam {
 
-    @ApiModelProperty("主键id")
+    @ApiModelProperty("属性id")
     private Long id;
 
-    @ApiModelProperty("属性id")
-    private Long attributeId;
+    @ApiModelProperty("属性名称")
+    private String name;
 
-    @ApiModelProperty("是否是销售属性")
-    private Integer isSaleAttr;
+    @ApiModelProperty("属性录入方式：0->手工录入；1->从列表中选取")
+    private Integer inputType;
 
-    @ApiModelProperty("是否多选")
-    private Integer isMultiple;
+    @ApiModelProperty("是否是销售属性；0->否；1->是")
+    private Integer isSale;
 
-    @ApiModelProperty("是否必选")
-    private Integer isRequired;
+    @ApiModelProperty("属性选择类型：0->单选；1->多选")
+    private Integer selectType;
 
-    @ApiModelProperty("排序字段")
-    private Integer sort;
+    @ApiModelProperty("检索类型；0->不支持检索；1->支持检索")
+    private Integer searchType;
 
-    @ApiModelProperty("是否删除")
-    private Integer isDelete = 0;
+    @ApiModelProperty("预置选项")
+    private List<String> attributeValues;
+
+    @ApiModelProperty("是否禁用")
+    private Integer isValid;
 }

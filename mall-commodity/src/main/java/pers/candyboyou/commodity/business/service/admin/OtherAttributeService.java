@@ -1,7 +1,7 @@
 package pers.candyboyou.commodity.business.service.admin;
 
 import io.candyboyou.common.framework.model.param.QueryParam;
-import io.candyboyou.common.framework.model.vo.ListVO;
+import io.candyboyou.common.framework.model.vo.PageResult;
 import org.apache.ibatis.annotations.Param;
 import pers.candyboyou.commodity.business.model.param.admin.AttributeValueSaveParam;
 import pers.candyboyou.commodity.business.model.vo.admin.AttributeValueVO;

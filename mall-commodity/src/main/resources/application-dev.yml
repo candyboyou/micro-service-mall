@@ -1,34 +1,13 @@
-#logging.config=classpath:logback-spring.xml
-#security.basic.enabled=false
-#security.enable-csrf=false
-#endpoints.enabled=true
-#
-#rpc.registry.name=zookeeper
-#
-#spring.datasource.sql-script-encoding=utf-8
-#spring.datasource.platform=mysql
-#spring.datasource.initialize=false
-#
-#spring.http.encoding.force=true
-#spring.http.encoding.charset=UTF-8
-#spring.http.encoding.enabled=true
-#server.tomcat.uri-encoding=UTF-8
-#spring.profiles.active=local
-#spring.http.multipart.maxFileSize=700Mb
-#spring.http.multipart.maxRequestSize=700Mb
-#
-#spring.freemarker.template-loader-path=classpath:/static/
-#spring.jackson.default-property-inclusion=non_null
-
 spring:
   application:
-    name: mallpromotion
-  profiles:
-    active: local
+    name: commodity
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 
 server:
   servlet:
-    context-path: /mall_promotion
+    context-path: /commodity
     encoding:
       charset: UTF-8
       force: true
@@ -39,6 +18,3 @@ server:
 
 logging:
   config: classpath:logback-spring.xml
-
-mybatis:
-  mapper-locations: classpath:mapper/**/*.xml

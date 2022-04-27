@@ -4,6 +4,9 @@ import io.candyboyou.common.framework.model.param.QueryParam;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import pers.candyboyou.commodity.business.model.vo.admin.OptionCommonVO;
+
+import java.util.List;
 
 /**
  * 商品分类查询参数
@@ -21,9 +24,8 @@ public class CategorySearchParam extends QueryParam {
     @ApiModelProperty("级别")
     private Integer level;
 
-    @ApiModelProperty("排序")
-    private Integer sort;
-
     @ApiModelProperty("是否显示")
     private Integer isShow;
+
+    private Integer place;
 }

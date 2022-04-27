@@ -6,8 +6,10 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import pers.candyboyou.commodity.business.model.dto.AttributeIdWithIsSaleDTO;
 import pers.candyboyou.commodity.business.model.dto.AttributeNameDTO;
+import pers.candyboyou.commodity.business.model.dto.AttributeOfListDTO;
 import pers.candyboyou.commodity.business.model.entity.AttributeEntity;
 import pers.candyboyou.commodity.business.model.param.admin.AttrParam;
+import pers.candyboyou.commodity.business.model.param.admin.AttrSearchParam;
 
 import java.util.List;
 
@@ -15,11 +17,11 @@ import java.util.List;
 @Repository
 public interface TCommodityAttributeMapper {
 
-    void insertAttribute(@Param("param") AttrParam attrParam);
+    void insertAttribute(@Param("param") AttributeEntity attributeEntity);
 
     void deleteAttrById(Long id);
 
-    void updateAttr(@Param("param") AttrParam AttrParam);
+    void updateAttr(@Param("param") AttributeEntity attributeEntity);
 
     List<AttributeEntity> selectAttributeDTOs(Long attributeId, @Param("param") QueryParam queryParam);
 
@@ -36,4 +38,13 @@ public interface TCommodityAttributeMapper {
      * 根据商品id删除属性
      */
     void deleteByCommodityId(Long commodityId);
+
+    List<AttributeOfListDTO> selectAttributeDTOsByParam(@Param("param") AttrSearchParam attrSearchParam);
+
+    int selectAttributeDTOsCountByParam(@Param("param") AttrSearchParam attrSearchParam);
+
+    AttributeEntity selectAttributeById(@Param("id")Long attributeId);
+
+    List<AttributeNameDTO> batchSelectAllAttributeName();
+
 }

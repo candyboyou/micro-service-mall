@@ -1,0 +1,48 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pers.candyboyou.commodity.business.mapper.admin.TCommodityCategoryRelationMapper">
+
+    <insert id="insertCategoryWithCommodity">
+        INSERT INTO
+            t_commodity_category_relation
+            (commodity_id, category_id)
+        VALUES (#{commodityId}, #{categoryId})
+    </insert>
+
+    <update id="updateCategoryWithCommodity">
+        UPDATE
+            t_commodity_category_relation
+        <set>
+            <if test="categoryId ！= null">
+                category_id = #{categoryId}
+            </if>
+            <if test="commodityId != null">
+                commodity_id = #{commodityId}
+            </if>
+        </set>
+        WHERE
+            id = #{id}
+    </update>
+
+    <select id="batchSelectCommodityListByCategoryId"
+            resultType="pers.candyboyou.commodity.business.model.dto.CategoryWithCommodityDTO">
+        SELECT
+            tccr.category_id categoryId,
+            tcc.name categoryName,
+            tccr.commodity_id commodityId,
+            tc.name commodityName
+        FROM
+            t_commodity_category_relation tccr
+                LEFT JOIN t_commodity tc
+                          ON tc.id = tccr.commodity_id
+                LEFT JOIN t_commodity_category tcc
+                          ON tcc.id = tccr.category_id
+        WHERE
+            category_id
+            IN
+            <foreach collection="categoryIds" item="categoryId" open="(" close=")" separator=",">
+                #{categoryId}
+            </foreach>
+    </select>
+
+</mapper>

@@ -4,11 +4,15 @@ import io.candyboyou.common.framework.model.base.Entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.io.Serial;
 import java.math.BigDecimal;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class CommodityEntity extends Entity {
+
+    @Serial
+    private static final long serialVersionUID = -7680578326662394739L;
 
     /**
      * 商品的名称
@@ -44,11 +48,6 @@ public class CommodityEntity extends Entity {
      * 是否是预告商品
      */
     private Integer isPreview;
-
-    /**
-     * 市场价格
-     */
-    private BigDecimal originalPrice;
 
     /**
      * 分类id

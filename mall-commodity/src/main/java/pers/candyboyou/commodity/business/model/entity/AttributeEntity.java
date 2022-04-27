@@ -1,12 +1,21 @@
 package pers.candyboyou.commodity.business.model.entity;
 
+import com.google.gson.Gson;
 import io.candyboyou.common.framework.model.base.Entity;
+import io.candyboyou.common.utils.CollectionUtils;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import pers.candyboyou.commodity.business.model.param.admin.AttrParam;
+
+import java.io.Serial;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class AttributeEntity extends Entity {
+
+    @Serial
+    private static final long serialVersionUID = 8821212791054366048L;
 
     /**
      * 属性名称
@@ -14,28 +23,45 @@ public class AttributeEntity extends Entity {
     private String name;
 
     /**
-     * 是否支持查询
-     */
-    private Integer isSearch;
-
-    /**
      * 是否是销售属性
      */
-    private Integer isSaleAttr;
+    private Integer isSale;
 
     /**
-     * 是否可以多选
+     * 属性选择类型
      */
-    private Integer isMultiple;
+    private Integer selectType;
 
     /**
-     * 是否必填
+     * 属性值输入类型
      */
-    private Integer isRequired;
+    private Integer inputType;
 
     /**
-     * 排序
+     * 检索类型
      */
-    private Integer sort;
+    private Integer searchType;
 
+    /**
+     * 预置属性值
+     */
+    private String attributeValues;
+
+    public static AttributeEntity convertAttrParam(AttrParam attrParam) {
+        AttributeEntity attributeEntity = new AttributeEntity();
+        attributeEntity.setName(attrParam.getName());
+        attributeEntity.setInputType(attrParam.getInputType());
+        attributeEntity.setIsSale(attrParam.getIsSale());
+        attributeEntity.setSelectType(attrParam.getSelectType());
+        attributeEntity.setSearchType(attrParam.getSearchType());
+        List<String> attributeValues = attrParam.getAttributeValues();
+        if (CollectionUtils.isNotEmpty(attributeValues)) {
+            String attributeValuesStr = new Gson().toJson(attributeValues);
+            attributeEntity.setAttributeValues(attributeValuesStr);
+        }
+        attributeEntity.setId(attrParam.getId());
+        attributeEntity.setIsValid(attrParam.getIsValid());
+
+        return attributeEntity;
+    }
 }

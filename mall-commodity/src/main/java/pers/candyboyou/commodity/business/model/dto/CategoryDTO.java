@@ -13,7 +13,7 @@ public class CategoryDTO {
     /**
      * 父类id
      */
-    private Integer parentId;
+    private Long parentId;
 
     /**
      * 分类名称
@@ -26,14 +26,9 @@ public class CategoryDTO {
     private Integer level;
 
     /**
-     * 商品数量
+     * 分类的位置
      */
-    private String count;
-
-    /**
-     * 单位ID
-     */
-    private Integer unitId;
+    private Integer place;
 
     /**
      * 是否启用
@@ -41,8 +36,8 @@ public class CategoryDTO {
     private Integer isShow;
 
     /**
-     * 描述
+     * 同一父类型下的排序
      */
-    private String description;
+    private Integer sort;
 
 }

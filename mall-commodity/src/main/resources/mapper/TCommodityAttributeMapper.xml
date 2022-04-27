@@ -1,0 +1,192 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pers.candyboyou.commodity.business.mapper.admin.TCommodityAttributeMapper">
+
+    <insert id="insertAttribute">
+        INSERT INTO
+            t_commodity_attribute
+            (name, input_type, is_sale, select_type, search_type, attribute_values, is_valid)
+        VALUES
+            (#{param.name}, #{param.inputType}, #{param.isSale}, #{param.selectType}, #{param.searchType}, #{param.attributeValues}, #{param.isValid})
+    </insert>
+
+    <update id="updateAttr">
+        UPDATE
+            t_commodity_attribute
+        SET
+            <if test="param.name != null and param.name != ''">
+                name = #{param.name},
+            </if>
+            <if test="param.inputType != null">
+                input_type = #{param.inputType},
+            </if>
+            <if test="param.isSale != null">
+                is_sale = #{param.isSale},
+            </if>
+            <if test="param.selectType != null">
+                select_type = #{param.selectType},
+            </if>
+            <if test="param.searchType != null">
+                search_type = #{param.searchType},
+            </if>
+            <if test="param.attributeValues != null">
+                attribute_values = #{param.attributeValues},
+            </if>
+            <if test="param.isValid != null">
+                is_valid = #{param.isValid}
+            </if>
+        WHERE
+            id = #{param.id}
+    </update>
+
+    <delete id="deleteAttrById">
+        UPDATE
+            t_commodity_attribute
+        SET
+            is_valid = 0
+        WHERE
+            id = #{id}
+    </delete>
+
+    <delete id="deleteByCommodityId">
+        UPDATE
+            t_commodity_attribute
+        SET
+            is_valid = 0
+        WHERE
+            commodity_id = #{commodityId}
+    </delete>
+
+    <select id="selectAttributeDTOs"
+            resultType="pers.candyboyou.commodity.business.model.entity.AttributeEntity">
+        SELECT
+            id,
+            name,
+            is_multiple AS isMUltiple,
+            is_related AS isRelated,
+            is_required AS isRequired,
+            is_sale_attribute AS isSaleAttribute,
+            is_search AS isSearch,
+        FROM
+             mall_commodity_info.t_commodity_attribute
+        WHERE
+             attribute_id = #{attributeId}
+        LIMIT #{param.start}, #{param.pageSize}
+    </select>
+
+    <select id="selectAttributeDTOsCount" resultType="java.lang.Integer">
+        SELECT
+            count(*)
+        FROM
+            t_commodity_attribute
+        WHERE
+            attribute_id = #{attributeId}
+    </select>
+
+    <select id="selectAttributeIdWithIsSale"
+            resultType="pers.candyboyou.commodity.business.model.dto.AttributeIdWithIsSaleDTO">
+        SELECT
+            id,
+            is_sale_attribute isSaleAttr;
+        FROM
+            t_commodity_attribute
+        WHERE
+            is_valid = 1
+            AND
+            attribute_id
+            IN
+            <foreach collection="attributeIds" open="(" separator="," close=")" item="attributeId">
+                #{attributeId}
+            </foreach>
+    </select>
+
+    <select id="batchSelectAttributeNameByAttributeIds"
+            resultType="pers.candyboyou.commodity.business.model.dto.AttributeNameDTO">
+        SELECT
+            id,
+            name
+        FROM
+            t_commodity_attribute
+        WHERE
+            is_valid = 1
+        AND
+            id
+            IN
+            <foreach collection="attributeIds" open="(" separator="," close=")" item="attributeId">
+                #{attributeId}
+            </foreach>
+    </select>
+
+    <select id="selectAttributeDTOsByParam"
+            resultType="pers.candyboyou.commodity.business.model.dto.AttributeOfListDTO">
+        SELECT
+            id,
+            name,
+            input_type AS inputType,
+            is_sale AS isSale,
+            is_valid AS isValid
+        FROM
+            t_commodity_attribute
+        <if test="param.isSale != null or param.name != null">
+            WHERE
+            <if test="param.isSale != null">
+                is_sale = #{param.isSale}
+            </if>
+            <if test="param.isSale != null and param.name != null and param.name != ''">
+              AND
+            </if>
+            <if test="param.name != null and param.name != ''">
+                name like CONCAT('%', #{param.name}, '%')
+            </if>
+        </if>
+            LIMIT #{param.start}, #{param.pageSize}
+    </select>
+
+    <select id="selectAttributeDTOsCountByParam" resultType="java.lang.Integer">
+        SELECT
+            count(*)
+        FROM
+            t_commodity_attribute
+        <if test="param.isSale != null or param.name != null">
+            WHERE
+            <if test="param.isSale != null">
+                is_sale = #{param.isSale}
+            </if>
+            <if test="param.isSale != null and param.name != null and param.name != ''">
+                AND
+            </if>
+            <if test="param.name != null and param.name != ''">
+                name like CONCAT('%', #{param.name}, '%')
+            </if>
+        </if>
+    </select>
+
+    <select id="selectAttributeById"
+            resultType="pers.candyboyou.commodity.business.model.entity.AttributeEntity">
+        SELECT
+            id, name,
+            input_type AS inputType,
+            is_sale AS isSale,
+            select_type AS selectType,
+            search_type AS searchType,
+            attribute_values AS attributeValues,
+            is_valid AS isValid
+        FROM
+            t_commodity_attribute
+        WHERE
+            id = #{id}
+    </select>
+
+    <select id="batchSelectAllAttributeName"
+            resultType="pers.candyboyou.commodity.business.model.dto.AttributeNameDTO">
+        SELECT
+            id,
+            name
+        FROM
+            t_commodity_attribute
+        WHERE
+            is_valid = 1
+    </select>
+
+
+</mapper>

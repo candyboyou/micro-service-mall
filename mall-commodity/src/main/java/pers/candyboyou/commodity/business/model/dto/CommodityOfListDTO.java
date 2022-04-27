@@ -15,6 +15,8 @@ public class CommodityOfListDTO {
      */
     private String name;
 
+    private Long categoryID;
+
     /**
      * 是否已发布
      */
@@ -31,18 +33,13 @@ public class CommodityOfListDTO {
     private Integer isRecommend;
 
     /**
-     * 分类Id
-     */
-    private Long categoryId;
-
-    /**
      * spuId
      */
     private Long spuId;
 
     /**
-     * 是否已审核
+     * 审核状态
      */
-    private Integer isVerify;
+    private Integer verifyStatus;
 
 }

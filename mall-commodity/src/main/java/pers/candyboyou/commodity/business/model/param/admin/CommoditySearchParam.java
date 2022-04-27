@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.List;
+
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class CommoditySearchParam extends QueryParam {
@@ -13,17 +15,17 @@ public class CommoditySearchParam extends QueryParam {
     private String name;
 
     @ApiModelProperty("分类id")
-    private Integer categoryId;
+    private List<Long> categoryIdList;
 
     @ApiModelProperty("是否已上架")
-    private Integer isPublish;
+    private Integer publishStatus;
 
     @ApiModelProperty("是否是新品")
-    private Integer isNew;
+    private Integer newStatus;
 
     @ApiModelProperty("是否推荐")
-    private Integer isRecommend;
+    private Integer recommendStatus;
 
     @ApiModelProperty("是否已审核")
-    private Integer isVerify;
+    private Integer verifyStatus;
 }

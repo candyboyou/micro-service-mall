@@ -1,0 +1,50 @@
+2022-04-24 16:50:16,741 INFO (StartupInfoLogger.java:55)- Starting CommodityApplication using Java 17.0.2 on CandydeMacBook-Air.local with PID 63779 (/Users/candyboy/IdeaProjects/micro-service-mall/mall-commodity/build/classes/java/main started by candyboy in /Users/candyboy/IdeaProjects/micro-service-mall/mall-commodity)
+2022-04-24 16:50:16,744 INFO (SpringApplication.java:637)- No active profile set, falling back to default profiles: default
+2022-04-24 16:50:17,953 INFO (DataSourceConfig.java:33)- ====== DataSource init start ! =======
+2022-04-24 16:50:17,973 INFO (DataSourceConfig.java:40)- ====== DataSource init success ! =======
+2022-04-24 16:50:19,914 INFO (StartupInfoLogger.java:61)- Started CommodityApplication in 3.535 seconds (JVM running for 5.894)
+2022-04-24 17:10:28,257 INFO (CrossFilter.java:30)- =======请求开始:[/admin/commodity/getAllList]======[GET]
+2022-04-24 19:01:58,106 INFO (StartupInfoLogger.java:55)- Starting CommodityApplication using Java 17.0.2 on CandydeMacBook-Air.local with PID 67088 (/Users/candyboy/IdeaProjects/micro-service-mall/mall-commodity/build/classes/java/main started by candyboy in /Users/candyboy/IdeaProjects/micro-service-mall/mall-commodity)
+2022-04-24 19:01:58,107 INFO (SpringApplication.java:637)- No active profile set, falling back to default profiles: default
+2022-04-24 19:01:59,285 INFO (DataSourceConfig.java:33)- ====== DataSource init start ! =======
+2022-04-24 19:01:59,307 INFO (DataSourceConfig.java:40)- ====== DataSource init success ! =======
+2022-04-24 19:02:01,203 INFO (StartupInfoLogger.java:61)- Started CommodityApplication in 3.566 seconds (JVM running for 5.943)
+2022-04-24 19:02:25,934 INFO (CrossFilter.java:30)- =======请求开始:[/admin/commodity/getAllParamList]======[GET]
+2022-04-24 19:02:25,934 INFO (CrossFilter.java:30)- =======请求开始:[/admin/commodity/paginateGetCommodities]======[GET]
+2022-04-24 19:03:55,383 INFO (CrossFilter.java:30)- =======请求开始:[/admin/commodity/paginateGetCommodities]======[GET]
+2022-04-24 19:03:55,383 INFO (CrossFilter.java:30)- =======请求开始:[/admin/commodity/getAllParamList]======[GET]
+2022-04-24 19:05:35,567 INFO (CrossFilter.java:30)- =======请求开始:[/admin/commodity/paginateGetCommodities]======[GET]
+2022-04-24 19:05:35,567 INFO (CrossFilter.java:30)- =======请求开始:[/admin/commodity/getAllParamList]======[GET]
+2022-04-24 19:06:22,764 INFO (CrossFilter.java:30)- =======请求开始:[/admin/commodity/getAllParamList]======[GET]
+2022-04-24 19:06:22,764 INFO (CrossFilter.java:30)- =======请求开始:[/admin/commodity/paginateGetCommodities]======[GET]
+2022-04-24 19:06:39,107 INFO (CrossFilter.java:30)- =======请求开始:[/admin/commodity/paginateGetCommodities]======[GET]
+2022-04-24 19:06:39,107 INFO (CrossFilter.java:30)- =======请求开始:[/admin/commodity/getAllParamList]======[GET]
+2022-04-24 19:08:10,876 INFO (CrossFilter.java:30)- =======请求开始:[/admin/commodity/getAllParamList]======[GET]
+2022-04-24 19:08:10,876 INFO (CrossFilter.java:30)- =======请求开始:[/admin/commodity/paginateGetCommodities]======[GET]
+2022-04-24 19:09:10,557 INFO (CrossFilter.java:30)- =======请求开始:[/admin/commodity/getAllParamList]======[GET]
+2022-04-24 19:09:10,555 INFO (CrossFilter.java:30)- =======请求开始:[/admin/commodity/paginateGetCommodities]======[GET]
+2022-04-24 19:10:43,701 INFO (CrossFilter.java:30)- =======请求开始:[/admin/commodity/paginateGetCommodities]======[GET]
+2022-04-24 19:10:43,701 INFO (CrossFilter.java:30)- =======请求开始:[/admin/commodity/getAllParamList]======[GET]
+2022-04-24 19:11:33,849 INFO (CrossFilter.java:30)- =======请求开始:[/admin/commodity/paginateGetCommodities]======[GET]
+2022-04-24 19:11:33,853 INFO (CrossFilter.java:30)- =======请求开始:[/admin/commodity/getAllParamList]======[GET]
+2022-04-24 19:12:10,161 INFO (CrossFilter.java:30)- =======请求开始:[/admin/commodity/getAllParamList]======[GET]
+2022-04-24 19:12:10,161 INFO (CrossFilter.java:30)- =======请求开始:[/admin/commodity/paginateGetCommodities]======[GET]
+2022-04-24 19:13:54,096 INFO (CrossFilter.java:30)- =======请求开始:[/admin/commodity/getAllParamList]======[GET]
+2022-04-24 19:13:54,096 INFO (CrossFilter.java:30)- =======请求开始:[/admin/commodity/paginateGetCommodities]======[GET]
+2022-04-24 19:14:12,628 INFO (StartupInfoLogger.java:55)- Starting CommodityApplication using Java 17.0.2 on CandydeMacBook-Air.local with PID 67567 (/Users/candyboy/IdeaProjects/micro-service-mall/mall-commodity/build/classes/java/main started by candyboy in /Users/candyboy/IdeaProjects/micro-service-mall/mall-commodity)
+2022-04-24 19:14:12,630 INFO (SpringApplication.java:637)- No active profile set, falling back to default profiles: default
+2022-04-24 19:14:13,792 INFO (DataSourceConfig.java:33)- ====== DataSource init start ! =======
+2022-04-24 19:14:13,809 INFO (DataSourceConfig.java:40)- ====== DataSource init success ! =======
+2022-04-24 19:14:15,575 INFO (StartupInfoLogger.java:61)- Started CommodityApplication in 3.299 seconds (JVM running for 4.455)
+2022-04-24 19:14:23,724 INFO (CrossFilter.java:30)- =======请求开始:[/admin/commodity/getAllParamList]======[GET]
+2022-04-24 19:14:23,724 INFO (CrossFilter.java:30)- =======请求开始:[/admin/commodity/paginateGetCommodities]======[GET]
+2022-04-24 19:16:16,534 INFO (CrossFilter.java:30)- =======请求开始:[/admin/commodity/getAllParamList]======[GET]
+2022-04-24 19:16:16,534 INFO (CrossFilter.java:30)- =======请求开始:[/admin/commodity/paginateGetCommodities]======[GET]
+2022-04-24 21:33:07,593 INFO (StartupInfoLogger.java:55)- Starting CommodityApplication using Java 17.0.2 on CandydeMacBook-Air.local with PID 71191 (/Users/candyboy/IdeaProjects/micro-service-mall/mall-commodity/build/classes/java/main started by candyboy in /Users/candyboy/IdeaProjects/micro-service-mall/mall-commodity)
+2022-04-24 21:33:07,597 INFO (SpringApplication.java:637)- No active profile set, falling back to default profiles: default
+2022-04-24 21:33:08,924 INFO (DataSourceConfig.java:33)- ====== DataSource init start ! =======
+2022-04-24 21:33:08,943 INFO (DataSourceConfig.java:40)- ====== DataSource init success ! =======
+2022-04-24 21:33:10,737 INFO (StartupInfoLogger.java:61)- Started CommodityApplication in 3.792 seconds (JVM running for 5.064)
+2022-04-24 21:33:23,096 INFO (CrossFilter.java:30)- =======请求开始:[/admin/commodity/getAllParamList]======[GET]
+2022-04-24 21:42:01,653 INFO (CrossFilter.java:30)- =======请求开始:[/admin/commodity/getAllParamList]======[GET]
+2022-04-24 21:49:36,933 INFO (CrossFilter.java:30)- =======请求开始:[/admin/commodity/getAllParamList]======[GET]

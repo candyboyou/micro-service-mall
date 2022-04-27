@@ -1,6 +1,6 @@
 package pers.candyboyou.commodity.business.controller.admin;
 
-import io.candyboyou.common.framework.model.vo.ListVO;
+import io.candyboyou.common.framework.model.vo.PageResult;
 import io.candyboyou.common.framework.model.vo.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
@@ -14,6 +14,7 @@ import pers.candyboyou.commodity.business.model.param.admin.CommoditySaveParam;
 import pers.candyboyou.commodity.business.model.param.admin.CommoditySearchParam;
 import pers.candyboyou.commodity.business.model.param.admin.CommodityStatusParam;
 import pers.candyboyou.commodity.business.model.param.admin.CommodityUpdateParam;
+import pers.candyboyou.commodity.business.model.vo.admin.AllListParamOfCommodityVO;
 import pers.candyboyou.commodity.business.model.vo.admin.CommodityDetailVO;
 import pers.candyboyou.commodity.business.model.vo.admin.CommodityOfListVO;
 import pers.candyboyou.commodity.business.service.admin.CommodityService;
@@ -26,11 +27,18 @@ public class CommodityController {
     @Autowired
     private CommodityService commodityService;
 
+    @ApiModelProperty("获取所有的参数list")
+    @GetMapping("/getAllParamList")
+    public Result getAllParamList() {
+        AllListParamOfCommodityVO allListOfCommodityVO = commodityService.getAllParamList();
+        return Result.ok(allListOfCommodityVO);
+    }
+
     @ApiOperation("分页查询商品list")
-    @GetMapping("/getCommodities")
-    public Result getCommodityVOs(CommoditySearchParam commoditySearchParam) {
-        ListVO<CommodityOfListVO> commodityListVO = commodityService.getCommodityVOs(commoditySearchParam);
-        return Result.ok(commodityListVO);
+    @GetMapping("/paginateGetCommodities")
+    public Result paginateGetCommodities(CommoditySearchParam commoditySearchParam) {
+        PageResult<CommodityOfListVO> commodityPageResult = commodityService.paginateGetCommodities(commoditySearchParam);
+        return Result.ok(commodityPageResult);
     }
 
     @ApiOperation("根据id获取商品详情")
@@ -49,8 +57,9 @@ public class CommodityController {
 
     @ApiOperation("更新、删除商品")
     @PostMapping("/updateCommodity")
-        public Result updateCommodity(CommodityUpdateParam commodityUpdateParam) {
+    public Result updateCommodity(CommodityUpdateParam commodityUpdateParam) {
         commodityService.updateCommodity(commodityUpdateParam);
+        return Result.ok();
     }
 
     @ApiModelProperty("在页面上更新商品信息")

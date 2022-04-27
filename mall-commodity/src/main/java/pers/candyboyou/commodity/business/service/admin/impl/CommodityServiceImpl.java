@@ -1,11 +1,15 @@
 package pers.candyboyou.commodity.business.service.admin.impl;
 
 import io.candyboyou.common.expection.BusinessException;
-import io.candyboyou.common.framework.model.vo.ListVO;
+import io.candyboyou.common.framework.model.vo.PageResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pers.candyboyou.commodity.business.enums.NewStatusEnum;
+import pers.candyboyou.commodity.business.enums.PublishStatusEnum;
+import pers.candyboyou.commodity.business.enums.RecommendStatusEnum;
+import pers.candyboyou.commodity.business.enums.VerifyStatusEnum;
 import pers.candyboyou.commodity.business.mapper.admin.TCommodityMapper;
 import pers.candyboyou.commodity.business.model.dto.AttributeNameDTO;
 import pers.candyboyou.commodity.business.model.dto.AttributeValueDTO;
@@ -51,7 +55,7 @@ public class CommodityServiceImpl implements CommodityService {
     private TCommodityMapper tCommodityMapper;
 
     @Override
-    public ListVO<CommodityOfListVO> getCommodityVOs(CommoditySearchParam commoditySearchParam) {
+    public PageResult<CommodityOfListVO> paginateGetCommodities(CommoditySearchParam commoditySearchParam) {
         List<CommodityOfListVO> commodityOfListVOs = new ArrayList<>();
         // 分页查询商品
         List<CommodityOfListDTO> commodityOfList = tCommodityMapper.selectCommodityOfList(commoditySearchParam);
@@ -67,7 +71,7 @@ public class CommodityServiceImpl implements CommodityService {
             if (spuId != null) {
                 spuIds.add(spuId);
             }
-            Long categoryId = commodityOfListDTO.getCategoryId();
+            Long categoryId = commodityOfListDTO.getCategoryID();
             if (categoryId != null) {
                 categoryIds.add(categoryId);
             }
@@ -75,26 +79,27 @@ public class CommodityServiceImpl implements CommodityService {
         }
         Map<Long, SpuAttributeEntity> spuAttributeEntityMap = spuAttributeService.getSpuIdWithSpuByIds(spuIds);
         Map<Long, String> categoryIdToNameMap = categoryService.getCategoryNamesByIds(categoryIds);
-        Map<Long, String> descIdWithPictureMap = pictureService.getMainPictureUrlByCommodityIds(commodityIds);
+//        Map<Long, String> descIdWithPictureMap = pictureService.getMainPictureUrlByCommodityIds(commodityIds);
         for (CommodityOfListDTO commodityOfListDTO : commodityOfList) {
             CommodityOfListVO commodityOfListVO =  CommodityOfListVO.convertCommodityOfListDTO(commodityOfListDTO);
             SpuAttributeEntity spuAttributeEntity = spuAttributeEntityMap.get(commodityOfListDTO.getSpuId());
-            commodityOfListVO.setSpuPrice(spuAttributeEntity.getPrice());
-            commodityOfListVO.setSpuSale(spuAttributeEntity.getSale());
-            String categoryName = categoryIdToNameMap.get(commodityOfListDTO.getCategoryId());
-            commodityOfListVO.setCategoryName(categoryName);
-            String pictureUrl = descIdWithPictureMap.get(commodityOfListDTO.getId());
-            commodityOfListVO.setPictureUrl(pictureUrl);
+            if (spuAttributeEntity != null) {
+                commodityOfListVO.setSpuSale(spuAttributeEntity.getSale());
+            }
+            String categoryName = categoryIdToNameMap.get(commodityOfListDTO.getCategoryID());
+            commodityOfListVO.setCategory(categoryName);
+//            String pictureUrl = descIdWithPictureMap.get(commodityOfListDTO.getId());
+//            commodityOfListVO.setPictureUrl(pictureUrl);
             commodityOfListVOs.add(commodityOfListVO);
         }
         int total = tCommodityMapper.selectCommodityCounts(commoditySearchParam);
 
-        ListVO<CommodityOfListVO> commodityOfListVOListVO = new ListVO<>();
-        commodityOfListVOListVO.setList(commodityOfListVOs);
-        commodityOfListVOListVO.setPageNum(commoditySearchParam.getPageNum());
-        commodityOfListVOListVO.setPageSize(commodityOfListVOs.size());
-        commodityOfListVOListVO.setTotal(total);
-        return commodityOfListVOListVO;
+        PageResult<CommodityOfListVO> commodityOfListVOPageResult = new PageResult<>();
+        commodityOfListVOPageResult.setList(commodityOfListVOs);
+        commodityOfListVOPageResult.setPageNum(commoditySearchParam.getPageNum());
+        commodityOfListVOPageResult.setPageSize(commodityOfListVOs.size());
+        commodityOfListVOPageResult.setTotal(total);
+        return commodityOfListVOPageResult;
     }
 
     @Override
@@ -163,9 +168,9 @@ public class CommodityServiceImpl implements CommodityService {
 
     @Override
     @Transactional
-    public void newCommodity(CommoditySaveParam commoditySaveParam) {
+    public Long newCommodity(CommoditySaveParam commoditySaveParam) {
         if (commoditySaveParam == null) {
-            return;
+            return null;
         }
 
         CommoditySaveDTO commoditySaveDTO = CommoditySaveDTO.convertCommoditySaveParam(commoditySaveParam);
@@ -188,7 +193,7 @@ public class CommodityServiceImpl implements CommodityService {
         pictureService.savePicturesByCommodityId(albumPics, id);
 
         // 保存商品的详情
-
+        return commoditySaveDTO.getId();
     }
 
     @Override
@@ -250,5 +255,16 @@ public class CommodityServiceImpl implements CommodityService {
             throw new BusinessException("id不能为null");
         }
         tCommodityMapper.updateStatusOfCommodity(commodityStatusParam);
+    }
+
+    @Override
+    public AllListParamOfCommodityVO getAllParamList() {
+        AllListParamOfCommodityVO allListParamOfCommodityVO = new AllListParamOfCommodityVO();
+        allListParamOfCommodityVO.setCategoryList(categoryService.getAllCategoryIdAndName());
+        allListParamOfCommodityVO.setNewStatusList(NewStatusEnum.getAllList());
+        allListParamOfCommodityVO.setPublishStatusList(PublishStatusEnum.getAllList());
+        allListParamOfCommodityVO.setRecommendStatusList(RecommendStatusEnum.getAllList());
+        allListParamOfCommodityVO.setVerifyStatusList(VerifyStatusEnum.getAllList());
+        return allListParamOfCommodityVO;
     }
 }

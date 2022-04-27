@@ -1,10 +1,11 @@
 package pers.candyboyou.commodity.business.service.admin;
 
-import io.candyboyou.common.framework.model.vo.ListVO;
+import io.candyboyou.common.framework.model.vo.PageResult;
 import pers.candyboyou.commodity.business.model.param.admin.CommoditySaveParam;
 import pers.candyboyou.commodity.business.model.param.admin.CommoditySearchParam;
 import pers.candyboyou.commodity.business.model.param.admin.CommodityStatusParam;
 import pers.candyboyou.commodity.business.model.param.admin.CommodityUpdateParam;
+import pers.candyboyou.commodity.business.model.vo.admin.AllListParamOfCommodityVO;
 import pers.candyboyou.commodity.business.model.vo.admin.CommodityDetailVO;
 import pers.candyboyou.commodity.business.model.vo.admin.CommodityOfListVO;
 
@@ -15,7 +16,7 @@ public interface CommodityService {
     /**
      * 查询获取商品列表
      */
-    ListVO<CommodityOfListVO> getCommodityVOs(CommoditySearchParam commoditySearchParam);
+    PageResult<CommodityOfListVO> paginateGetCommodities(CommoditySearchParam commoditySearchParam);
 
     /**
      * 获取商品的详细信息
@@ -25,7 +26,7 @@ public interface CommodityService {
     /**
      * 保存或更新商品详细信息
      */
-    void newCommodity(CommoditySaveParam commoditySaveParams);
+    Long newCommodity(CommoditySaveParam commoditySaveParams);
 
     /**
      * 更新商品的信息
@@ -37,4 +38,5 @@ public interface CommodityService {
      */
     void updateCommodityStatus(CommodityStatusParam commodityStatusParam);
 
+    AllListParamOfCommodityVO getAllParamList();
 }

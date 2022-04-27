@@ -1,0 +1,53 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pers.candyboyou.commodity.business.mapper.admin.TCommodityCategoryAttributeRelationMapper">
+    <insert id="batchInsertCategoryAttributeRelation">
+        INSERT INTO
+            t_commodity_category_attribute_relation
+            (category_id, attribute_id)
+        VALUES
+            <foreach collection="attributeIds" item="attributeId" open="(" close=")" separator=",">
+                #{categoryId}, #{attributeId}
+            </foreach>
+    </insert>
+
+    <update id="batchDeleteCategoryAttributeRelation">
+        UPDATE
+            t_commodity_category_attribute_relation
+        SET
+            is_valid = 0
+        WHERE
+            category_id = #{categoryId}
+            AND
+            attributeIds IN
+            <foreach collection="attributeIds" item="attributeId" separator="," open="(" close=")">
+                #{attributeId}
+            </foreach>
+    </update>
+
+    <select id="getAttributeIdsByCategoryId" resultType="pers.candyboyou.commodity.business.model.dto.AttributeWithValueDTO">
+        SELECT
+            id,
+            name
+        FROM
+            t_commodity_attribute tca
+            RIGHT JOIN
+                (SELECT
+                     attribute_id
+                 FROM
+                     t_commodity_category_attribute_relation
+                 WHERE
+                     category_id in ()) temp
+            ON temp.attribute_id = tca.id;
+    </select>
+
+    <select id="selectAttributesByCategoryId" resultType="java.lang.Long">
+        SELECT
+            attribute_id
+        FROM
+            t_commodity_category_attribute_relation
+        WHERE
+            category_id = #{categoryId}
+    </select>
+
+</mapper>

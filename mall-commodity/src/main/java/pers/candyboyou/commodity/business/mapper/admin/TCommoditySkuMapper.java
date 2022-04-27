@@ -27,7 +27,9 @@ public interface TCommoditySkuMapper {
 
     List<SkuAttributeEntity> selectSkuAttributeByCommodityId(Long id);
 
-    List<Long> saveSkuAttributeValue(@Param("params") List<SkuSaveParam> skuSaveParams, Long id);
+    List<Long> saveSkuAttributeValue(@Param("params") List<SkuSaveParam> skuSaveParams, @Param("commodityId") Long commodityId);
+
+    void saveSingleSkuAttributeValue(@Param("param") SkuSaveParam skuSaveParams);
 
     /**
      * 更新sku的属性值

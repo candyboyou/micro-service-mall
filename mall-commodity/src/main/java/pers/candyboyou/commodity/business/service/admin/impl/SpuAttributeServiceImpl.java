@@ -9,6 +9,7 @@ import pers.candyboyou.commodity.business.model.entity.SpuAttributeEntity;
 import pers.candyboyou.commodity.business.service.admin.SpuAttributeService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -31,6 +32,9 @@ public class SpuAttributeServiceImpl implements SpuAttributeService {
 
     @Override
     public Map<Long, SpuAttributeEntity> getSpuIdWithSpuByIds(List<Long> spuIds) {
+        if (CollectionUtils.isEmpty(spuIds)) {
+            return new HashMap<>();
+        }
         List<SpuAttributeEntity> spuAttributesByIds = getSpuAttributesByIds(spuIds);
         return spuAttributesByIds.stream().collect(Collectors.toMap(SpuAttributeEntity::getId, SpuAttributeEntity -> SpuAttributeEntity));
     }

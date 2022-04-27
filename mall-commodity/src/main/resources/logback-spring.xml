@@ -54,7 +54,7 @@
     <!-- 级别依次为【从高到低】：FATAL > ERROR > WARN > INFO > DEBUG > TRACE  -->
     <!-- additivity=false 表示匹配之后，不再继续传递给其他的logger-->
 
-    <logger name="io.candyboyou.mallpromotion" level="DEBUG" additivity="false">
+    <logger name="pers.candyboyou.commodity" level="DEBUG" additivity="false">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="story"/>
 <!--        <appender-ref ref="errorAlarm"/>-->

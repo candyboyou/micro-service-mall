@@ -13,6 +13,9 @@ public class SkuSaveParam {
     @ApiModelProperty("sku的id")
     private Long id;
 
+    @ApiModelProperty("sku对应的商品名称")
+    private String name;
+
     @ApiModelProperty("sku的属性list")
     private List<AttributeValueSaveParam> skuAttributeValueSaveParam;
 
@@ -21,6 +24,12 @@ public class SkuSaveParam {
 
     @ApiModelProperty("促销价格")
     private BigDecimal promotionPrice;
+
+    @ApiModelProperty("vip价格")
+    private BigDecimal vipPrice;
+
+    @ApiModelProperty("市场价格")
+    private BigDecimal marketPrice;
 
     @ApiModelProperty("库存")
     private Integer stock;
@@ -31,6 +40,10 @@ public class SkuSaveParam {
     @ApiModelProperty("低库存")
     private Integer lowStock;
 
-    @ApiModelProperty("销量")
-    private Integer sale;
+    @ApiModelProperty("购买限制")
+    private Integer buyLimit;
+
+    @ApiModelProperty("是否促销")
+    private Integer isPromotion;
+
 }

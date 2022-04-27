@@ -1,0 +1,250 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+    一对多的不需要中间表；
+    多对多必须得用中间表了
+-->
+
+<mapper namespace="pers.candyboyou.commodity.business.mapper.admin.TCommodityMapper">
+
+    <sql id="baseColumn">
+        id,
+        name,
+        sub_name subName,
+        is_publish isPublish,
+        is_new isNew,
+        is_recommend isRecommend,
+        is_verify isVerify,
+        is_preview isPreview,
+        category_id categoryId,
+        spu_id spuId,
+        sort sort
+    </sql>
+
+    <sql id="saveColumn">
+        name,
+        detail_name,
+        is_publish,
+        is_new,
+        is_recommend,
+        verify_status,
+        is_preview,
+        spu_id,
+        sort
+    </sql>
+
+    <insert id="saveCommodity" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+            t_commodity
+        (
+            <include refid="saveColumn"></include>
+         )
+        VALUES
+        (
+            #{saveParam.name}, #{saveParam.detailName}, #{saveParam.isPublish}, #{saveParam.isNew}, #{saveParam.isRecommend},
+            #{saveParam.verifyStatus}, #{saveParam.isPreview}, #{saveParam.spuId}, #{saveParam.sort}
+         )
+    </insert>
+
+    <update id="deleteCategory">
+        UPDATE
+            t_commodity
+        SET
+            category_id = 0
+        WHERE
+            id = #{id}
+    </update>
+
+    <update id="updateCategoryOfCommodity">
+        UPDATE
+            t_commodity
+        SET
+            category_id = #{categoryId}
+        WHERE
+            id = #{commodityId}
+    </update>
+
+    <update id="updateStatusOfCommodity">
+        UPDATE
+            t_commodity
+        <set>
+            <if test="commodityStatusParam.isPublish != null">
+                is_publish = #{commodityStatusParam.isPublish},
+            </if>
+            <if test="commodityStatusParam.isNew != null">
+                is_new = #{commodityStatusParam.isNew},
+            </if>
+            <if test="commodityStatusParam.isRecommend != null">
+                is_recommend = #{commodityStatusParam.isRecommend},
+            </if>
+            <if test="commodityStatusParam.isDelete != null">
+                is_delete = #{commodityStatusParam.isDelete},
+            </if>
+        </set>
+        WHERE
+            id = #{commodityStatusParam.id}
+    </update>
+
+    <update id="updateCommodity">
+        UPDATE
+            t_commodity
+        <set>
+            <if test="updateParam.name != null">
+                name = #{updateParam.name},
+            </if>
+            <if test="updateParam.detailName != null">
+                detail_name = #{updateParam.detailName},
+            </if>
+            <if test="updateParam.isPublish != null">
+                is_publish = #{updateParam.isPublish},
+            </if>
+            <if test="updateParam.isNew != null">
+                is_new = #{updateParam.isNew},
+            </if>
+            <if test="updateParam.isRecommend != null">
+                is_recommend = #{updateParam.isRecommend},
+            </if>
+            <if test="updateParam.isPreview != null">
+                is_preview = #{updateParam.isPreview},
+            </if>
+            <if test="updateParam.detailName != null">
+                detail_name = #{updateParam.detailName},
+            </if>
+            <if test="updateParam.categoryId != null">
+                category_id = #{updateParam.category_id},
+            </if>
+            <if test="updateParam.spuId != null">
+                spu_id = #{updateParam.spuId},
+            </if>
+            <if test="updateParam.isDelete != null">
+                is_delete = #{updateParam.isDelete},
+            </if>
+        </set>
+        WHERE
+            id = #{commodityStatusParam.id}
+    </update>
+
+    <delete id="deleteCommodity">
+        UPDATE
+            t_commodity
+        SET
+            is_valid = 0
+        WHERE
+            id = #{id}
+    </delete>
+
+    <delete id="deleteCommodityByName">
+        DELETE FROM  t_commodity where name = #{product_name}
+    </delete>
+
+    <select id="selectSimpleCommodityByCategoryId"
+            resultType="pers.candyboyou.commodity.business.model.dto.SimpleCommodityDTO">
+        SELECT
+            id, name
+        FROM
+            t_commodity
+        WHERE
+            category_id = #{categoryId}
+        LIMIT #{queryParam.start}, #{queryParam.pageSize}
+    </select>
+
+    <select id="selectSimpleCommodityCountsByCategoryId" resultType="java.lang.Integer">
+        SELECT
+            count(*)
+        FROM
+            t_commodity
+        WHERE
+            category_id = #{categoryId}
+        LIMIT #{queryParam.start}, #{queryParam.pageSize}
+    </select>
+
+    <select id="selectCommodityOfList"
+            resultType="pers.candyboyou.commodity.business.model.dto.CommodityOfListDTO">
+        SELECT
+            tc.id,
+            tc.name,
+            tccr.category_id categoryId,
+            tc.is_publish isPublish,
+            tc.is_new isNew,
+            tc.is_recommend isRecommend,
+            tc.verify_status verifyStatus,
+            tc.is_preview isPreview,
+            tc.spu_id spuId
+        FROM
+            t_commodity tc
+        LEFT JOIN
+            t_commodity_category_relation tccr
+        ON tccr.commodity_id = tc.id
+        <where>
+            tc.is_valid = 1 AND tccr.is_valid = 1
+            <if test="param.publishStatus != null">
+                tc.is_publish = #{param.publishStatus}
+            </if>
+            <if test="param.newStatus != null">
+                tc.is_new = #{param.newStatus}
+            </if>
+            <if test="param.recommendStatus != null">
+                tc.is_recommend = #{param.recommendStatus}
+            </if>
+            <if test="param.verifyStatus != null">
+                tc.verify_status = #{param.verifyStatus}
+            </if>
+            <if test="param.categoryIdList != null">
+                tccr.category_id in
+                <foreach collection="param.categoryIdList" item="categoryId" open="(" close=")">
+                    #{categoryId}
+                </foreach>
+            </if>
+            <if test="param.name != null and param.name != ''">
+                tc.name like concat('%',#{param.name},'%')
+            </if>
+        </where>
+
+        LIMIT
+            #{param.start}, #{param.pageSize}
+   </select>
+
+    <select id="selectCommodityCounts" resultType="java.lang.Integer">
+        SELECT
+            count(*)
+        FROM
+            t_commodity tc
+        LEFT JOIN
+            t_commodity_category_relation tccr
+        ON tccr.commodity_id = tc.id
+        <where>
+            tc.is_valid = 1 AND tccr.is_valid = 1
+            <if test="param.publishStatus != null">
+                tc.is_publish = #{param.publishStatus}
+            </if>
+            <if test="param.newStatus != null">
+                tc.is_new = #{param.newStatus}
+            </if>
+            <if test="param.recommendStatus != null">
+                tc.is_recommend = #{param.recommendStatus}
+            </if>
+            <if test="param.verifyStatus != null">
+                tc.verify_status = #{param.verifyStatus}
+            </if>
+            <if test="param.categoryIdList != null">
+                tccr.category_id in
+                <foreach collection="param.categoryIdList" item="categoryId" open="(" close=")">
+                    #{categoryId}
+                </foreach>
+            </if>
+            <if test="param.name != null and param.name != ''">
+                tc.name like concat('%',#{param.name},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="selectCommodityById"
+            resultType="pers.candyboyou.commodity.business.model.entity.CommodityEntity">
+        SELECT
+            <include refid="baseColumn"></include>
+        FROM
+            t_commodity
+        WHERE
+            id = #{id}
+    </select>
+</mapper>

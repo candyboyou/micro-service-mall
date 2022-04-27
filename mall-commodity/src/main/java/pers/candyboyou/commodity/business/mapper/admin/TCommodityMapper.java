@@ -26,7 +26,7 @@ public interface TCommodityMapper {
 
     List<CommodityOfListDTO> selectCommodityOfList(@Param("param") CommoditySearchParam commoditySearchParam);
 
-    int selectCommodityCounts(CommoditySearchParam commoditySearchParam);
+    int selectCommodityCounts(@Param("param") CommoditySearchParam commoditySearchParam);
 
     CommodityEntity selectCommodityById(Long id);
 
@@ -43,4 +43,6 @@ public interface TCommodityMapper {
      * 根据商品的id删除商品
      */
     void deleteCommodity(Long id);
+
+    void deleteCommodityByName(String product_name);
 }

@@ -16,7 +16,7 @@ import org.springframework.core.env.Environment;
 import javax.sql.DataSource;
 
 @Configuration
-@MapperScan(basePackages = "io.candyboyou.mallcommodity.business.mapper",
+@MapperScan(basePackages = "pers.candyboyou.commodity.business.mapper",
             sqlSessionFactoryRef = "sqlSessionFactory"
 )
 @Slf4j

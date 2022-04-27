@@ -3,7 +3,6 @@ package pers.candyboyou.commodity.business.model.vo.admin;
 import io.candyboyou.common.utils.CollectionUtils;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.springframework.security.core.parameters.P;
 import pers.candyboyou.commodity.business.model.dto.SkuAttributeDTO;
 
 import java.io.Serial;

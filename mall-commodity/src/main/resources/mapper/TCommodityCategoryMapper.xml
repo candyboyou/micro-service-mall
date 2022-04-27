@@ -1,0 +1,214 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pers.candyboyou.commodity.business.mapper.admin.TCommodityCategoryMapper">
+
+    <insert id="insertCategory" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO
+            t_commodity_category
+            (parent_id, name, level, place, sort, is_show, icon_url, keywords, description)
+        VALUES
+            (#{category.parentId}, #{category.name}, #{category.level}, #{category.place}, #{category.sort},
+             #{category.isShow}, #{category.iconUrl},  #{category.keywords}, #{category.description})
+    </insert>
+
+    <update id="updateCategory">
+        UPDATE
+            t_commodity_category
+        <set>
+            <if test="category.name != null and category.name != ''">
+                name = #{category.name},
+            </if>
+            <if test="category.parentId != null">
+                parent_id = #{category.parentId},
+            </if>
+            <if test="category.level != null">
+                level = #{category.level},
+            </if>
+            <if test="category.place != null">
+                place = #{category.place},
+            </if>
+            <if test="category.isShow != null">
+                is_show = #{category.isShow},
+            </if>
+            <if test="category.sort != null">
+                sort = #{category.sort},
+            </if>
+            <if test="category.iconUrl != null and category.iconUrl != ''">
+                icon_url = #{category.iconUrl},
+            </if>
+            <if test="category.keywords != null and category.keywords != ''">
+                keywords = #{category.keywords},
+            </if>
+            <if test="category.description != null and category.description != ''">
+                description = #{category.description},
+            </if>
+        </set>
+        WHERE
+            id = #{category.id}
+    </update>
+
+    <update id="updateCategorySort">
+        UPDATE
+            t_commodity_category
+            <set>
+                sort = #{sort}
+            </set>
+        WHERE
+            id = #{categoryId}
+    </update>
+
+    <delete id="deleteCategory">
+        UPDATE
+            t_commodity_category
+            <set>
+                is_valid = 0
+            </set>
+        WHERE
+            id = #{categoryId}
+    </delete>
+
+    <select id="selectCategoriesBySearchParam"
+            resultType="pers.candyboyou.commodity.business.model.dto.CategoryDTO">
+        SELECT
+            id,
+            parent_id AS parentId,
+            name,
+            level,
+            place,
+            sort,
+            is_show AS isShow
+        FROM
+            t_commodity_category
+        <where>
+            is_valid = 1
+            <if test="searchParam.parentId != null">
+                parent_id = #{searchParam.parentId}
+            </if>
+            <if test="searchParam.level != null">
+                level = #{searchParam.level}
+            </if>
+            <if test="searchParam.place != null">
+                place = #{searchParam.place}
+            </if>
+            <if test="searchParam.isShow != null">
+                is_show = #{searchParam.isShow}
+            </if>
+            <if test="searchParam.name != null and searchParam.name != ''" >
+                name like CONCAT('%', #{searchParam.name}, '%')
+            </if>
+        </where>
+        ORDER BY update_time
+        LIMIT #{searchParam.start}, #{searchParam.pageSize}
+    </select>
+
+    <select id="selectCategoriesCountBySearchParam" resultType="java.lang.Integer">
+        SELECT
+            count(*)
+        FROM
+            t_commodity_category
+        WHERE
+            is_valid = 1
+            <if test="searchParam.parentId != null">
+                AND parent_id = #{searchParam.parentId}
+            </if>
+            <if test="searchParam.level != null">
+                AND level = #{searchParam.level}
+            </if>
+            <if test="searchParam.place != null">
+                AND place = #{searchParam.place}
+            </if>
+            <if test="searchParam.isShow != null">
+                AND is_show = #{searchParam.isShow}
+            </if>
+            <if test="searchParam.name != null and searchParam.name != ''" >
+                AND name like CONCAT('%', #{searchParam.name}, '%')
+            </if>
+    </select>
+
+    <select id="selectNameById" resultType="java.lang.String">
+        SELECT
+            name
+        FROM
+            t_commodity_category
+        WHERE
+            id = #{id}
+    </select>
+
+    <select id="selectCategoryIdWithNamesByIds"
+            resultType="pers.candyboyou.commodity.business.model.dto.CategoryCascadeInfoDTO">
+        SELECT
+            id,
+            parent_id AS parentId,
+            name,
+            level
+        FROM
+            t_commodity_category
+        WHERE
+                is_valid = 1
+            AND
+                id IN
+                <foreach collection="categoryIds" item="id" open="(" separator="," close=")">
+                    #{id}
+                </foreach>
+    </select>
+
+    <select id="selectAllCategoryIdWithNames"
+            resultType="pers.candyboyou.commodity.business.model.dto.CategoryCascadeInfoDTO">
+        SELECT
+            id, parent_id AS parentId, name, level,
+            row_number() OVER(PARTITION by parent_id ORDER BY sort) as sort
+        FROM
+            t_commodity_category
+        WHERE
+            is_valid = 1
+        ORDER BY
+            parent_id
+    </select>
+
+    <select id="getSubCategoryListById"
+            resultType="pers.candyboyou.commodity.business.model.dto.CategoryNameDTO">
+        SELECT
+            id,
+            name
+        FROM
+            t_commodity_category
+        WHERE
+            is_valid = 1
+            AND parent_id = #{id}
+        ORDER BY sort
+    </select>
+
+    <select id="getCategoryListByLevel"
+            resultType="pers.candyboyou.commodity.business.model.dto.CategoryNameDTO">
+        SELECT
+            id,
+            name
+        FROM
+            t_commodity_category
+        WHERE
+            is_valid = 1
+          AND level = #{level}
+        ORDER BY sort
+    </select>
+
+    <select id="selectCategoryById"
+            resultType="pers.candyboyou.commodity.business.model.entity.CategoryEntity">
+        SELECT
+            id,
+            parent_id AS parentId,
+            name,
+            level,
+            commodity_count AS commodityCount,
+            place,
+            sort,
+            icon_url AS iconUrl,
+            keywords,
+            description,
+            is_valid AS isValid
+        FROM
+            t_commodity_category
+        WHERE
+            id = #{id}
+    </select>
+
+</mapper>
